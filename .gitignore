@@ -165,3 +165,4 @@ fabric.properties
 
 # Sonarlint plugin
 .idea/sonarlint
+gradle/wrapper/gradle-wrapper.jar
