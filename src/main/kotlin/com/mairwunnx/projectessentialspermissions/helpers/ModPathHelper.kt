@@ -1,13 +1,13 @@
 package com.mairwunnx.projectessentialspermissions.helpers
 
-import com.mairwunnx.projectessentialspermissions.MOD_NAME
+import com.mairwunnx.projectessentialspermissions.MOD_PART
 import com.mairwunnx.projectessentialspermissions.enums.ForgeRootPaths
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.fml.DistExecutor
 import java.io.File
 
 val CONFIG_FOLDER = root + File.separator + "config"
-val MOD_CONFIG_FOLDER = CONFIG_FOLDER + File.separator + MOD_NAME.replace(" ", "")
+val MOD_CONFIG_FOLDER = CONFIG_FOLDER + File.separator + MOD_PART.replace(" ", "")
 val PERMISSIONS_CONFIG = MOD_CONFIG_FOLDER + File.separator + "permissions.json"
 
 private val root: String

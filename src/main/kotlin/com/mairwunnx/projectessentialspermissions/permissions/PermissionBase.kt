@@ -1,5 +1,6 @@
 package com.mairwunnx.projectessentialspermissions.permissions
 
+import com.mairwunnx.projectessentialspermissions.helpers.MOD_CONFIG_FOLDER
 import com.mairwunnx.projectessentialspermissions.helpers.PERMISSIONS_CONFIG
 import kotlinx.serialization.ImplicitReflectionSerializer
 import kotlinx.serialization.UnstableDefault
@@ -28,10 +29,9 @@ internal object PermissionBase {
             )
         )
         if (!File(PERMISSIONS_CONFIG).exists()) {
-            createConfigDirs(
-                PERMISSIONS_CONFIG
-            )
-            val defaultConfig = json.stringify(PermissionData.serializer(),
+            createConfigDirs(MOD_CONFIG_FOLDER)
+            val defaultConfig = json.stringify(
+                PermissionData.serializer(),
                 permissionData
             )
             File(PERMISSIONS_CONFIG).writeText(defaultConfig)
@@ -44,9 +44,7 @@ internal object PermissionBase {
     @UnstableDefault
     internal fun saveData() {
         logger.info("    - saving user permissions data ...")
-        createConfigDirs(
-            PERMISSIONS_CONFIG
-        )
+        createConfigDirs(MOD_CONFIG_FOLDER)
         val json = Json(
             JsonConfiguration(
                 encodeDefaults = true,
@@ -57,7 +55,8 @@ internal object PermissionBase {
                 useArrayPolymorphism = false
             )
         )
-        val permConfig = json.stringify(PermissionData.serializer(),
+        val permConfig = json.stringify(
+            PermissionData.serializer(),
             permissionData
         )
         File(PERMISSIONS_CONFIG).writeText(permConfig)

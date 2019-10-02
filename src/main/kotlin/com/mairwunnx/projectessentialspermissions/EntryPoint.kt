@@ -16,6 +16,7 @@ import org.apache.logging.log4j.LogManager
 
 internal const val MOD_ID = "project_essentials_permissions"
 internal const val MOD_NAME = "Project Essentials Permissions"
+internal const val MOD_PART = "Project Essentials"
 internal const val MOD_VERSION = "1.14.4-0.1.0.0"
 internal const val MOD_DESCRIPTION =
     "additional module for Essentials; Just controlling player permissions"
