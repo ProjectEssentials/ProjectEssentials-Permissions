@@ -2,12 +2,12 @@ package com.mairwunnx.projectessentialspermissions
 
 import com.mairwunnx.projectessentialspermissions.commands.EssPermissionsCommand
 import com.mairwunnx.projectessentialspermissions.helpers.validateForgeVersion
+import com.mairwunnx.projectessentialspermissions.permissions.PermissionBase
 import com.mojang.brigadier.CommandDispatcher
+import kotlinx.serialization.ImplicitReflectionSerializer
+import kotlinx.serialization.UnstableDefault
 import net.minecraft.command.CommandSource
-import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraftforge.common.MinecraftForge
-import net.minecraftforge.event.CommandEvent
-import net.minecraftforge.eventbus.api.EventPriority
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent
@@ -26,6 +26,9 @@ internal const val MOD_TARGET_MC = "1.14.4"
 internal const val MOD_SOURCES_LINK = "https://github.com/MairwunNx/ProjectEssentials-Permissions/"
 internal const val MOD_TELEGRAM_LINK = "https://t.me/minecraftforge"
 
+@UnstableDefault
+@ImplicitReflectionSerializer
+@Suppress("unused")
 @Mod(MOD_ID)
 class EntryPoint {
     private val logger = LogManager.getLogger()
@@ -36,7 +39,7 @@ class EntryPoint {
         logger.debug("Register event bus for $MOD_NAME mod ...")
         MinecraftForge.EVENT_BUS.register(this)
         logger.info("Loading $MOD_NAME permissions data ...")
-        // load data
+        PermissionBase.loadData()
     }
 
     private fun logBaseInfo() {
@@ -63,17 +66,11 @@ class EntryPoint {
         EssPermissionsCommand.register(cmdDispatcher)
     }
 
+    @Suppress("UNUSED_PARAMETER")
     @SubscribeEvent
     fun onServerStopping(it: FMLServerStoppingEvent) {
         logger.info("Shutting down $MOD_NAME mod ...")
         logger.info("    - Saving modification user data ...")
-        // save data
-    }
-
-    @SubscribeEvent(priority = EventPriority.HIGH)
-    fun onPlayerCommand(it: CommandEvent) {
-        if (it.parseResults.context.source.entity is ServerPlayerEntity) {
-            // check command permissions
-        }
+        PermissionBase.saveData()
     }
 }
