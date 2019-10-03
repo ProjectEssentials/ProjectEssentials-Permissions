@@ -11,7 +11,7 @@ private val serverRootDir by lazy {
     File(".").absolutePath
 }
 
-fun getRootPath(pathType: ForgeRootPaths): String {
+internal fun getRootPath(pathType: ForgeRootPaths): String {
     return when (pathType) {
         ForgeRootPaths.CLIENT -> clientRootDir
         ForgeRootPaths.SERVER -> serverRootDir

@@ -1,0 +1,18 @@
+{
+  "project_essentials_permissions.perm.about.out": "          §6%s\n§cVersion: §7%s\n§cMaintainer: §7%s\n§cTarget Forge version: §7%s\n§cTarget Minecraft version: §7%s\n§cSource code: §7%s§7\n§cTelegram chat: §7%s",
+  "project_essentials_permissions.perm.about.restricted": "§cYou §7don't have permission §cto execute /essentials permission command.",
+  "project_essentials_permissions.perm.reload.restricted": "§cYou §7don't have permission §cto reload permission configuration.",
+  "project_essentials_permissions.perm.reload.success": "§6Permission configuration §7reloaded§6.",
+  "project_essentials_permissions.perm.save.restricted": "§cYou §7don't have permission §cto save permission configuration.",
+  "project_essentials_permissions.perm.save.success": "§6Permission configuration §7saved§6.",
+  "project_essentials_permissions.perm.group.restricted": "§cYou §7don't have permission §cto modify group permissions.",
+  "project_essentials_permissions.perm.group.example": "§6Usage example: §7/ess permissions group §8<group> §b[set|remove] §8<node>",
+  "project_essentials_permissions.perm.user.restricted": "§cYou §7don't have permission §cto modify user permissions.",
+  "project_essentials_permissions.perm.user.example": "§6Usage example: §7/ess permissions user §8<nickname> §b[§d[set]§b|remove] §b[§8<node>§b] §d[[group]] §d[[<group name>]]",
+  "project_essentials_permissions.perm.group.success": "§6Permission §7%s §6added to group §7%s§6.",
+  "project_essentials_permissions.perm.user.success": "§6Permission §7%s §6added for user §7%s§6.",
+  "project_essentials_permissions.perm.user.group.example": "§6Usage example: §7/ess permissions user §8<nickname> §7set group §8<group name>",
+  "project_essentials_permissions.perm.user.group.success": "§6Installed new group §7%s §6for user §7%s§6.",
+  "project_essentials_permissions.perm.group.remove.success": "§6Permission §7%s §6removed from group §7%s§6.",
+  "project_essentials_permissions.perm.user.remove.success": "§6Permission §7%s §6removed from user §7%s§6."
+}

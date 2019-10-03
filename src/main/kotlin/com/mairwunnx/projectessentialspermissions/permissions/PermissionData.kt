@@ -58,11 +58,9 @@ data class PermissionData(
     @Serializable
     data class User(
         /**
-         * UUID of player, We use UUIDs to avoid
-         * unpleasant situations when changing
-         * nicknames to licenses.
+         * player nickname.
          */
-        var uuid: String = String.empty,
+        var nickname: String = String.empty,
         /**
          * user group.
          */

@@ -1,7 +1,6 @@
 package com.mairwunnx.projectessentialspermissions.permissions
 
 import com.mairwunnx.projectessentialspermissions.extensions.empty
-import net.minecraft.entity.player.ServerPlayerEntity
 
 /**
  * Base class for working with user permissions.
@@ -10,16 +9,16 @@ import net.minecraft.entity.player.ServerPlayerEntity
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 object PermissionsAPI {
     /**
-     * @param player instance of ServerPlayerEntity class.
+     * @param playerNickName nickname of target player.
      * @return instance of the class of the rights group
      * the user belongs to.
      * @since 1.14.4-0.1.0.0
      */
     fun getUserGroup(
-        player: ServerPlayerEntity
+        playerNickName: String
     ): PermissionData.Group {
         PermissionBase.permissionData.users.forEach { user ->
-            if (user.uuid == player.uniqueID.toString()) {
+            if (user.nickname == playerNickName) {
                 PermissionBase.permissionData.groups.forEach { group ->
                     if (group.name == user.group) return group
                 }
@@ -66,39 +65,39 @@ object PermissionsAPI {
     }
 
     /**
-     * @param player instance of ServerPlayerEntity class.
+     * @param playerNickName nickname of target player.
      * @return list with all able user permissions.
      * @since 1.14.4-0.1.0.0
      */
     fun getUserPermissions(
-        player: ServerPlayerEntity
+        playerNickName: String
     ): List<String> {
         PermissionBase.permissionData.users.forEach { user ->
-            if (user.uuid == player.uniqueID.toString()) return user.permissions
+            if (user.nickname == playerNickName) return user.permissions
         }
         PermissionBase.permissionData.users.forEach { user ->
-            if (user.uuid == "*") return user.permissions
+            if (user.nickname == "*") return user.permissions
         }
         return emptyList()
     }
 
     /**
-     * @param player instance of ServerPlayerEntity class.
+     * @param playerNickName nickname of target player.
      * @return list with all able user and group for
      * user permissions.
      * @since 1.14.4-0.1.0.0
      */
     fun getAllUserPermissions(
-        player: ServerPlayerEntity
+        playerNickName: String
     ): List<String> {
         var groupName = String.empty
         var defaultPerms = emptyList<String>()
         PermissionBase.permissionData.users.forEach { user ->
-            if (user.uuid == "*") defaultPerms = user.permissions
-            if (user.uuid == player.uniqueID.toString()) groupName = user.group
+            if (user.nickname == "*") defaultPerms = user.permissions
+            if (user.nickname == playerNickName) groupName = user.group
         }
         val groupPerms = getGroupPermissions(groupName)
-        val userPerms = getUserPermissions(player)
+        val userPerms = getUserPermissions(playerNickName)
         return listOf(defaultPerms, groupPerms, userPerms).flatten()
     }
 
@@ -116,17 +115,20 @@ object PermissionsAPI {
     }
 
     /**
-     * @param player instance of ServerPlayerEntity class.
+     * @param playerNickName nickname of target player.
      * @param node permission node as string, e.g `ess.weather`
+     * @param isServerSender needed for additional checking permissions.
      * @return true if user have permission, else
      * return false.
      * @since 1.14.4-0.1.0.0
      */
     fun hasPermission(
-        player: ServerPlayerEntity,
-        node: String
+        playerNickName: String,
+        node: String,
+        isServerSender: Boolean = false
     ): Boolean {
-        val permissions = getAllUserPermissions(player)
+        if (isServerSender) return true
+        val permissions = getAllUserPermissions(playerNickName)
         return permissions.contains(node) || permissions.contains("*")
     }
 
@@ -162,24 +164,71 @@ object PermissionsAPI {
 
     /**
      * Install \ Add new permission for user.
-     * @param player instance of ServerPlayerEntity class.
+     * @param playerNickName nickname of target player.
      * @param node new user permission.
+     * setting up for "*" (any) player.
      * @since 1.14.4-0.1.0.0
      */
     fun setUserPermissionNode(
-        player: ServerPlayerEntity,
+        playerNickName: String,
         node: String
     ) {
         PermissionBase.permissionData.users.forEach { user ->
-            if (user.uuid == player.uniqueID.toString()) {
+            if (user.nickname == playerNickName) {
                 user.permissions += node
                 return
             }
         }
         PermissionBase.permissionData.users += PermissionData.User(
-            player.uniqueID.toString(),
+            playerNickName,
             getDefaultGroup().name,
             listOf(node)
+        )
+    }
+
+    /**
+     * Install \ Set new permission group for user.
+     * @param playerNickName nickname of target player.
+     * @param groupName new user permission group.
+     * @since 1.14.4-0.1.0.0
+     */
+    fun setUserPermissionGroup(
+        playerNickName: String,
+        groupName: String
+    ) {
+        PermissionBase.permissionData.users.forEach {
+            if (it.nickname == playerNickName) {
+                it.group = groupName
+                return
+            }
+        }
+        PermissionBase.permissionData.users += PermissionData.User(
+            playerNickName,
+            groupName,
+            emptyList()
+        )
+    }
+
+    /**
+     * Install \ Set new permission group for user.
+     * @param playerNickName nickname of target player.
+     * @param groupInstance new user permission group.
+     * @since 1.14.4-0.1.0.0
+     */
+    fun setUserPermissionGroup(
+        playerNickName: String,
+        groupInstance: PermissionData.Group
+    ) {
+        PermissionBase.permissionData.users.forEach {
+            if (it.nickname == playerNickName) {
+                it.group = groupInstance.name
+                return
+            }
+        }
+        PermissionBase.permissionData.users += PermissionData.User(
+            playerNickName,
+            groupInstance.name,
+            emptyList()
         )
     }
 
@@ -225,16 +274,17 @@ object PermissionsAPI {
 
     /**
      * Remove permission node from user.
-     * @param player instance of ServerPlayerEntity class.
+     * @param playerNickName nickname of target player.
      * @param node user permission.
+     * setting up for "*" (any) player.
      * @since 1.14.4-0.1.0.0
      */
     fun removeUserPermission(
-        player: ServerPlayerEntity,
+        playerNickName: String,
         node: String
     ) {
         PermissionBase.permissionData.users.forEach { user ->
-            if (user.uuid == player.uniqueID.toString()) {
+            if (user.nickname == playerNickName) {
                 val permissions = user.permissions.toMutableList()
                 permissions.remove(node)
                 user.permissions = permissions

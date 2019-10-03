@@ -1,11 +1,9 @@
 package com.mairwunnx.projectessentialspermissions
 
-import com.mairwunnx.projectessentialspermissions.commands.EssPermissionsCommand
+import com.mairwunnx.projectessentialspermissions.commands.PermissionsCommand
 import com.mairwunnx.projectessentialspermissions.helpers.validateForgeVersion
 import com.mairwunnx.projectessentialspermissions.permissions.PermissionBase
 import com.mojang.brigadier.CommandDispatcher
-import kotlinx.serialization.ImplicitReflectionSerializer
-import kotlinx.serialization.UnstableDefault
 import net.minecraft.command.CommandSource
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.eventbus.api.SubscribeEvent
@@ -16,10 +14,8 @@ import org.apache.logging.log4j.LogManager
 
 internal const val MOD_ID = "project_essentials_permissions"
 internal const val MOD_NAME = "Project Essentials Permissions"
-internal const val MOD_PART = "Project Essentials"
+internal const val PART_OF_MOD = "Project Essentials"
 internal const val MOD_VERSION = "1.14.4-0.1.0.0"
-internal const val MOD_DESCRIPTION =
-    "additional module for Essentials; Just controlling player permissions"
 internal const val MOD_MAINTAINER = "MairwunNx (Pavel Erokhin)"
 internal const val MOD_TARGET_FORGE = "28.0.X"
 internal const val MOD_TARGET_FORGE_REGEX = "^28\\.0\\..\\d{1,}|28\\.0\\.[\\d]\$"
@@ -27,11 +23,9 @@ internal const val MOD_TARGET_MC = "1.14.4"
 internal const val MOD_SOURCES_LINK = "https://github.com/MairwunNx/ProjectEssentials-Permissions/"
 internal const val MOD_TELEGRAM_LINK = "https://t.me/minecraftforge"
 
-@UnstableDefault
-@ImplicitReflectionSerializer
 @Suppress("unused")
 @Mod(MOD_ID)
-class EntryPoint {
+internal class EntryPoint {
     private val logger = LogManager.getLogger()
 
     init {
@@ -55,7 +49,7 @@ class EntryPoint {
     }
 
     @SubscribeEvent
-    fun onServerStarting(it: FMLServerStartingEvent) {
+    internal fun onServerStarting(it: FMLServerStartingEvent) {
         logger.info("$MOD_NAME starting mod loading ...")
         registerCommands(it.server.commandManager.dispatcher)
     }
@@ -64,14 +58,14 @@ class EntryPoint {
         cmdDispatcher: CommandDispatcher<CommandSource>
     ) {
         logger.info("Command registering is starting ...")
-        EssPermissionsCommand.register(cmdDispatcher)
+        PermissionsCommand.register(cmdDispatcher)
     }
 
     @Suppress("UNUSED_PARAMETER")
     @SubscribeEvent
-    fun onServerStopping(it: FMLServerStoppingEvent) {
+    internal fun onServerStopping(it: FMLServerStoppingEvent) {
         logger.info("Shutting down $MOD_NAME mod ...")
-        logger.info("    - Saving modification user data ...")
+        logger.info("    - Saving permission users data ...")
         PermissionBase.saveData()
     }
 }

@@ -1,0 +1,18 @@
+{
+  "project_essentials_permissions.perm.about.out": "          §6%s\n§cВерсия: §7%s\n§cСопровождающий: §7%s\n§cНацеленная Forge версия: §7%s\n§cНацеленная Minecraft версия: §7%s\n§cИсходный код: §7%s§7\n§cTelegram чат: §7%s",
+  "project_essentials_permissions.perm.about.restricted": "§cУ вас §7нет прав §cна выполнение /essentials permission команды.",
+  "project_essentials_permissions.perm.reload.restricted": "§cУ вас §7нет прав §cна перезагрузку конфигурации прав.",
+  "project_essentials_permissions.perm.reload.success": "§6Конфигурация прав §7перезагружена§6.",
+  "project_essentials_permissions.perm.save.restricted": "§cУ вас §7нет прав §cна сохранение конфигурации прав.",
+  "project_essentials_permissions.perm.save.success": "§6Конфигурация прав §7сохранена§6.",
+  "project_essentials_permissions.perm.group.restricted": "§cУ вас §7нет прав §cна изменение прав групп.",
+  "project_essentials_permissions.perm.group.example": "§6Пример использования: §7/ess permissions group §8<group> §b[set|remove] §8<node>",
+  "project_essentials_permissions.perm.user.restricted": "§cУ вас §7нет прав §cна изменение прав пользователй.",
+  "project_essentials_permissions.perm.user.example": "§6Пример использования: §7/ess permissions user §8<nickname> §b[§d[set]§b|remove] §b[§8<node>§b] §d[[group]] §d[[<group name>]]",
+  "project_essentials_permissions.perm.group.success": "§6Право §7%s §6добавлено в группу §7%s§6.",
+  "project_essentials_permissions.perm.user.success": "§6Право §7%s §6добавлено для игрока §7%s§6.",
+  "project_essentials_permissions.perm.user.group.example": "§6Пример использования: §7/ess permissions user §8<nickname> §7set group §8<group name>",
+  "project_essentials_permissions.perm.user.group.success": "§6Установлена новая группа §7%s §6для игрока §7%s§6.",
+  "project_essentials_permissions.perm.group.remove.success": "§6Право §7%s §6удалено из группы §7%s§6.",
+  "project_essentials_permissions.perm.user.remove.success": "§6Право §7%s §6удалено для игрока §7%s§6."
+}
