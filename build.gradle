@@ -125,7 +125,7 @@ project.afterEvaluate {
 
 dokka {
     outputFormat = 'html'
-    outputDirectory = "$buildDir/documentation"
+    outputDirectory = "$buildDir/libs/docs"
 }
 
 project.tasks["jar"].dependsOn(project.tasks["dokka"])
