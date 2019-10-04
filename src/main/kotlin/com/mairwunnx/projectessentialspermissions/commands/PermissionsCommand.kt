@@ -158,6 +158,56 @@ internal object PermissionsCommand {
         )
     }
 
+    private fun groupCommandExecute(c: CommandContext<CommandSource>): Int {
+        if (c.isPlayerSender() &&
+            !PermissionsAPI.hasPermission(c.playerName(), "ess.perm.group")
+        ) {
+            sendMsg(c.source, "perm.group.restricted")
+            return 0
+        }
+        when {
+            c.isPlayerSender() -> sendMsg(c.source, "perm.group.example")
+            else -> logger.info("Usage example: /ess permissions group <group> [set|remove] <node>")
+        }
+        return 0
+    }
+
+    private fun groupCommandSetExecute(c: CommandContext<CommandSource>): Int {
+        if (c.isPlayerSender() &&
+            !PermissionsAPI.hasPermission(c.playerName(), "ess.perm.group")
+        ) {
+            sendMsg(c.source, "perm.group.restricted")
+            return 0
+        }
+        val targetGroup = StringArgumentType.getString(c, "name")
+        val targetNode = StringArgumentType.getString(c, "node")
+        PermissionsAPI.setGroupPermissionNode(targetGroup, targetNode)
+        if (c.isPlayerSender()) {
+            sendMsg(c.source, "perm.group.success", targetNode, targetGroup)
+        } else {
+            logger.info("Permission $targetNode added to group $targetGroup.")
+        }
+        return 0
+    }
+
+    private fun groupCommandRemoveExecute(c: CommandContext<CommandSource>): Int {
+        if (c.isPlayerSender() &&
+            !PermissionsAPI.hasPermission(c.playerName(), "ess.perm.group")
+        ) {
+            sendMsg(c.source, "perm.group.restricted")
+            return 0
+        }
+        val targetGroup = StringArgumentType.getString(c, "name")
+        val targetNode = StringArgumentType.getString(c, "node")
+        PermissionsAPI.removeGroupPermission(targetGroup, targetNode)
+        if (c.isPlayerSender()) {
+            sendMsg(c.source, "perm.group.remove.success", targetNode, targetGroup)
+        } else {
+            logger.info("Permission $targetNode removed from group $targetGroup.")
+        }
+        return 0
+    }
+
     private fun buildUserCommand(): LiteralArgumentBuilder<CommandSource> {
         return Commands.literal("user").executes {
             return@executes userCommandExecute(it)
@@ -203,20 +253,6 @@ internal object PermissionsCommand {
         )
     }
 
-    private fun groupCommandExecute(c: CommandContext<CommandSource>): Int {
-        if (c.isPlayerSender() &&
-            !PermissionsAPI.hasPermission(c.playerName(), "ess.perm.group")
-        ) {
-            sendMsg(c.source, "perm.group.restricted")
-            return 0
-        }
-        when {
-            c.isPlayerSender() -> sendMsg(c.source, "perm.group.example")
-            else -> logger.info("Usage example: /ess permissions group <group> [set|remove] <node>")
-        }
-        return 0
-    }
-
     private fun userCommandExecute(c: CommandContext<CommandSource>): Int {
         if (c.isPlayerSender() &&
             !PermissionsAPI.hasPermission(c.playerName(), "ess.perm.user")
@@ -229,24 +265,6 @@ internal object PermissionsCommand {
             else -> logger.info(
                 "Usage example: /ess permissions user <nickname> [[set]|remove] [<node>] [[group]] [[<group name>]]"
             )
-        }
-        return 0
-    }
-
-    private fun groupCommandSetExecute(c: CommandContext<CommandSource>): Int {
-        if (c.isPlayerSender() &&
-            !PermissionsAPI.hasPermission(c.playerName(), "ess.perm.group")
-        ) {
-            sendMsg(c.source, "perm.group.restricted")
-            return 0
-        }
-        val targetGroup = StringArgumentType.getString(c, "name")
-        val targetNode = StringArgumentType.getString(c, "node")
-        PermissionsAPI.setGroupPermissionNode(targetGroup, targetNode)
-        if (c.isPlayerSender()) {
-            sendMsg(c.source, "perm.group.success", targetNode, targetGroup)
-        } else {
-            logger.info("Permission $targetNode added to group $targetGroup.")
         }
         return 0
     }
@@ -292,24 +310,6 @@ internal object PermissionsCommand {
             sendMsg(c.source, "perm.user.group.success", targetGroup, targetUser)
         } else {
             logger.info("Installed new group $targetGroup for user $targetUser.")
-        }
-        return 0
-    }
-
-    private fun groupCommandRemoveExecute(c: CommandContext<CommandSource>): Int {
-        if (c.isPlayerSender() &&
-            !PermissionsAPI.hasPermission(c.playerName(), "ess.perm.group")
-        ) {
-            sendMsg(c.source, "perm.group.restricted")
-            return 0
-        }
-        val targetGroup = StringArgumentType.getString(c, "name")
-        val targetNode = StringArgumentType.getString(c, "node")
-        PermissionsAPI.removeGroupPermission(targetGroup, targetNode)
-        if (c.isPlayerSender()) {
-            sendMsg(c.source, "perm.group.remove.success", targetNode, targetGroup)
-        } else {
-            logger.info("Permission $targetNode removed from group $targetGroup.")
         }
         return 0
     }
