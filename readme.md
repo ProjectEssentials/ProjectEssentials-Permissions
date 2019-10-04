@@ -1,5 +1,8 @@
 ## 🔒 Project Essentials: PermissionsAPI
 
+[![](https://jitpack.io/v/projectessentials/ProjectEssentials-Permissions.svg)](https://jitpack.io/#projectessentials/ProjectEssentials-Permissions)
+![GitHub](https://img.shields.io/github/license/ProjectEssentials/ProjectEssentials-Permissions)
+
 > ## Permissions API for Forge mods.
 
 > #### CURRENTLY UNSTABLE VERSION ❗❗❗
