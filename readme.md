@@ -50,6 +50,6 @@ Additional information:
 
 ### After you got the dependencies and the library itself:
 
-    [test]("google.com")
+# [getting started with read the documentation](./documentation/in-using.md)
 
 > ## Made with 💕 by [MairwunNx](https://mairwunnx.github.io/)
