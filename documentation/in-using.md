@@ -167,7 +167,7 @@ Let's start small?
 ```
 PermissionsAPI.hasPermission
 
-- accepts: 
+- accepts:
     - playerNickName - nickname of target player. (string)
     - node - permission node as string, e.g ess.weather (string)
     - isServerSender - needed for additional checking permissions. ((boolean) by default is false)
@@ -178,7 +178,7 @@ PermissionsAPI.hasPermission
 ```
 PermissionsAPI.getAllUserPermissions
 
-- accepts: 
+- accepts:
     - playerNickName - nickname of target player. (string)
 
 - return: list with all able user and group for user permissions. (list with string type)
@@ -195,7 +195,7 @@ PermissionsAPI.getDefaultGroup
 ```
 PermissionsAPI.getGroupPermissions
 
-- accepts: 
+- accepts:
     - groupName - just group name. (string)
     OR
     - groupInstance - just group class instance. (Group class instance)
@@ -206,7 +206,7 @@ PermissionsAPI.getGroupPermissions
 ```
 PermissionsAPI.getUserGroup
 
-- accepts: 
+- accepts:
     - playerNickName - nickname of target player. (string)
 
 - return: instance of the class of the rights group the user belongs to. (Group class instance)
@@ -215,7 +215,7 @@ PermissionsAPI.getUserGroup
 ```
 PermissionsAPI.getUserPermissions
 
-- accepts: 
+- accepts:
     - playerNickName - nickname of target player. (string)
 
 - return: list with all able user permissions. (list with string type)
@@ -226,7 +226,7 @@ PermissionsAPI.removeGroupPermission
 
 - description: Remove permission node from group.
 
-- accepts: 
+- accepts:
     - groupName - just group name. (string)
     - node - group permission. (string)
     OR
@@ -239,7 +239,7 @@ PermissionsAPI.removeUserPermission
 
 - description: Remove permission node from user.
 
-- accepts: 
+- accepts:
     - playerNickName - nickname of target player. (string)
     node - user permission. setting up for "*" (any) player. (string)
 ```
@@ -249,7 +249,7 @@ PermissionsAPI.setGroupPermissionNode
 
 - description: Install \ Add new permission for group.
 
-- accepts: 
+- accepts:
     - groupName - just group name. (string)
     - node - new group permission. (string)
     OR
@@ -262,7 +262,7 @@ PermissionsAPI.setUserPermissionGroup
 
 - description: Install \ Set new permission group for user.
 
-- accepts: 
+- accepts:
     - playerNickName - nickname of target player. (string)
     - groupName - new user permission group. (string)
     OR
@@ -275,11 +275,81 @@ PermissionsAPI.setUserPermissionNode
 
 - description: Install \ Add new permission for user.
 
-- accepts: 
+- accepts:
     - playerNickName - nickname of target player. (string)
     - node - new user permission. setting up for "*" (any) player. (string)
 ```
 
 ## These are all API methods, I think you understand that everything is very simple.
+
+### 2.4 Resolving dependecies.
+
+> #### just make such in `build.gradle` file:
+
+```groovy
+buildscript {
+    dependencies {
+        // kotlin version must be 1.3.50.
+        classpath(
+            "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        )
+        classpath(
+            "org.jetbrains.kotlin:kotlin-serialization:$kotlinVersion"
+        )
+    }
+}
+
+apply(plugin: "kotlin")
+apply(plugin: "java")
+apply(plugin: "kotlinx-serialization")
+
+configurations {
+    embed
+    compile.extendsFrom(embed)
+}
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+// kotlin version must be 1.3.50.
+// kotlinx serialization version must be 0.12.0.
+
+dependencies {
+    compile(
+        group: "org.jetbrains.kotlinx",
+        name: "kotlinx-serialization-runtime",
+        version: kotlinxSerializationVersion
+    )
+    embed(
+        group: "org.jetbrains.kotlinx",
+        name: "kotlinx-serialization-runtime",
+        version: kotlinxSerializationVersion
+    )
+    compile(
+        group: "org.jetbrains.kotlin",
+        name: "kotlin-stdlib-$kotlinJdkVersionTarget",
+        version: kotlinVersion
+    )
+    embed(
+        group: "org.jetbrains.kotlin",
+        name: "kotlin-stdlib-$kotlinJdkVersionTarget",
+        version: kotlinVersion
+    )
+}
+
+jar {
+    ....
+    from configurations.embed.collect {
+        it.isDirectory() ? it : zipTree(it)
+    }
+}
+
+// jvmVersionTarget must be 1.8.
+
+compileKotlin.kotlinOptions.jvmTarget =
+    compileTestKotlin.kotlinOptions.jvmTarget = jvmVersionTarget
+```
 
 ### For all questions, be sure to write issues!
