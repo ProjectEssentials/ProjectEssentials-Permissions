@@ -284,6 +284,8 @@ PermissionsAPI.setUserPermissionNode
 
 ### 2.4 Resolving dependecies.
 
+## You do not need to do this if next to the PermissionsAPI modification lies the basic Project Essentials mod!
+
 > #### just make such in `build.gradle` file:
 
 ```groovy
