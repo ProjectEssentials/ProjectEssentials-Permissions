@@ -44,7 +44,7 @@ dependencies {
 ```
 Additional information:
     - kotlin-std lib version: 1.3.50
-    - kotlinx ыerialization version: 0.12.0
+    - kotlinx serialization version: 0.12.0
     - target jvm version: 1.8
 ```
 
