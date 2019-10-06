@@ -12,6 +12,10 @@ Releases page: https://github.com/ProjectEssentials/ProjectEssentials-Permission
 
 The minecraft forge folder structure below will help you understand what is written below.
 
+Also don't forget install dependency:
+  - core: https://github.com/ProjectEssentials/ProjectEssentials-Core/releases
+
+
 ```
 .
 ├── assets

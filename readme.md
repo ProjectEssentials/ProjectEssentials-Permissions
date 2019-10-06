@@ -47,13 +47,15 @@ dependencies {
 ## 🧐 Installation instruction (for playing):
 > ##### Just move Project Essentials Permissions-1.14.4-1.X.X.X.jar to mods directory:
 
+> ##### Important note: don't forget install mod dependencies!
+  - core: https://github.com/ProjectEssentials/ProjectEssentials-Core/releases
+
 ```
 .
 ├── assets
 ├── config
 ├── libraries
 ├── mods (that's how it should be)
-│   ├── Project Essentials-1.14.4-1.X.X.X.jar.
 │   ├── Project Essentials Core-1.14.4-1.X.X.X.jar.
 │   └── Project Essentials Permissions-1.14.4-1.X.X.X.jar.
 └── ...
