@@ -9,7 +9,7 @@
 
 #### ❗ Compatibility with forge `28.0.X` version.
 
-## 🧐 Install using Gradle:
+## 🧐 Install using Gradle (for developers):
 > ##### If your project uses Gradle as Build Tool, then use the code below to add dependencies:
 
 ```groovy
@@ -26,7 +26,7 @@ dependencies {
 }
 ```
 
-## 🤔 Install using Maven:
+## 🤔 Install using Maven (for developers):
 > ##### If your project uses Maven as Build Tool, then use the code below to add dependencies:
 
 ```xml
@@ -42,6 +42,21 @@ dependencies {
 	<artifactId>ProjectEssentials-Permissions</artifactId>
 	<version>v1.14.4-0.1.0.2</version>
 </dependency>
+```
+
+## 🧐 Installation instruction (for playing):
+> ##### Just move Project Essentials Permissions-1.14.4-1.X.X.X.jar to mods directory:
+
+```
+.
+├── assets
+├── config
+├── libraries
+├── mods (that's how it should be)
+│   ├── Project Essentials-1.14.4-1.X.X.X.jar.
+│   ├── Project Essentials Core-1.14.4-1.X.X.X.jar.
+│   └── Project Essentials Permissions-1.14.4-1.X.X.X.jar.
+└── ...
 ```
 
 ```
