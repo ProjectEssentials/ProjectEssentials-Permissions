@@ -19,15 +19,11 @@ The minecraft forge folder structure below will help you understand what is writ
 ├── libraries
 ├── mods (that's how it should be)
 │   ├── Permissions-1.14.4-X.X.X.X.jar
-│   └── Your mod with needed dependencies.
+│   └── Project Essentials Core-1.14.4-1.X.X.X.jar
 └── ...
 ```
 
 Place your mods and Permissions API mods according to the structure above.
-
-**Important note**: your modification must include the `Kotlin` library, the `Kotlinx Serialization` library, this must be done if you use the Permissions API separately from the main Project Essentials module.
-
-How to include dependencies in the assembly using Gradle is described later in the documentation.
 
 #### 1.3 Verifying mod on the correct installation.
 
@@ -281,77 +277,5 @@ PermissionsAPI.setUserPermissionNode
 ```
 
 ## These are all API methods, I think you understand that everything is very simple.
-
-### 2.4 Resolving dependecies.
-
-## You do not need to do this if next to the PermissionsAPI modification lies the basic Project Essentials mod!
-
-> #### just make such in `build.gradle` file:
-
-```groovy
-buildscript {
-    dependencies {
-        // kotlin version must be 1.3.50.
-        classpath(
-            "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        )
-        classpath(
-            "org.jetbrains.kotlin:kotlin-serialization:$kotlinVersion"
-        )
-    }
-}
-
-apply(plugin: "kotlin")
-apply(plugin: "java")
-apply(plugin: "kotlinx-serialization")
-
-configurations {
-    embed
-    compile.extendsFrom(embed)
-}
-
-repositories {
-    jcenter()
-    mavenCentral()
-}
-
-// kotlin version must be 1.3.50.
-// kotlinx serialization version must be 0.12.0.
-
-dependencies {
-    compile(
-        group: "org.jetbrains.kotlinx",
-        name: "kotlinx-serialization-runtime",
-        version: kotlinxSerializationVersion
-    )
-    embed(
-        group: "org.jetbrains.kotlinx",
-        name: "kotlinx-serialization-runtime",
-        version: kotlinxSerializationVersion
-    )
-    compile(
-        group: "org.jetbrains.kotlin",
-        name: "kotlin-stdlib-$kotlinJdkVersionTarget",
-        version: kotlinVersion
-    )
-    embed(
-        group: "org.jetbrains.kotlin",
-        name: "kotlin-stdlib-$kotlinJdkVersionTarget",
-        version: kotlinVersion
-    )
-}
-
-jar {
-    ....
-    from configurations.embed.collect {
-        it.isDirectory() ? it : zipTree(it)
-    }
-}
-
-// jvmVersionTarget must be 1.8.
-
-compileKotlin.kotlinOptions.jvmTarget =
-    compileTestKotlin.kotlinOptions.jvmTarget = jvmVersionTarget
-```
 
 ### For all questions, be sure to write issues!
