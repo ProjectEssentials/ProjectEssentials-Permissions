@@ -76,6 +76,7 @@ repositories {
     mavenCentral()
     maven { url("https://minecraft.curseforge.com/api/maven/") }
     maven { url("https://libraries.minecraft.net") }
+    maven { url("https://jitpack.io") }
 }
 
 dependencies {
@@ -90,6 +91,11 @@ dependencies {
         group: "org.jetbrains.kotlin",
         name: "kotlin-stdlib-$kotlinJdkVersionTarget",
         version: kotlinVersion
+    )
+    compile(
+        group: "com.github.projectessentials",
+        name: "ProjectEssentials-Core",
+        version: "v1.14.4-1.0.0.1"
     )
 }
 
