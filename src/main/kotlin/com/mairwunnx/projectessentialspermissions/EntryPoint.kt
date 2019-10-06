@@ -15,7 +15,7 @@ import org.apache.logging.log4j.LogManager
 internal const val MOD_ID = "project_essentials_permissions"
 internal const val MOD_NAME = "Project Essentials Permissions"
 internal const val PART_OF_MOD = "Project Essentials"
-internal const val MOD_VERSION = "1.14.4-0.1.0.1"
+internal const val MOD_VERSION = "1.14.4-0.1.0.2"
 internal const val MOD_MAINTAINER = "MairwunNx (Pavel Erokhin)"
 internal const val MOD_TARGET_FORGE = "28.0.X"
 internal const val MOD_TARGET_FORGE_REGEX = "^28\\.0\\..\\d{1,}|28\\.0\\.[\\d]\$"
