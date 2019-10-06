@@ -44,7 +44,7 @@ dependencies {
 </dependency>
 ```
 
-## 🧐 Installation instruction (for playing):
+## 🎮 Installation instruction (for playing):
 > ##### Just move Project Essentials Permissions-1.14.4-1.X.X.X.jar to mods directory:
 
 > ##### Important note: don't forget install mod dependencies!
