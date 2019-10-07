@@ -1,6 +1,6 @@
 package com.mairwunnx.projectessentialspermissions.permissions
 
-import com.mairwunnx.projectessentialspermissions.extensions.empty
+import com.mairwunnx.projectessentialscore.extensions.empty
 
 /**
  * Base class for working with user permissions.

@@ -1,9 +1,9 @@
 package com.mairwunnx.projectessentialspermissions.commands
 
-import com.mairwunnx.projectessentialspermissions.*
-import com.mairwunnx.projectessentialspermissions.extensions.isPlayerSender
-import com.mairwunnx.projectessentialspermissions.extensions.playerName
-import com.mairwunnx.projectessentialspermissions.extensions.sendMsg
+import com.mairwunnx.projectessentialscore.extensions.isPlayerSender
+import com.mairwunnx.projectessentialscore.extensions.playerName
+import com.mairwunnx.projectessentialscore.extensions.sendMsg
+import com.mairwunnx.projectessentialspermissions.EntryPoint
 import com.mairwunnx.projectessentialspermissions.permissions.PermissionBase
 import com.mairwunnx.projectessentialspermissions.permissions.PermissionsAPI
 import com.mojang.brigadier.CommandDispatcher
@@ -45,27 +45,28 @@ internal object PermissionsCommand {
         if (c.isPlayerSender()) {
             if (PermissionsAPI.hasPermission(c.playerName(), "ess.perm")) {
                 sendMsg(
+                    "permissions",
                     c.source,
                     "perm.about.out",
-                    MOD_NAME,
-                    MOD_VERSION,
-                    MOD_MAINTAINER,
-                    MOD_TARGET_FORGE,
-                    MOD_TARGET_MC,
-                    MOD_SOURCES_LINK,
-                    MOD_TELEGRAM_LINK
+                    EntryPoint.modInstance.modName,
+                    EntryPoint.modInstance.modVersion,
+                    EntryPoint.modInstance.modMaintainer,
+                    EntryPoint.modInstance.modTargetForge,
+                    EntryPoint.modInstance.modTargetMC,
+                    EntryPoint.modInstance.modSources,
+                    EntryPoint.modInstance.modTelegram
                 )
             } else {
-                sendMsg(c.source, "perm.about.restricted")
+                sendMsg("permissions", c.source, "perm.about.restricted")
             }
         } else {
-            logger.info("        $MOD_NAME")
-            logger.info("Version: $MOD_VERSION")
-            logger.info("Maintainer: $MOD_MAINTAINER")
-            logger.info("Target Forge version: $MOD_TARGET_FORGE")
-            logger.info("Target Minecraft version: $MOD_TARGET_MC")
-            logger.info("Source code: $MOD_SOURCES_LINK")
-            logger.info("Telegram chat: $MOD_TELEGRAM_LINK")
+            logger.info("        ${EntryPoint.modInstance.modName}")
+            logger.info("Version: ${EntryPoint.modInstance.modVersion}")
+            logger.info("Maintainer: ${EntryPoint.modInstance.modMaintainer}")
+            logger.info("Target Forge version: ${EntryPoint.modInstance.modTargetForge}")
+            logger.info("Target Minecraft version: ${EntryPoint.modInstance.modTargetMC}")
+            logger.info("Source code: ${EntryPoint.modInstance.modSources}")
+            logger.info("Telegram chat: ${EntryPoint.modInstance.modTelegram}")
         }
         return 0
     }
@@ -83,13 +84,15 @@ internal object PermissionsCommand {
             c.isPlayerSender() && !PermissionsAPI.hasPermission(
                 c.playerName(), "perm.reload"
             ) -> {
-                sendMsg(c.source, "perm.reload.restricted")
+                sendMsg("permissions", c.source, "perm.reload.restricted")
                 0
             }
             else -> {
                 PermissionBase.loadData()
                 when {
-                    c.isPlayerSender() -> sendMsg(c.source, "perm.reload.success")
+                    c.isPlayerSender() -> sendMsg(
+                        "permissions", c.source, "perm.reload.success"
+                    )
                     else -> logger.info("Permission configuration reloaded.")
                 }
                 0
@@ -110,13 +113,15 @@ internal object PermissionsCommand {
             c.isPlayerSender() && !PermissionsAPI.hasPermission(
                 c.source.asPlayer().name.string, "ess.perm.save"
             ) -> {
-                sendMsg(c.source, "perm.save.restricted")
+                sendMsg("permissions", c.source, "perm.save.restricted")
                 0
             }
             else -> {
                 PermissionBase.saveData()
                 when {
-                    c.isPlayerSender() -> sendMsg(c.source, "perm.save.success")
+                    c.isPlayerSender() -> sendMsg(
+                        "permissions", c.source, "perm.save.success"
+                    )
                     else -> logger.info("Permission configuration saved.")
                 }
                 0
@@ -162,11 +167,13 @@ internal object PermissionsCommand {
         if (c.isPlayerSender() &&
             !PermissionsAPI.hasPermission(c.playerName(), "ess.perm.group")
         ) {
-            sendMsg(c.source, "perm.group.restricted")
+            sendMsg("permissions", c.source, "perm.group.restricted")
             return 0
         }
         when {
-            c.isPlayerSender() -> sendMsg(c.source, "perm.group.example")
+            c.isPlayerSender() -> sendMsg(
+                "permissions", c.source, "perm.group.example"
+            )
             else -> logger.info("Usage example: /ess permissions group <group> [set|remove] <node>")
         }
         return 0
@@ -176,14 +183,20 @@ internal object PermissionsCommand {
         if (c.isPlayerSender() &&
             !PermissionsAPI.hasPermission(c.playerName(), "ess.perm.group")
         ) {
-            sendMsg(c.source, "perm.group.restricted")
+            sendMsg("permissions", c.source, "perm.group.restricted")
             return 0
         }
         val targetGroup = StringArgumentType.getString(c, "name")
         val targetNode = StringArgumentType.getString(c, "node")
         PermissionsAPI.setGroupPermissionNode(targetGroup, targetNode)
         if (c.isPlayerSender()) {
-            sendMsg(c.source, "perm.group.success", targetNode, targetGroup)
+            sendMsg(
+                "permissions",
+                c.source,
+                "perm.group.success",
+                targetNode,
+                targetGroup
+            )
         } else {
             logger.info("Permission $targetNode added to group $targetGroup.")
         }
@@ -194,14 +207,20 @@ internal object PermissionsCommand {
         if (c.isPlayerSender() &&
             !PermissionsAPI.hasPermission(c.playerName(), "ess.perm.group")
         ) {
-            sendMsg(c.source, "perm.group.restricted")
+            sendMsg("permissions", c.source, "perm.group.restricted")
             return 0
         }
         val targetGroup = StringArgumentType.getString(c, "name")
         val targetNode = StringArgumentType.getString(c, "node")
         PermissionsAPI.removeGroupPermission(targetGroup, targetNode)
         if (c.isPlayerSender()) {
-            sendMsg(c.source, "perm.group.remove.success", targetNode, targetGroup)
+            sendMsg(
+                "permissions",
+                c.source,
+                "perm.group.remove.success",
+                targetNode,
+                targetGroup
+            )
         } else {
             logger.info("Permission $targetNode removed from group $targetGroup.")
         }
@@ -257,11 +276,13 @@ internal object PermissionsCommand {
         if (c.isPlayerSender() &&
             !PermissionsAPI.hasPermission(c.playerName(), "ess.perm.user")
         ) {
-            sendMsg(c.source, "perm.user.restricted")
+            sendMsg("permissions", c.source, "perm.user.restricted")
             return 0
         }
         when {
-            c.isPlayerSender() -> sendMsg(c.source, "perm.user.example")
+            c.isPlayerSender() -> sendMsg(
+                "permissions", c.source, "perm.user.example"
+            )
             else -> logger.info(
                 "Usage example: /ess permissions user <nickname> [[set]|remove] [<node>] [[group]] [[<group name>]]"
             )
@@ -273,14 +294,20 @@ internal object PermissionsCommand {
         if (c.isPlayerSender() &&
             !PermissionsAPI.hasPermission(c.playerName(), "ess.perm.user")
         ) {
-            sendMsg(c.source, "perm.user.restricted")
+            sendMsg("permissions", c.source, "perm.user.restricted")
             return 0
         }
         val targetUser = StringArgumentType.getString(c, "nickname")
         val targetNode = StringArgumentType.getString(c, "node")
         PermissionsAPI.setUserPermissionNode(targetUser, targetNode)
         if (c.isPlayerSender()) {
-            sendMsg(c.source, "perm.user.success", targetNode, targetUser)
+            sendMsg(
+                "permissions",
+                c.source,
+                "perm.user.success",
+                targetNode,
+                targetUser
+            )
         } else {
             logger.info("Permission $targetNode added for user $targetUser.")
         }
@@ -291,14 +318,16 @@ internal object PermissionsCommand {
         if (c.isPlayerSender() &&
             !PermissionsAPI.hasPermission(c.playerName(), "ess.perm.user")
         ) {
-            sendMsg(c.source, "perm.user.restricted")
+            sendMsg("permissions", c.source, "perm.user.restricted")
             return 0
         }
         val targetUser = StringArgumentType.getString(c, "nickname")
         val targetGroup = StringArgumentType.getString(c, "groupName")
         if (targetGroup.isNullOrEmpty()) {
             when {
-                c.isPlayerSender() -> sendMsg(c.source, "perm.user.group.example")
+                c.isPlayerSender() -> sendMsg(
+                    "permissions", c.source, "perm.user.group.example"
+                )
                 else -> logger.info(
                     "Usage example: /ess permissions user <nickname> set group <group name>"
                 )
@@ -307,7 +336,13 @@ internal object PermissionsCommand {
         }
         PermissionsAPI.setUserPermissionGroup(targetUser, targetGroup)
         if (c.isPlayerSender()) {
-            sendMsg(c.source, "perm.user.group.success", targetGroup, targetUser)
+            sendMsg(
+                "permissions",
+                c.source,
+                "perm.user.group.success",
+                targetGroup,
+                targetUser
+            )
         } else {
             logger.info("Installed new group $targetGroup for user $targetUser.")
         }
@@ -318,14 +353,20 @@ internal object PermissionsCommand {
         if (c.isPlayerSender() &&
             !PermissionsAPI.hasPermission(c.playerName(), "ess.perm.user")
         ) {
-            sendMsg(c.source, "perm.user.restricted")
+            sendMsg("permissions", c.source, "perm.user.restricted")
             return 0
         }
         val targetUser = StringArgumentType.getString(c, "nickname")
         val targetNode = StringArgumentType.getString(c, "node")
         PermissionsAPI.setUserPermissionNode(targetUser, targetNode)
         if (c.isPlayerSender()) {
-            sendMsg(c.source, "perm.user.remove.success", targetNode, targetUser)
+            sendMsg(
+                "permissions",
+                c.source,
+                "perm.user.remove.success",
+                targetNode,
+                targetUser
+            )
         } else {
             logger.info("Permission $targetNode removed from user $targetUser")
         }

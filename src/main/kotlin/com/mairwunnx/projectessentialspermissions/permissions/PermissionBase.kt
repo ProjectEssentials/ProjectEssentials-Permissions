@@ -1,7 +1,6 @@
 package com.mairwunnx.projectessentialspermissions.permissions
 
-import com.mairwunnx.projectessentialspermissions.helpers.MOD_CONFIG_FOLDER
-import com.mairwunnx.projectessentialspermissions.helpers.PERMISSIONS_CONFIG
+import com.mairwunnx.projectessentialscore.helpers.MOD_CONFIG_FOLDER
 import kotlinx.serialization.UnstableDefault
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonConfiguration
@@ -24,31 +23,34 @@ internal object PermissionBase {
     )
 
     internal fun loadData() {
+        val permissionConfig = MOD_CONFIG_FOLDER + File.separator + "permissions.json"
         logger.info("    - loading user permissions data ...")
         logger.debug("        - setup json configuration for parsing ...")
-        if (!File(PERMISSIONS_CONFIG).exists()) {
+        if (!File(permissionConfig).exists()) {
             logger.warn("        - permission config not exist! creating it now!")
             createConfigDirs(MOD_CONFIG_FOLDER)
             val defaultConfig = json.stringify(
                 PermissionData.serializer(),
                 permissionData
             )
-            File(PERMISSIONS_CONFIG).writeText(defaultConfig)
+            File(permissionConfig).writeText(defaultConfig)
         }
-        val permConfigRaw = File(PERMISSIONS_CONFIG).readText()
+        val permConfigRaw = File(permissionConfig).readText()
         permissionData = Json.parse(PermissionData.serializer(), permConfigRaw)
     }
 
     internal fun saveData() {
+        val permissionConfig = MOD_CONFIG_FOLDER + File.separator + "permissions.json"
         logger.info("    - saving user permissions data ...")
         createConfigDirs(MOD_CONFIG_FOLDER)
         val permConfig = json.stringify(
             PermissionData.serializer(),
             permissionData
         )
-        File(PERMISSIONS_CONFIG).writeText(permConfig)
+        File(permissionConfig).writeText(permConfig)
     }
 
+    @Suppress("SameParameterValue")
     private fun createConfigDirs(path: String) {
         logger.info("        - creating config directory for user data ($path)")
         val configDirectory = File(path)

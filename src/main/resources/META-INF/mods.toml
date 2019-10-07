@@ -4,7 +4,7 @@ issueTrackerURL="https://github.com/ProjectEssentials/ProjectEssentials-Permissi
 
 [[mods]]
     modId="project_essentials_permissions"
-    version="1.14.4-0.1.0.2"
+    version="1.14.4-0.1.1.0"
     displayName="Project Essentials Permissions"
     updateJSONURL="https://raw.githubusercontent.com/ProjectEssentials/ProjectEssentials-Permissions/MC-1.14.X/update.json"
     displayURL="https://github.com/ProjectEssentials/ProjectEssentials-Permissions"
@@ -16,6 +16,13 @@ issueTrackerURL="https://github.com/ProjectEssentials/ProjectEssentials-Permissi
 
     Also it just permission API for forge.
     '''
+
+[[dependencies.projectessentialspermissions]]
+    modId="project_essentials_core"
+    mandatory=true
+    versionRange="[1,)"
+    ordering="NONE"
+    side="BOTH"
 
 [[dependencies.projectessentialspermissions]]
     modId="forge"
