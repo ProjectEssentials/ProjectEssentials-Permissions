@@ -3,6 +3,7 @@ package com.mairwunnx.projectessentialspermissions.commands
 import com.mairwunnx.projectessentialscore.extensions.isPlayerSender
 import com.mairwunnx.projectessentialscore.extensions.playerName
 import com.mairwunnx.projectessentialscore.extensions.sendMsg
+import com.mairwunnx.projectessentialscore.helpers.PERMISSION_LEVEL
 import com.mairwunnx.projectessentialspermissions.EntryPoint
 import com.mairwunnx.projectessentialspermissions.permissions.PermissionBase
 import com.mairwunnx.projectessentialspermissions.permissions.PermissionsAPI
@@ -15,6 +16,7 @@ import net.minecraft.command.CommandSource
 import net.minecraft.command.Commands
 import org.apache.logging.log4j.LogManager
 
+@Suppress("DuplicatedCode") // todo: DuplicatedCode warning.
 internal object PermissionsCommand {
     private val aliases = arrayOf("essentials", "ess")
     private val logger = LogManager.getLogger()
@@ -58,6 +60,11 @@ internal object PermissionsCommand {
                 )
             } else {
                 sendMsg("permissions", c.source, "perm.about.restricted")
+                logger.info(
+                    PERMISSION_LEVEL
+                        .replace("%0", c.playerName())
+                        .replace("%1", "essentials permissions")
+                )
             }
         } else {
             logger.info("        ${EntryPoint.modInstance.modName}")
@@ -85,6 +92,11 @@ internal object PermissionsCommand {
                 c.playerName(), "perm.reload"
             ) -> {
                 sendMsg("permissions", c.source, "perm.reload.restricted")
+                logger.info(
+                    PERMISSION_LEVEL
+                        .replace("%0", c.playerName())
+                        .replace("%1", "essentials permissions reload")
+                )
                 0
             }
             else -> {
@@ -114,6 +126,11 @@ internal object PermissionsCommand {
                 c.source.asPlayer().name.string, "ess.perm.save"
             ) -> {
                 sendMsg("permissions", c.source, "perm.save.restricted")
+                logger.info(
+                    PERMISSION_LEVEL
+                        .replace("%0", c.playerName())
+                        .replace("%1", "essentials permissions save")
+                )
                 0
             }
             else -> {
@@ -168,6 +185,11 @@ internal object PermissionsCommand {
             !PermissionsAPI.hasPermission(c.playerName(), "ess.perm.group")
         ) {
             sendMsg("permissions", c.source, "perm.group.restricted")
+            logger.info(
+                PERMISSION_LEVEL
+                    .replace("%0", c.playerName())
+                    .replace("%1", "essentials permissions group [...]")
+            )
             return 0
         }
         when {
@@ -184,6 +206,11 @@ internal object PermissionsCommand {
             !PermissionsAPI.hasPermission(c.playerName(), "ess.perm.group")
         ) {
             sendMsg("permissions", c.source, "perm.group.restricted")
+            logger.info(
+                PERMISSION_LEVEL
+                    .replace("%0", c.playerName())
+                    .replace("%1", "essentials permissions group [...]")
+            )
             return 0
         }
         val targetGroup = StringArgumentType.getString(c, "name")
@@ -208,6 +235,11 @@ internal object PermissionsCommand {
             !PermissionsAPI.hasPermission(c.playerName(), "ess.perm.group")
         ) {
             sendMsg("permissions", c.source, "perm.group.restricted")
+            logger.info(
+                PERMISSION_LEVEL
+                    .replace("%0", c.playerName())
+                    .replace("%1", "essentials permissions group [...]")
+            )
             return 0
         }
         val targetGroup = StringArgumentType.getString(c, "name")
@@ -277,6 +309,11 @@ internal object PermissionsCommand {
             !PermissionsAPI.hasPermission(c.playerName(), "ess.perm.user")
         ) {
             sendMsg("permissions", c.source, "perm.user.restricted")
+            logger.info(
+                PERMISSION_LEVEL
+                    .replace("%0", c.playerName())
+                    .replace("%1", "essentials permissions user [...]")
+            )
             return 0
         }
         when {
@@ -295,6 +332,11 @@ internal object PermissionsCommand {
             !PermissionsAPI.hasPermission(c.playerName(), "ess.perm.user")
         ) {
             sendMsg("permissions", c.source, "perm.user.restricted")
+            logger.info(
+                PERMISSION_LEVEL
+                    .replace("%0", c.playerName())
+                    .replace("%1", "essentials permissions user [...]")
+            )
             return 0
         }
         val targetUser = StringArgumentType.getString(c, "nickname")
@@ -319,6 +361,11 @@ internal object PermissionsCommand {
             !PermissionsAPI.hasPermission(c.playerName(), "ess.perm.user")
         ) {
             sendMsg("permissions", c.source, "perm.user.restricted")
+            logger.info(
+                PERMISSION_LEVEL
+                    .replace("%0", c.playerName())
+                    .replace("%1", "essentials permissions user [...]")
+            )
             return 0
         }
         val targetUser = StringArgumentType.getString(c, "nickname")
@@ -354,6 +401,11 @@ internal object PermissionsCommand {
             !PermissionsAPI.hasPermission(c.playerName(), "ess.perm.user")
         ) {
             sendMsg("permissions", c.source, "perm.user.restricted")
+            logger.info(
+                PERMISSION_LEVEL
+                    .replace("%0", c.playerName())
+                    .replace("%1", "essentials permissions user [...]")
+            )
             return 0
         }
         val targetUser = StringArgumentType.getString(c, "nickname")

@@ -37,6 +37,17 @@ internal object PermissionBase {
         }
         val permConfigRaw = File(permissionConfig).readText()
         permissionData = Json.parse(PermissionData.serializer(), permConfigRaw)
+        logger.info("*** PermissionsAPI by Project Essentials!")
+        logger.info("    - loaded groups (${permissionData.groups.size})")
+        permissionData.groups.forEach {
+            logger.info("        - name: ${it.name}; nodes: ${it.permissions.size}")
+        }
+        logger.info("    - loaded users (${permissionData.users.size}): first 17 users!")
+        permissionData.users.slice(0..16).forEach {
+            logger.info(
+                "        - name: ${it.nickname}; group: ${it.group}; nodes: ${it.permissions.size}"
+            )
+        }
     }
 
     internal fun saveData() {

@@ -1,10 +1,10 @@
 {
-  "homepage": "https://github.com/ProjectEssentials/ProjectEssentials-Permissions/releases/tag/v1.14.4-0.1.1.0",
+  "homepage": "https://github.com/ProjectEssentials/ProjectEssentials-Permissions/releases/tag/v1.14.4-0.2.0.0",
   "1.14.4": {
-    "1.14.4-0.1.1.0": " - Fixed some wrong meta information for mod."
+    "1.14.4-0.2.0.0": " - Improved configuration logging after loading."
   },
   "promos": {
-    "1.14.4-latest": "1.14.4-0.1.1.0",
-    "1.14.4-recommended": "1.14.4-0.1.1.0"
+    "1.14.4-latest": "1.14.4-0.2.0.0",
+    "1.14.4-recommended": "1.14.4-0.2.0.0"
   }
 }
