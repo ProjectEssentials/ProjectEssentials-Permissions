@@ -410,7 +410,7 @@ internal object PermissionsCommand {
         }
         val targetUser = StringArgumentType.getString(c, "nickname")
         val targetNode = StringArgumentType.getString(c, "node")
-        PermissionsAPI.setUserPermissionNode(targetUser, targetNode)
+        PermissionsAPI.removeUserPermission(targetUser, targetNode)
         if (c.isPlayerSender()) {
             sendMsg(
                 "permissions",
