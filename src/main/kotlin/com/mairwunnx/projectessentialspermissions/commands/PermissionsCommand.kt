@@ -1,5 +1,6 @@
 package com.mairwunnx.projectessentialspermissions.commands
 
+import com.mairwunnx.projectessentialscooldown.essentials.CommandsAliases
 import com.mairwunnx.projectessentialscore.extensions.isPlayerSender
 import com.mairwunnx.projectessentialscore.extensions.playerName
 import com.mairwunnx.projectessentialscore.extensions.sendMsg
@@ -16,12 +17,13 @@ import net.minecraft.command.CommandSource
 import net.minecraft.command.Commands
 import org.apache.logging.log4j.LogManager
 
-@Suppress("DuplicatedCode") // todo: DuplicatedCode warning.
+@Suppress("DuplicatedCode")
 internal object PermissionsCommand {
-    private val aliases = arrayOf("essentials", "ess")
+    private val aliases = listOf("essentials", "ess")
     private val logger = LogManager.getLogger()
 
     internal fun register(dispatcher: CommandDispatcher<CommandSource>) {
+        assignAliases()
         aliases.forEach { command ->
             dispatcher.register(
                 literal<CommandSource>(command).then(
@@ -32,6 +34,17 @@ internal object PermissionsCommand {
                         .then(buildSaveCommand())
                 )
             )
+        }
+    }
+
+    private fun assignAliases() {
+        try {
+            Class.forName(
+                "com.mairwunnx.projectessentialscooldown.essentials.CommandsAliases"
+            )
+            CommandsAliases.aliases["essentials"] = mutableListOf("ess")
+        } catch (_: ClassNotFoundException) {
+            // ignored
         }
     }
 
@@ -101,6 +114,7 @@ internal object PermissionsCommand {
             }
             else -> {
                 PermissionBase.loadData()
+                assignAliases()
                 when {
                     c.isPlayerSender() -> sendMsg(
                         "permissions", c.source, "perm.reload.success"
