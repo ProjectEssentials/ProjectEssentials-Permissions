@@ -42,7 +42,7 @@ internal object PermissionsCommand {
             Class.forName(
                 "com.mairwunnx.projectessentialscooldown.essentials.CommandsAliases"
             )
-            CommandsAliases.aliases["essentials"] = mutableListOf("ess")
+            CommandsAliases.aliases["essentials"] = aliases.toMutableList()
         } catch (_: ClassNotFoundException) {
             // ignored
         }
