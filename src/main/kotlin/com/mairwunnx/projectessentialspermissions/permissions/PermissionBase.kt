@@ -43,7 +43,8 @@ internal object PermissionBase {
             logger.info("        - name: ${it.name}; nodes: ${it.permissions.size}")
         }
         logger.info("    - loaded users (${permissionData.users.size}): first 17 users!")
-        permissionData.users.slice(0..16).forEach {
+        val maxUsers = if (permissionData.users.size - 1 >= 16) 16 else permissionData.users.size -1
+        permissionData.users.slice(0..maxUsers).forEach {
             logger.info(
                 "        - name: ${it.nickname}; group: ${it.group}; nodes: ${it.permissions.size}"
             )
