@@ -35,11 +35,6 @@ version = projectEssentialsVersion
 group = "com.mairwunnx.$projectEssentialsId"
 archivesBaseName = projectEssentialsName
 
-configurations {
-    modClientDependencies
-    modServerDependencies
-}
-
 minecraft {
     mappings(
         channel: mappingsChannelType,
@@ -102,36 +97,6 @@ dependencies {
         name: "ProjectEssentials-Cooldown",
         version: "v1.14.4-1.0.1.0"
     )
-}
-
-task installMods(type: Copy) {
-    dependsOn("installClientMods")
-    dependsOn("installServerMods")
-}
-
-task installClientMods(type: Copy, dependsOn: "deinstallClientMods") {
-    from { configurations.modClientDependencies }
-    include("**/*.jar")
-    into(file("$devRunClientPath/mods"))
-}
-
-task installServerMods(type: Copy, dependsOn: "deinstallServerMods") {
-    from { configurations.modServerDependencies }
-    include("**/*.jar")
-    into(file("$devRunServerPath/mods"))
-}
-
-task deinstallClientMods(type: Delete) {
-    delete(fileTree(dir: "$devRunClientPath/mods", include: "*.jar"))
-}
-
-task deinstallServerMods(type: Delete) {
-    delete(fileTree(dir: "$devRunServerPath/mods", include: "*.jar"))
-}
-
-project.afterEvaluate {
-    project.tasks["prepareRuns"].dependsOn(project.tasks["installClientMods"])
-    project.tasks["prepareRuns"].dependsOn(project.tasks["installServerMods"])
 }
 
 dokka {
