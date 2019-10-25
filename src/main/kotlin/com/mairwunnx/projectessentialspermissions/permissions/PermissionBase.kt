@@ -10,7 +10,7 @@ import java.io.File
 @UseExperimental(UnstableDefault::class)
 internal object PermissionBase {
     private val logger = LogManager.getLogger()
-    internal var permissionData = PermissionData()
+    internal var permissionData = PermissionModel()
     private val json = Json(
         JsonConfiguration(
             encodeDefaults = true,
@@ -30,13 +30,13 @@ internal object PermissionBase {
             logger.warn("        - permission config not exist! creating it now!")
             createConfigDirs(MOD_CONFIG_FOLDER)
             val defaultConfig = json.stringify(
-                PermissionData.serializer(),
+                PermissionModel.serializer(),
                 permissionData
             )
             File(permissionConfig).writeText(defaultConfig)
         }
         val permConfigRaw = File(permissionConfig).readText()
-        permissionData = Json.parse(PermissionData.serializer(), permConfigRaw)
+        permissionData = Json.parse(PermissionModel.serializer(), permConfigRaw)
         logger.info("*** PermissionsAPI by Project Essentials!")
         logger.info("    - loaded groups (${permissionData.groups.size})")
         permissionData.groups.forEach {
@@ -56,7 +56,7 @@ internal object PermissionBase {
         logger.info("    - saving user permissions data ...")
         createConfigDirs(MOD_CONFIG_FOLDER)
         val permConfig = json.stringify(
-            PermissionData.serializer(),
+            PermissionModel.serializer(),
             permissionData
         )
         File(permissionConfig).writeText(permConfig)

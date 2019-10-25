@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
  * @since 1.14.4-0.1.0.0
  */
 @Serializable
-data class PermissionData(
+data class PermissionModel(
     /**
      * stores all registered groups.
      */

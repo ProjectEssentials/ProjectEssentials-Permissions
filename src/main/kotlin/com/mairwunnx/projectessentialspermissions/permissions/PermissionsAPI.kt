@@ -16,7 +16,7 @@ object PermissionsAPI {
      */
     fun getUserGroup(
         playerNickName: String
-    ): PermissionData.Group {
+    ): PermissionModel.Group {
         PermissionBase.permissionData.users.forEach { user ->
             if (user.nickname == playerNickName) {
                 PermissionBase.permissionData.groups.forEach { group ->
@@ -27,7 +27,7 @@ object PermissionsAPI {
                 }
             }
         }
-        return PermissionData.Group()
+        return PermissionModel.Group()
     }
 
     /**
@@ -53,7 +53,7 @@ object PermissionsAPI {
      * @since 1.14.4-0.1.0.0
      */
     fun getGroupPermissions(
-        groupInstance: PermissionData.Group
+        groupInstance: PermissionModel.Group
     ): List<String> {
         PermissionBase.permissionData.groups.forEach { group ->
             if (group.name == groupInstance.name) return group.permissions
@@ -107,11 +107,11 @@ object PermissionsAPI {
      * @return default group in what defined configuration file.
      * @since 1.14.4-0.1.0.0
      */
-    fun getDefaultGroup(): PermissionData.Group {
+    fun getDefaultGroup(): PermissionModel.Group {
         PermissionBase.permissionData.groups.forEach {
             if (it.isDefault) return it
         }
-        return PermissionData.Group()
+        return PermissionModel.Group()
     }
 
     /**
@@ -154,7 +154,7 @@ object PermissionsAPI {
      * @since 1.14.4-0.1.0.0
      */
     fun setGroupPermissionNode(
-        groupInstance: PermissionData.Group,
+        groupInstance: PermissionModel.Group,
         node: String
     ) {
         PermissionBase.permissionData.groups.forEach { group ->
@@ -179,7 +179,7 @@ object PermissionsAPI {
                 return
             }
         }
-        PermissionBase.permissionData.users += PermissionData.User(
+        PermissionBase.permissionData.users += PermissionModel.User(
             playerNickName,
             getDefaultGroup().name,
             listOf(node)
@@ -202,7 +202,7 @@ object PermissionsAPI {
                 return
             }
         }
-        PermissionBase.permissionData.users += PermissionData.User(
+        PermissionBase.permissionData.users += PermissionModel.User(
             playerNickName,
             groupName,
             emptyList()
@@ -217,7 +217,7 @@ object PermissionsAPI {
      */
     fun setUserPermissionGroup(
         playerNickName: String,
-        groupInstance: PermissionData.Group
+        groupInstance: PermissionModel.Group
     ) {
         PermissionBase.permissionData.users.forEach {
             if (it.nickname == playerNickName) {
@@ -225,7 +225,7 @@ object PermissionsAPI {
                 return
             }
         }
-        PermissionBase.permissionData.users += PermissionData.User(
+        PermissionBase.permissionData.users += PermissionModel.User(
             playerNickName,
             groupInstance.name,
             emptyList()
@@ -259,7 +259,7 @@ object PermissionsAPI {
      * @since 1.14.4-0.1.0.0
      */
     fun removeGroupPermission(
-        groupInstance: PermissionData.Group,
+        groupInstance: PermissionModel.Group,
         node: String
     ) {
         PermissionBase.permissionData.groups.forEach { group ->
