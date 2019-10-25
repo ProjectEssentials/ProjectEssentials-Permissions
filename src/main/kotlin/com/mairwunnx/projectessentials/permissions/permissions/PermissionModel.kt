@@ -1,4 +1,4 @@
-package com.mairwunnx.projectessentialspermissions.permissionss
+package com.mairwunnx.projectessentials.permissions.permissions
 
 import com.mairwunnx.projectessentialscore.extensions.empty
 import kotlinx.serialization.Serializable

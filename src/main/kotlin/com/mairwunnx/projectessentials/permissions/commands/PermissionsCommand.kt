@@ -1,4 +1,4 @@
-package com.mairwunnx.projectessentialspermissions.commands
+package com.mairwunnx.projectessentials.permissions.commands
 
 import com.mairwunnx.projectessentialscooldown.essentials.CommandsAliases
 import com.mairwunnx.projectessentialscore.extensions.isPlayerSender

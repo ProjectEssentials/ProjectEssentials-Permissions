@@ -1,4 +1,4 @@
-package com.mairwunnx.projectessentialspermissions.permissions
+package com.mairwunnx.projectessentials.permissions.permissions
 
 import com.mairwunnx.projectessentialscore.helpers.MOD_CONFIG_FOLDER
 import kotlinx.serialization.UnstableDefault

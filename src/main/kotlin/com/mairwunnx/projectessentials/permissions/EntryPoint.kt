@@ -1,4 +1,4 @@
-package com.mairwunnx.projectessentialspermissions
+package com.mairwunnx.projectessentials.permissions
 
 import com.mairwunnx.projectessentialscore.EssBase
 import com.mairwunnx.projectessentialspermissions.commands.PermissionsCommand
