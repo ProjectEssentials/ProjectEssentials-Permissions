@@ -47,7 +47,6 @@ data class PermissionModel(
         /**
          * stores groups whose permissions must
          * inherit it group.
-         *
          * @since 1.14.4-1.0.0.0
          */
         var inheritFrom: List<String> = emptyList()
