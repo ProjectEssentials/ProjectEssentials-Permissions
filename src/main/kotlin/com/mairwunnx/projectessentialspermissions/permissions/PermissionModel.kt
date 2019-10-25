@@ -15,12 +15,8 @@ data class PermissionModel(
      * stores all registered groups.
      */
     var groups: List<Group> = listOf(
-        Group(
-            "default",
-            true,
-            listOf()
-        ),
-        Group("owner", false, listOf("*"))
+        Group("default", true, listOf(), listOf()),
+        Group("owner", false, listOf("*"), listOf("default"))
     ),
     /**
      * stores all registered users.
@@ -47,7 +43,12 @@ data class PermissionModel(
         /**
          * stores all group permissions.
          */
-        var permissions: List<String> = emptyList()
+        var permissions: List<String> = emptyList(),
+        /**
+         * stores groups whose permissions must
+         * inherit it group.
+         */
+        var inheritFrom: List<String> = emptyList()
     )
 
     /**
