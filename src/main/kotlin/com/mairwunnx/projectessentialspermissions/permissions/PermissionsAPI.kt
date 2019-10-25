@@ -178,7 +178,31 @@ object PermissionsAPI {
         isServerSender: Boolean = false
     ): Boolean {
         if (isServerSender) return true
+
+        var shortenedVariants = emptyList<String>()
+        if (!node.contains(".*")) {
+            shortenedVariants = node.split('.')
+        }
         val permissions = getAllUserPermissions(playerNickName)
+
+        for ((index, it) in shortenedVariants.withIndex()) {
+            if (index == 0 && shortenedVariants.count() == 1) {
+                if (permissions.contains("$it.*")) return true
+            }
+
+            var nodesPart = String.empty
+            for (nodePartIndex in 0..index) {
+                nodesPart += if (nodePartIndex == index) {
+                    shortenedVariants[nodePartIndex] + ".*"
+                } else {
+                    shortenedVariants[nodePartIndex] + "."
+                }
+            }
+
+            val permissionString = nodesPart
+            if (permissions.contains(permissionString)) return true
+        }
+
         return permissions.contains(node) || permissions.contains("*")
     }
 
