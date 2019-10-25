@@ -102,7 +102,7 @@ internal object PermissionsCommand {
     ): Int {
         return when {
             c.isPlayerSender() && !PermissionsAPI.hasPermission(
-                c.playerName(), "perm.reload"
+                c.playerName(), "ess.perm.reload"
             ) -> {
                 sendMsg("permissions", c.source, "perm.reload.restricted")
                 logger.info(
