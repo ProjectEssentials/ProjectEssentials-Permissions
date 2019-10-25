@@ -1,6 +1,7 @@
 {
-  "homepage": "https://github.com/ProjectEssentials/ProjectEssentials-Permissions/releases/tag/v1.14.4-0.2.0.0",
+  "homepage": "https://github.com/ProjectEssentials/ProjectEssentials-Permissions/releases/tag/v1.14.4-1.0.0.0",
   "1.14.4": {
+    "1.14.4-1.0.0.0": " - build.gradle little file refactoring.\n - Implemented permission groups inheritance permissions.",
     "1.14.4-0.2.0.0": " - Improved configuration logging after loading.\n - Fixed incorrect permission removing from user\n - Fixed mod crash on loading permission data for users.\n - Fixed incorrect command aliases registering.",
     "1.14.4-0.1.1.0": " - Code cleanup. Added core module as dependency.",
     "1.14.4-0.1.0.2": " - Fixed some wrong meta information for mod.",
@@ -8,7 +9,7 @@
     "1.14.4-0.1.0.0": " - Initial release of PermissionsAPI as Project Essentials part."
   },
   "promos": {
-    "1.14.4-latest": "1.14.4-0.2.0.0",
-    "1.14.4-recommended": "1.14.4-0.2.0.0"
+    "1.14.4-latest": "1.14.4-1.0.0.0",
+    "1.14.4-recommended": "1.14.4-1.0.0.0"
   }
 }
