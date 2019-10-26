@@ -1,4 +1,4 @@
-package com.mairwunnx.projectessentialspermissions.permissions
+package com.mairwunnx.projectessentials.permissions.permissions
 
 import com.mairwunnx.projectessentialscore.extensions.empty
 
