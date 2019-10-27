@@ -78,23 +78,23 @@ Additional information:
 
 > ## Made with 💕 by [MairwunNx](https://mairwunnx.github.io/)
 
-## 🥰😍 Powered by JetBrains product licenses, Intellij Ultimate, Kotlin language and Forge modding API!
+## 🥰 Powered by JetBrains product licenses, Intellij Ultimate, Kotlin language and Forge modding API!
 
 <p align="center">
     <a href="https://www.jetbrains.com">
-        <img style="padding-right: 20px" src="jetbrains.svg" width="132">
+        <img style="padding-right: 20px" src="logos/jetbrains.svg" width="132">
     </a>
     <a href="https://www.jetbrains.com/idea/">
-        <img src="intellijidea.svg" width="142">
+        <img src="logos/intellijidea.svg" width="142">
     </a>
     <a href="https://kotlinlang.org/">
-        <img style="padding-left: 20px" src="kotlin.svg" width="142">
+        <img style="padding-left: 20px" src="logos/kotlin.svg" width="142">
     </a>
 </p>
 
 <p align="center">
     <a href="https://www.minecraftforge.net/forum/">
-        <img style="padding-left: 20px; padding-top: 30px" src="forge.svg" height="160">
+        <img style="padding-left: 20px; padding-top: 30px" src="logos/forge.svg" height="160">
     </a>
 </p>
 
