@@ -1,7 +1,7 @@
 ## 🔒 Project Essentials: PermissionsAPI
 
 [![](https://jitpack.io/v/projectessentials/ProjectEssentials-Permissions.svg)](https://jitpack.io/#projectessentials/ProjectEssentials-Permissions)
-[![GitHub tag][latest-release-badge]][latest-release]
+![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/ProjectEssentials/ProjectEssentials-Permissions?include_prereleases)
 ![GitHub](https://img.shields.io/github/license/ProjectEssentials/ProjectEssentials-Permissions)
 [![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
 [![Telegram Group](https://img.shields.io/badge/Telegram-Group-blue.svg)](https://t.me/minecraftforge)
