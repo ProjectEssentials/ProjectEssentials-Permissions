@@ -77,3 +77,24 @@ Additional information:
 ### **Note:** this library is written in kotlin, but in java you can work with this API too, but there may be some not beautiful moments. One of these points is that you will see all the properties and fields with internal modifiers (in my library).
 
 > ## Made with 💕 by [MairwunNx](https://mairwunnx.github.io/)
+
+## 🥰😍 Powered by JetBrains product licenses, Intellij Ultimate, Kotlin language and Forge modding API!
+
+<p align="center">
+    <a href="https://www.jetbrains.com">
+        <img style="padding-right: 20px" src="jetbrains.svg" width="132">
+    </a>
+    <a href="https://www.jetbrains.com/idea/">
+        <img src="intellijidea.svg" width="142">
+    </a>
+    <a href="https://kotlinlang.org/">
+        <img style="padding-left: 20px" src="kotlin.svg" width="142">
+    </a>
+</p>
+
+<p align="center">
+    <a href="https://www.minecraftforge.net/forum/">
+        <img style="padding-left: 20px; padding-top: 30px" src="forge.svg" height="160">
+    </a>
+</p>
+
