@@ -2,6 +2,7 @@
 
 [![](https://jitpack.io/v/projectessentials/ProjectEssentials-Permissions.svg)](https://jitpack.io/#projectessentials/ProjectEssentials-Permissions)
 ![GitHub](https://img.shields.io/github/license/ProjectEssentials/ProjectEssentials-Permissions)
+[![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
 
 > ## Permissions API for Forge mods.
 
