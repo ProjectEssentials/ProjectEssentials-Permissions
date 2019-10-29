@@ -1,6 +1,6 @@
 > ## Documentation for basically using PermissionsAPI.
 
-## 1. For playing and running minecraft:
+## 1. For playing and running Minecraft:
 
 #### 1.1 Download Permissions API mod module.
 
@@ -12,7 +12,7 @@ Releases page: https://github.com/ProjectEssentials/ProjectEssentials-Permission
 
 The minecraft forge folder structure below will help you understand what is written below.
 
-Also don't forget install dependency:
+Also, don't forget to install dependency:
   - core: https://github.com/ProjectEssentials/ProjectEssentials-Core/releases
 
 
@@ -42,7 +42,7 @@ We understand that there are lazy people who do not like to dig into files (lol,
 ```
 /essentials permissions
 
-- description: base command of permissions api module; just send you about message.
+- description: base command of permissions API module; just send you about the message.
 
 - permission: ess.perm
 ```
@@ -66,7 +66,7 @@ We understand that there are lazy people who do not like to dig into files (lol,
 ```
 /essentials permissions group <name> [set | remove] <node>
 
-- description: remove or set permission for target group.
+- description: remove or set permission for the target group.
 
 - permission: ess.perm.group
 ```
@@ -78,7 +78,7 @@ OR
 
 /essentials permissions user <name> set <group name>
 
-- description: remove or set user permission node, or only set group for user.
+- description: remove or set user permission node or only set group for the user.
 
 - permission: ess.perm.user
 ```
@@ -97,9 +97,9 @@ Like many modifications, the Permissions API has its own modification; it stores
 
 #### 2.2.1 Configuration file Location.
 
-Due to the different file structure on the server and the client of the minecraft, technically we must use different paths for the two sides.
+Due to the different file structure on the server and the client of the Minecraft, technically we must use different paths for the two sides.
 
-The differences in the paths are primarily due to the different locations of the kernel of minecraft version, but for the average person, the paths will be exactly the same, i.e. like that.
+The differences in the paths are primarily due to the different locations of the kernel of the Minecraft version, but for the average person, the paths will be exactly the same, i.e. like that.
 
     server: ./config/ProjectEssentials/permissions.json
     client: ./config/ProjectEssentials/permissions.json
@@ -114,7 +114,7 @@ The differences in the paths are primarily due to the different locations of the
 
 `isDefault` only accepts a boolean value; if false, the group will not be set by default; if true, the group will be used as the default; **Note:** at least one group must be with the value `true`, if this is not so, I do not know what will happen, **I did not check**.
 
-`permissions` is a string array, it just records the rights for a specific group. If you are not familiar with `json`, I strongly recommend that you see what it is. **Note:** if the `permissions` array has `"*"`, then this is equivalent to the **operator’s permissions or just gives all the permissions** that the PermissionsAPI controls.
+`permissions` is a string array, it just records the rights for a specific group. If you are not familiar with `json`, I strongly recommend that you see what it is. **Note:** If the `permissions` array has `"*"`, then this is equivalent to the **operator’s permissions or just gives all the permissions** that the PermissionsAPI controls.
 
 ##### 2.2.2.2 `users` configuration section.
 
@@ -124,11 +124,11 @@ The differences in the paths are primarily due to the different locations of the
 
 `group` is the name of the group in which the player is entitled.
 
-`permissions` is a list of rights that belong to a specific player, they can serve as a finer setting of rights; **Note:** if the player has a group, then the rights that are written by the player will be added to the rights that he received from the group. **In short: these are just additional rights for the player.**
+`permissions` is a list of rights that belong to a specific player, they can serve as a finer setting of rights; **Note:** If the player has a group, then the rights that are written by the player will be added to the rights that he received from the group. **In short: these are just additional rights for the player.**
 
 ##### 2.2.2.3 Just in case.
 
-If something goes according to the cunt, and your configuration flies, just delete the configuration or take the default configuration from here.
+If something goes according to the cunt, and your configuration files, just delete the configuration or take the default configuration from here.
 
 **Default configuration**:
 
@@ -158,7 +158,7 @@ If something goes according to the cunt, and your configuration flies, just dele
 
 ### 2.3 API usage.
 
-I could not write this damn documentation at all and spend time on it, because it is so fucking understandable. But just in case, I will nevertheless sign here some trifles.
+I could not write this damn documentation at all and spend time on it because it is so fucking understandable. But just in case, I will nevertheless sign here some trifles.
 
 Let's start small?
 
@@ -172,22 +172,22 @@ PermissionsAPI.hasPermission
     - node - permission node as string, e.g ess.weather (string)
     - isServerSender - needed for additional checking permissions. ((boolean) by default is false)
 
-- return: true if user have permission, else return false. (boolean)
+- return: true if the user has permission, else return false. (boolean)
 ```
 
 ```
 PermissionsAPI.getAllUserPermissions
 
 - accepts:
-    - playerNickName - nickname of target player. (string)
+    - playerNickName - the nickname of the target player. (string)
 
-- return: list with all able user and group for user permissions. (list with string type)
+- return: list with all able users and groups for user permissions. (list with string type)
 ```
 
 ```
 PermissionsAPI.getDefaultGroup
 
-- description: NOTE: if default group not exist then return group without permissions and without name.
+- description: NOTE: if default group does not exist then return group without permissions and without a name.
 
 - return: default group in what defined configuration file. (Group class instance)
 ```
@@ -207,16 +207,16 @@ PermissionsAPI.getGroupPermissions
 PermissionsAPI.getUserGroup
 
 - accepts:
-    - playerNickName - nickname of target player. (string)
+    - playerNickName - the nickname of the target player. (string)
 
-- return: instance of the class of the rights group the user belongs to. (Group class instance)
+- return: an instance of the class of the rights group the user belongs to. (Group class instance)
 ```
 
 ```
 PermissionsAPI.getUserPermissions
 
 - accepts:
-    - playerNickName - nickname of target player. (string)
+    - playerNickName - the nickname of the target player. (string)
 
 - return: list with all able user permissions. (list with string type)
 ```
@@ -224,7 +224,7 @@ PermissionsAPI.getUserPermissions
 ```
 PermissionsAPI.removeGroupPermission
 
-- description: Remove permission node from group.
+- description: Remove permission node from the group.
 
 - accepts:
     - groupName - just group name. (string)
@@ -260,7 +260,7 @@ PermissionsAPI.setGroupPermissionNode
 ```
 PermissionsAPI.setUserPermissionGroup
 
-- description: Install \ Set new permission group for user.
+- description: Install \ Set a new permission group for the user.
 
 - accepts:
     - playerNickName - nickname of target player. (string)
@@ -273,7 +273,7 @@ PermissionsAPI.setUserPermissionGroup
 ```
 PermissionsAPI.setUserPermissionNode
 
-- description: Install \ Add new permission for user.
+- description: Install \ Add new permission for the user.
 
 - accepts:
     - playerNickName - nickname of target player. (string)
@@ -283,3 +283,5 @@ PermissionsAPI.setUserPermissionNode
 ## These are all API methods, I think you understand that everything is very simple.
 
 ### For all questions, be sure to write issues!
+
+
