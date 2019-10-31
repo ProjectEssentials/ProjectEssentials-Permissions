@@ -1,10 +1,10 @@
-> ## Documentation for basically using PermissionsAPI.
+> ## Documentation for basic use of the PermissionsAPI.
 
 ## 1. For playing and running Minecraft:
 
 #### 1.1 Download Permissions API mod module.
 
-Visit **Permissions API** repository on github, visit **releases** tab and download `.jar` files of latest _pre-release_ / release (**recommended**)
+Visit **Permissions API** repository on github, visit **releases** tab and download the `.jar` files of latest _pre-release_ / release (**recommended**)
 
 Releases page: https://github.com/ProjectEssentials/ProjectEssentials-Permissions/releases
 
@@ -12,7 +12,7 @@ Releases page: https://github.com/ProjectEssentials/ProjectEssentials-Permission
 
 The minecraft forge folder structure below will help you understand what is written below.
 
-Also, don't forget to install dependency:
+Also, don't forget to install the dependency:
   - core: https://github.com/ProjectEssentials/ProjectEssentials-Core/releases
 
 
@@ -33,11 +33,11 @@ Place your mods and Permissions API mods according to the structure above.
 
 Run the game, check the number of mods, if the list of mods contains `Project Essentials Permissions` mod, then the mod has successfully passed the initialization of the modification.
 
-After that, go into a single world, then try to write the `/essentials permissions` command, if you **get an error** that you do not have permissions, then the modification works as it should.
+After that, go into a single world, then try to write the `/essentials permissions` command, if you **get an error** that you do not have permissions, it means that the modification works as it should.
 
 #### 1.4 Control permissions via minecraft commands.
 
-We understand that there are lazy people who do not like to dig into files (lol, although it’s easier through a file), we made the commands for you:
+We understand that there are lazy people who do not like to dig into files (lol, although it’s easier through a file), therefore we made these commands for you:
 
 ```
 /essentials permissions
@@ -83,13 +83,13 @@ OR
 - permission: ess.perm.user
 ```
 
-## 2. For developing and developers:
+## 2. For developers:
 
 ### 2.1 Getting started with installing.
 
 To get the Permissions API source for development and interactions with the rights of players, you need to get the dependencies and get the documentation to view it in your IDE.
 
-Installation documentation is located in the readme file or just follow the link: https://github.com/ProjectEssentials/ProjectEssentials-Permissions#-install-using-gradle
+Installation documentation is located in the readme file (or just follow the link): https://github.com/ProjectEssentials/ProjectEssentials-Permissions#-install-using-gradle
 
 ### 2.2 Configuration.
 
@@ -108,17 +108,17 @@ The differences in the paths are primarily due to the different locations of the
 
 ##### 2.2.2.1 `groups` configuration section.
 
-`groups` contains an array of groups, each element of the array (group) must have the `name`, `isDefault` and `permissions` properties, if there is no property, the default value will be used, but I strongly recommend writing all the properties to manual.
+`groups` contains an array of groups, each element of the array (group) must have the `name`, `isDefault` and `permissions` properties, if there is no property, the default value will be used, but I strongly recommend adding all the properties manually.
 
-`name` is the name of the group; it should preferably not contain any characters other than letters; **This property must be required**.
+`name` is the name of the group; it should preferably not contain any characters other than letters; **This property is required**.
 
-`isDefault` only accepts a boolean value; if false, the group will not be set by default; if true, the group will be used as the default; **Note:** at least one group must be with the value `true`, if this is not so, I do not know what will happen, **I did not check**.
+`isDefault` only accepts a boolean value; if false, the group will not be set by default; if true, the group will be used as the default; **Note:** at least one group must have the value `true`, if this is not the case, I do not know what will happen, **I did not check**.
 
-`permissions` is a string array, it just records the rights for a specific group. If you are not familiar with `json`, I strongly recommend that you see what it is. **Note:** If the `permissions` array has `"*"`, then this is equivalent to the **operator’s permissions or just gives all the permissions** that the PermissionsAPI controls.
+`permissions` is a string array, it just records the rights for a specific group. If you are not familiar with `json`, I strongly recommend that you get familiar with it. **Note:** If the `permissions` array has `"*"`, then this is equivalent to the **operator’s permissions or just gives all the permissions** that the PermissionsAPI controls.
 
 ##### 2.2.2.2 `users` configuration section.
 
-`users` contains an array of users, each element of the array (user) must have the `nickname`, `group` and `permissions` properties, if there is no property, the default value will be used, but I strongly recommend writing all the properties to manual.
+`users` contains an array of users, each element of the array (user) must have the `nickname`, `group` and `permissions` properties, if there is no property, the default value will be used, but I strongly recommend writing all the properties manually.
 
 `nickname` is the nickname of the player; it should preferably not contain any characters other than letters; **This property must be required**.
 
@@ -280,8 +280,8 @@ PermissionsAPI.setUserPermissionNode
     - node - new user permission. setting up for "*" (any) player. (string)
 ```
 
-## These are all API methods, I think you understand that everything is very simple.
+## These are all API methods, I hope you find everything simple to use.
 
-### For all questions, be sure to write issues!
+### If you have any questions or encounter a problem, be sure to open an issue!
 
 
