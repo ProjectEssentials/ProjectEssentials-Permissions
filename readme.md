@@ -10,7 +10,7 @@
 
 > #### CURRENTLY UNSTABLE VERSION ❗❗❗
 
-#### ❗ Compatibility with forge `28.0.X` version.
+#### ❗ Compatibility with forge version `28.0.X`.
 
 ## 🧐 Install using Gradle (for developers):
 > ##### If your project uses Gradle as Build Tool, then use the code below to add dependencies:
@@ -47,7 +47,7 @@ dependencies {
 </dependency>
 ```
 
-## 🎮 Installation instruction (for playing):
+## 🎮 Installation instructions (for playing):
 > ##### Just move Project Essentials Permissions-1.14.4-1.X.X.X.jar to mods directory:
 
 > ##### Important note: don't forget install mod dependencies!
@@ -73,13 +73,13 @@ Additional information:
 
 ### After you got the dependencies and the library itself:
 
-# [getting started with read the documentation](./documentation/in-using.md)
+# [Read the documentation to get started!](./documentation/in-using.md)
 
-### **Note:** this library is written in kotlin, but in java you can work with this API too, but there may be some not beautiful moments. One of these points is that you will see all the properties and fields with internal modifiers (in my library).
+### **Note:** This library is written in Kotlin, but this API is also compatible with Java. Keep in mind though that you will not get a perfect experience using Java. One of these points is that you will see all the properties and fields with internal modifiers (in my library).
 
 > ## Made with 💕 by [MairwunNx](https://mairwunnx.github.io/)
 
-## 🥰 Powered by JetBrains product licenses, Intellij Ultimate, Kotlin language and Forge modding API!
+## 🥰 Powered by JetBrains product licenses, Intellij Ultimate, Kotlin language and the Forge modding API!
 
 <p align="center">
     <a href="https://www.jetbrains.com">
