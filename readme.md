@@ -6,7 +6,7 @@
 [![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
 [![Telegram Group](https://img.shields.io/badge/Telegram-Group-blue.svg)](https://t.me/minecraftforge)
 
-> ## Permissions API for Forge mods. ❗❗❗
+> ## Permissions API for Forge mods.
 
 #### Compatibility with forge version `28.0.X` and `28.1.X`.
 
