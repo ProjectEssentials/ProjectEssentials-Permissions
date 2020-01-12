@@ -8,7 +8,7 @@
 
 > ## Permissions API for Forge mods.
 
-#### Compatibility with forge version `28.0.X` and `28.1.X`.
+#### ❗❗❗ Compatibility with forge version `28.0.X` and `28.1.X`.
 
 ## 🧐 Install using Gradle (for developers):
 > ##### If your project uses Gradle as Build Tool, then use the code below to add dependencies:
