@@ -1,5 +1,5 @@
 {
-  "project_essentials_permissions.perm.about.out": "          §6%s\n§cВерсия: §7%s\n§cСопровождающий: §7%s\n§cНацеленная Forge версия: §7%s\n§cНацеленная Minecraft версия: §7%s\n§cИсходный код: §7%s§7\n§cTelegram чат: §7%s",
+  "project_essentials_permissions.perm.about.out": "          §6%s\n§cВерсия: §7%s\n§cСопровождающий: §7%s\n§cНацеленная Forge версия: §7%s\n§cНацеленная Minecraft версия: §7%s\n§cИсходный код: §7%s§7\n§cTelegram чат: §7%s\n§cCurseForge: §7%s",
   "project_essentials_permissions.perm.about.restricted": "§cУ вас §7нет прав §cна выполнение /essentials permission команды.",
   "project_essentials_permissions.perm.reload.restricted": "§cУ вас §7нет прав §cна перезагрузку конфигурации прав.",
   "project_essentials_permissions.perm.reload.success": "§6Конфигурация прав §7перезагружена§6.",

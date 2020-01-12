@@ -1,13 +1,13 @@
 package com.mairwunnx.projectessentials.permissions.commands
 
+import com.mairwunnx.projectessentials.permissions.EntryPoint
+import com.mairwunnx.projectessentials.permissions.permissions.PermissionBase
+import com.mairwunnx.projectessentials.permissions.permissions.PermissionsAPI
 import com.mairwunnx.projectessentialscooldown.essentials.CommandsAliases
 import com.mairwunnx.projectessentialscore.extensions.isPlayerSender
 import com.mairwunnx.projectessentialscore.extensions.playerName
 import com.mairwunnx.projectessentialscore.extensions.sendMsg
 import com.mairwunnx.projectessentialscore.helpers.PERMISSION_LEVEL
-import com.mairwunnx.projectessentials.permissions.EntryPoint
-import com.mairwunnx.projectessentials.permissions.permissions.PermissionBase
-import com.mairwunnx.projectessentials.permissions.permissions.PermissionsAPI
 import com.mojang.brigadier.CommandDispatcher
 import com.mojang.brigadier.arguments.StringArgumentType
 import com.mojang.brigadier.builder.LiteralArgumentBuilder
@@ -19,37 +19,44 @@ import org.apache.logging.log4j.LogManager
 
 @Suppress("DuplicatedCode")
 internal object PermissionsCommand {
-    private val aliases = listOf("essentials", "ess")
+    private val aliases = listOf("permissions", "permission", "perm")
     private val logger = LogManager.getLogger()
 
     internal fun register(dispatcher: CommandDispatcher<CommandSource>) {
-        assignAliases()
+        tryAssignAliases()
         aliases.forEach { command ->
             dispatcher.register(
-                literal<CommandSource>(command).then(
-                    buildAboutCommand()
-                        .then(buildGroupCommand())
-                        .then(buildUserCommand())
-                        .then(buildReloadCommand())
-                        .then(buildSaveCommand())
-                )
+                literal<CommandSource>(command)
+                    .then(buildAboutCommand())
+                    .then(buildGroupCommand())
+                    .then(buildUserCommand())
+                    .then(buildReloadCommand())
+                    .then(buildSaveCommand())
             )
         }
     }
 
-    private fun assignAliases() {
+    private fun tryAssignAliases() {
         try {
             Class.forName(
                 "com.mairwunnx.projectessentialscooldown.essentials.CommandsAliases"
             )
-            CommandsAliases.aliases["essentials"] = aliases.toMutableList()
+            CommandsAliases.aliases["permissions"] = aliases.toMutableList()
         } catch (_: ClassNotFoundException) {
+            try {
+                Class.forName(
+                    "com.mairwunnx.projectessentials.cooldown.essentials.CommandsAliases"
+                )
+                CommandsAliases.aliases["permissions"] = aliases.toMutableList()
+            } catch (_: ClassNotFoundException) {
+                // ignored
+            }
             // ignored
         }
     }
 
     private fun buildAboutCommand(): LiteralArgumentBuilder<CommandSource> {
-        return Commands.literal("permissions").executes {
+        return Commands.literal("about").executes {
             return@executes aboutCommandExecute(it)
         }
     }
@@ -69,14 +76,15 @@ internal object PermissionsCommand {
                     EntryPoint.modInstance.modTargetForge,
                     EntryPoint.modInstance.modTargetMC,
                     EntryPoint.modInstance.modSources,
-                    EntryPoint.modInstance.modTelegram
+                    EntryPoint.modInstance.modTelegram,
+                    EntryPoint.modInstance.modCurseForge
                 )
             } else {
                 sendMsg("permissions", c.source, "perm.about.restricted")
                 logger.info(
                     PERMISSION_LEVEL
                         .replace("%0", c.playerName())
-                        .replace("%1", "essentials permissions")
+                        .replace("%1", "permissions")
                 )
             }
         } else {
@@ -87,6 +95,7 @@ internal object PermissionsCommand {
             logger.info("Target Minecraft version: ${EntryPoint.modInstance.modTargetMC}")
             logger.info("Source code: ${EntryPoint.modInstance.modSources}")
             logger.info("Telegram chat: ${EntryPoint.modInstance.modTelegram}")
+            logger.info("CurseForge: ${EntryPoint.modInstance.modCurseForge}")
         }
         return 0
     }
@@ -108,13 +117,15 @@ internal object PermissionsCommand {
                 logger.info(
                     PERMISSION_LEVEL
                         .replace("%0", c.playerName())
-                        .replace("%1", "essentials permissions reload")
+                        .replace("%1", "permissions reload")
                 )
                 0
             }
             else -> {
                 PermissionBase.loadData()
-                assignAliases()
+                PermissionsAPI.oppedPlayers.clear()
+                PermissionsAPI.oppedPlayers.addAll(c.source.server.playerList.oppedPlayerNames)
+                tryAssignAliases()
                 when {
                     c.isPlayerSender() -> sendMsg(
                         "permissions", c.source, "perm.reload.success"
@@ -143,7 +154,7 @@ internal object PermissionsCommand {
                 logger.info(
                     PERMISSION_LEVEL
                         .replace("%0", c.playerName())
-                        .replace("%1", "essentials permissions save")
+                        .replace("%1", "permissions save")
                 )
                 0
             }
@@ -202,7 +213,7 @@ internal object PermissionsCommand {
             logger.info(
                 PERMISSION_LEVEL
                     .replace("%0", c.playerName())
-                    .replace("%1", "essentials permissions group [...]")
+                    .replace("%1", "permissions group [...]")
             )
             return 0
         }
@@ -223,7 +234,7 @@ internal object PermissionsCommand {
             logger.info(
                 PERMISSION_LEVEL
                     .replace("%0", c.playerName())
-                    .replace("%1", "essentials permissions group [...]")
+                    .replace("%1", "permissions group [...]")
             )
             return 0
         }
@@ -252,7 +263,7 @@ internal object PermissionsCommand {
             logger.info(
                 PERMISSION_LEVEL
                     .replace("%0", c.playerName())
-                    .replace("%1", "essentials permissions group [...]")
+                    .replace("%1", "permissions group [...]")
             )
             return 0
         }
@@ -326,7 +337,7 @@ internal object PermissionsCommand {
             logger.info(
                 PERMISSION_LEVEL
                     .replace("%0", c.playerName())
-                    .replace("%1", "essentials permissions user [...]")
+                    .replace("%1", "permissions user [...]")
             )
             return 0
         }
@@ -349,7 +360,7 @@ internal object PermissionsCommand {
             logger.info(
                 PERMISSION_LEVEL
                     .replace("%0", c.playerName())
-                    .replace("%1", "essentials permissions user [...]")
+                    .replace("%1", "permissions user [...]")
             )
             return 0
         }
@@ -378,7 +389,7 @@ internal object PermissionsCommand {
             logger.info(
                 PERMISSION_LEVEL
                     .replace("%0", c.playerName())
-                    .replace("%1", "essentials permissions user [...]")
+                    .replace("%1", "permissions user [...]")
             )
             return 0
         }
@@ -418,7 +429,7 @@ internal object PermissionsCommand {
             logger.info(
                 PERMISSION_LEVEL
                     .replace("%0", c.playerName())
-                    .replace("%1", "essentials permissions user [...]")
+                    .replace("%1", "permissions user [...]")
             )
             return 0
         }

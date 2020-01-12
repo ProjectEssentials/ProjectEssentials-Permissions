@@ -9,6 +9,12 @@ import com.mairwunnx.projectessentialscore.extensions.empty
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 object PermissionsAPI {
     /**
+     * Contain all opped players, for advanced permission checking.
+     * @since 1.14.4-1.0.0.0
+     */
+    var oppedPlayers: MutableList<String> = mutableListOf()
+
+    /**
      * @param playerNickName nickname of target player.
      * @return instance of the class of the rights group
      * the user belongs to.
@@ -148,6 +154,10 @@ object PermissionsAPI {
         }
         val groupPerms = getAllGroupPermissions(groupName)
         val userPerms = getUserPermissions(playerNickName)
+
+        // if player has operator right, then return ALL permissions.
+        if (playerNickName in oppedPlayers) return listOf("*")
+
         return listOf(defaultPerms, groupPerms, userPerms).flatten()
     }
 

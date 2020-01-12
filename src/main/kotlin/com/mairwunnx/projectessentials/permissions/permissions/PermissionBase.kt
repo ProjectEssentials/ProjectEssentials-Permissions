@@ -13,21 +13,18 @@ internal object PermissionBase {
     internal var permissionData = PermissionModel()
     private val json = Json(
         JsonConfiguration(
-            encodeDefaults = true,
-            strictMode = true,
-            unquoted = false,
+            strictMode = false,
             allowStructuredMapKeys = true,
-            prettyPrint = true,
-            useArrayPolymorphism = false
+            prettyPrint = true
         )
     )
 
     internal fun loadData() {
         val permissionConfig = MOD_CONFIG_FOLDER + File.separator + "permissions.json"
-        logger.info("    - loading user permissions data ...")
-        logger.debug("        - setup json configuration for parsing ...")
+        logger.info("Loading user permissions data ...")
+        logger.debug("Setup json configuration for parsing ...")
         if (!File(permissionConfig).exists()) {
-            logger.warn("        - permission config not exist! creating it now!")
+            logger.warn("Permission config not exist! creating it now!")
             createConfigDirs(MOD_CONFIG_FOLDER)
             val defaultConfig = json.stringify(
                 PermissionModel.serializer(),
@@ -36,24 +33,17 @@ internal object PermissionBase {
             File(permissionConfig).writeText(defaultConfig)
         }
         val permConfigRaw = File(permissionConfig).readText()
-        permissionData = Json.parse(PermissionModel.serializer(), permConfigRaw)
+        permissionData = json.parse(PermissionModel.serializer(), permConfigRaw)
         logger.info("*** PermissionsAPI by Project Essentials!")
         logger.info("    - loaded groups (${permissionData.groups.size})")
         permissionData.groups.forEach {
             logger.info("        - name: ${it.name}; nodes: ${it.permissions.size}")
         }
-        logger.info("    - loaded users (${permissionData.users.size}): first 17 users!")
-        val maxUsers = if (permissionData.users.size - 1 >= 16) 16 else permissionData.users.size -1
-        permissionData.users.slice(0..maxUsers).forEach {
-            logger.info(
-                "        - name: ${it.nickname}; group: ${it.group}; nodes: ${it.permissions.size}"
-            )
-        }
+        logger.info("    - loaded users (${permissionData.users.size})")
     }
 
     internal fun saveData() {
         val permissionConfig = MOD_CONFIG_FOLDER + File.separator + "permissions.json"
-        logger.info("    - saving user permissions data ...")
         createConfigDirs(MOD_CONFIG_FOLDER)
         val permConfig = json.stringify(
             PermissionModel.serializer(),
@@ -64,7 +54,7 @@ internal object PermissionBase {
 
     @Suppress("SameParameterValue")
     private fun createConfigDirs(path: String) {
-        logger.info("        - creating config directory for user data ($path)")
+        logger.info("Creating config directory for user data ($path)")
         val configDirectory = File(path)
         if (!configDirectory.exists()) configDirectory.mkdirs()
     }

@@ -1,8 +1,9 @@
 package com.mairwunnx.projectessentials.permissions
 
-import com.mairwunnx.projectessentialscore.EssBase
 import com.mairwunnx.projectessentials.permissions.commands.PermissionsCommand
 import com.mairwunnx.projectessentials.permissions.permissions.PermissionBase
+import com.mairwunnx.projectessentials.permissions.permissions.PermissionsAPI
+import com.mairwunnx.projectessentialscore.EssBase
 import com.mojang.brigadier.CommandDispatcher
 import net.minecraft.command.CommandSource
 import net.minecraftforge.common.MinecraftForge
@@ -32,6 +33,7 @@ internal class EntryPoint : EssBase() {
     internal fun onServerStarting(it: FMLServerStartingEvent) {
         logger.info("$modName starting mod loading ...")
         registerCommands(it.server.commandManager.dispatcher)
+        PermissionsAPI.oppedPlayers.addAll(it.server.playerList.oppedPlayerNames)
     }
 
     private fun registerCommands(
@@ -44,8 +46,8 @@ internal class EntryPoint : EssBase() {
     @Suppress("UNUSED_PARAMETER")
     @SubscribeEvent
     internal fun onServerStopping(it: FMLServerStoppingEvent) {
-        logger.info("Shutting down $modName mod ...")
-        logger.info("    - Saving permission users data ...")
+        logger.info("Shutting down $modName mod")
+        logger.info("Saving permission users data")
         PermissionBase.saveData()
     }
 

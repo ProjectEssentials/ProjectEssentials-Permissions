@@ -1,5 +1,5 @@
 {
-  "project_essentials_permissions.perm.about.out": "§6%s\n§cVersion: §7%s\n§cMaintainer: §7%s\n§cForge Zielversion: §7%s\n§Minecraft Zielversion: §7%s\n§cSource Code: §7%s§7\n§cTelegram Chat: §7%s",
+  "project_essentials_permissions.perm.about.out": "§6%s\n§cVersion: §7%s\n§cMaintainer: §7%s\n§cForge Zielversion: §7%s\n§Minecraft Zielversion: §7%s\n§cSource Code: §7%s§7\n§cTelegram Chat: §7%s\n§cCurseForge: §7%s",
   "project_essentials_permissions.perm.about.restricted": "§cDu §7bist nicht berechtigt §cum den Befehl /essentials auszuführen.",
   "project_essentials_permissions.perm.reload.restricted": "§cDu §7bist nicht berechtigt §cum die Berechtigungskonfigurationen neu zu laden.",
   "project_essentials_permissions.perm.reload.success": "§6Berechtigungskonfigurationen §7neu geladen§6.",

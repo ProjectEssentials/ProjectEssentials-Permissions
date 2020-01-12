@@ -1,5 +1,5 @@
 {
-	"project_essentials_permissions.perm.about.out": "          §6%s\n§cVerzija: §7%s\n§cAdmin: §7%s\n§cCiljana Forge verzija: §7%s\n§cCiljana Minecraft verzija: §7%s\n§cIzvorni kod: §7%s§7\n§cTelegram čet: §7%s",
+	"project_essentials_permissions.perm.about.out": "          §6%s\n§cVerzija: §7%s\n§cAdmin: §7%s\n§cCiljana Forge verzija: §7%s\n§cCiljana Minecraft verzija: §7%s\n§cIzvorni kod: §7%s§7\n§cTelegram čet: §7%s\n§cCurseForge: §7%s",
 	"project_essentials_permissions.perm.about.restricted": "§cNemate §7prava §cda pokrenete /essentials komandu konfiguracije prava.",
 	"project_essentials_permissions.perm.reload.restricted": "§cNemate §7prava §cda učitate konfiguracije prava.",
 	"project_essentials_permissions.perm.reload.success": "§6Konfiguracija prava §7učitana§6.",
