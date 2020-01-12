@@ -23,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - [readme.md](./readme.md) changed information for developers.
 - Simplified permissions command to `/permissions` or `/perm`.
-- Simplified `JsonConfiguration` in [build.gradle](./src/main/kotlin/com/mairwunnx/projectessentials/permissions/permissions/PermissionBase.kt).
+- Simplified `JsonConfiguration` in [PermissionBase.kt](./src/main/kotlin/com/mairwunnx/projectessentials/permissions/permissions/PermissionBase.kt).
 - Updated kotlin runtime version.
 - Updated forge version, bumped kotlinx serialization.
 - [build.gradle](./build.gradle) little file refactoring.
