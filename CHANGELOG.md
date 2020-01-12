@@ -13,9 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Compatibility with future versions of `Cooldowns` module.
 - Detecting opped players (now all opped players have all permissions).
 - `ess_core_version` and `ess_cooldown_version` variables to [gradle.properties](./gradle.properties).
-- German translation by @BixelPitch.
-- Serbian translation by @vr1e.
-- Pull request temple to this repository by @huangyz0918.
+- German translation by [@BixelPitch](https://github.com/BixelPitch).
+- Serbian translation by [@vr1e](https://github.com/vr1e).
+- Pull request temple to this repository by [@huangyz0918](https://github.com/huangyz0918).
 - Ability to use shorten permission nodes.
 - Implemented permission groups inheritance permissions.
 - This [CHANGELOG.md](./CHANGELOG.md) file.
@@ -30,8 +30,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - PermissionData renamed to [PermissionModel.kt](./src/main/kotlin/com/mairwunnx/projectessentials/permissions/permissions/PermissionModel.kt). 
 
 ### Fixed
-- Grammatical mistakes by @Aircoookie.
-- Grammatical mistakes by @abhiroopwastaken.
+- Grammatical mistakes by [@Aircoookie](https://github.com/Aircoookie).
+- Grammatical mistakes by [@abhiroopwastaken](https://github.com/abhiroopwastaken).
 - Incorrect permission node for /permission reload command.
 
 ### Removed
