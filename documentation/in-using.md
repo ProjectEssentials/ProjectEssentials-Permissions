@@ -33,22 +33,24 @@ Place your mods and Permissions API mods according to the structure above.
 
 Run the game, check the number of mods, if the list of mods contains `Project Essentials Permissions` mod, then the mod has successfully passed the initialization of the modification.
 
-After that, go into a single world, then try to write the `/essentials permissions` command, if you **get an error** that you do not have permissions, it means that the modification works as it should.
+After that, go into a single world, then try to write the `/permissions` command, if you **get an error** that you do not have permissions, it means that the modification works as it should.
 
 #### 1.4 Control permissions via minecraft commands.
 
 We understand that there are lazy people who do not like to dig into files (lol, although it’s easier through a file), therefore we made these commands for you:
 
-```
-/essentials permissions
-
-- description: base command of permissions API module; just send you about the message.
-
-- permission: ess.perm
-```
+`Note: /permissions command aliases: permission, perm.`
 
 ```
-/essentials permissions save
+/permissions about
+
+- description: just send you about the message.
+
+- permission: ess.perm.about
+```
+
+```
+/permissions save
 
 - description: save permission configuration.
 
@@ -56,7 +58,7 @@ We understand that there are lazy people who do not like to dig into files (lol,
 ```
 
 ```
-/essentials permissions reload
+/permissions reload
 
 - description: reload permission configuration !!!without saving.
 
@@ -64,7 +66,7 @@ We understand that there are lazy people who do not like to dig into files (lol,
 ```
 
 ```
-/essentials permissions group <name> [set | remove] <node>
+/permissions group <name> [set | remove] <node>
 
 - description: remove or set permission for the target group.
 
@@ -72,11 +74,11 @@ We understand that there are lazy people who do not like to dig into files (lol,
 ```
 
 ```
-/essentials permissions user <name> [set | remove] <node>
+/permissions user <name> [set | remove] <node>
 
 OR
 
-/essentials permissions user <name> set <group name>
+/permissions user <name> set <group name>
 
 - description: remove or set user permission node or only set group for the user.
 
@@ -274,6 +276,14 @@ PermissionsAPI.setUserPermissionGroup
 PermissionsAPI.setUserPermissionNode
 
 - description: Install \ Add new permission for the user.
+
+- type: MutableList<String>
+```
+
+```
+PermissionsAPI.oppedPlayers
+
+- description: Contain all opped players, for advanced permission checking.
 
 - accepts:
     - playerNickName - nickname of target player. (string)
