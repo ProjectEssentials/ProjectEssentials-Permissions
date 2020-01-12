@@ -6,14 +6,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.14.4-1.0.0.0]
+## [1.14.4-1.0.0.0] - 2020-01-12
 
 ### Added
+- CurseForge link for `/perm about` command.
+- Compatibility with future versions of `Cooldowns` module.
+- Detecting opped players (now all opped players have all permissions).
+- `ess_core_version` and `ess_cooldown_version` variables to [gradle.properties](./gradle.properties).
+- German translation by @BixelPitch.
+- Serbian translation by @vr1e.
+- Pull request temple to this repository by @huangyz0918.
+- Ability to use shorten permission nodes.
 - Implemented permission groups inheritance permissions.
-- This CHANGELOG.md file.
+- This [CHANGELOG.md](./CHANGELOG.md) file.
   
 ### Changed
+- [readme.md](./readme.md) changed information for developers.
+- Simplified permissions command to `/permissions` or `/perm`.
+- Simplified `JsonConfiguration` in [build.gradle](./src/main/kotlin/com/mairwunnx/projectessentials/permissions/permissions/PermissionBase.kt).
+- Updated kotlin runtime version.
+- Updated forge version, bumped kotlinx serialization.
 - [build.gradle](./build.gradle) little file refactoring.
+- PermissionData renamed to [PermissionModel.kt](./src/main/kotlin/com/mairwunnx/projectessentials/permissions/permissions/PermissionModel.kt). 
+
+### Fixed
+- Grammatical mistakes by @Aircoookie.
+- Grammatical mistakes by @abhiroopwastaken.
+- Incorrect permission node for /permission reload command.
+
+### Removed
+- Redundant logger messages.
 
 ## [1.14.4-0.2.0.0] - 2019-10-12
 
