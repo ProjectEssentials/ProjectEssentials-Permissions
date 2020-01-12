@@ -6,11 +6,9 @@
 [![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
 [![Telegram Group](https://img.shields.io/badge/Telegram-Group-blue.svg)](https://t.me/minecraftforge)
 
-> ## Permissions API for Forge mods.
+> ## Permissions API for Forge mods. ❗❗❗
 
-> #### CURRENTLY UNSTABLE VERSION ❗❗❗
-
-#### ❗ Compatibility with forge version `28.0.X`.
+#### Compatibility with forge version `28.0.X` and `28.1.X`.
 
 ## 🧐 Install using Gradle (for developers):
 > ##### If your project uses Gradle as Build Tool, then use the code below to add dependencies:
@@ -24,7 +22,7 @@ dependencies {
     compile(
         group: "com.github.projectessentials",
         name: "ProjectEssentials-Permissions",
-        version: "v1.14.4-0.2.0.0"
+        version: "v1.14.4-1.0.0.0"
     )
 }
 ```
@@ -43,7 +41,7 @@ dependencies {
 <dependency>
 	<groupId>com.github.projectessentials</groupId>
 	<artifactId>ProjectEssentials-Permissions</artifactId>
-	<version>v1.14.4-0.2.0.0</version>
+	<version>v1.14.4-1.0.0.0</version>
 </dependency>
 ```
 
@@ -66,8 +64,8 @@ dependencies {
 
 ```
 Additional information:
-    - kotlin-std lib version: 1.3.50
-    - kotlinx serialization version: 0.12.0
+    - kotlin-std lib version: 1.3.60
+    - kotlinx serialization version: 0.14.0
     - target jvm version: 1.8
 ```
 
