@@ -1,9 +1,9 @@
 package com.mairwunnx.projectessentials.permissions
 
+import com.mairwunnx.projectessentials.core.EssBase
 import com.mairwunnx.projectessentials.permissions.commands.PermissionsCommand
 import com.mairwunnx.projectessentials.permissions.permissions.PermissionBase
 import com.mairwunnx.projectessentials.permissions.permissions.PermissionsAPI
-import com.mairwunnx.projectessentialscore.EssBase
 import com.mojang.brigadier.CommandDispatcher
 import net.minecraft.command.CommandSource
 import net.minecraftforge.common.MinecraftForge

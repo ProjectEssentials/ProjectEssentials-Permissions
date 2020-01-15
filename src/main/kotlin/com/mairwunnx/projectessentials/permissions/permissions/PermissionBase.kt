@@ -1,6 +1,6 @@
 package com.mairwunnx.projectessentials.permissions.permissions
 
-import com.mairwunnx.projectessentialscore.helpers.MOD_CONFIG_FOLDER
+import com.mairwunnx.projectessentials.core.helpers.MOD_CONFIG_FOLDER
 import kotlinx.serialization.UnstableDefault
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonConfiguration
