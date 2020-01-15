@@ -37,22 +37,8 @@ internal object PermissionsCommand {
     }
 
     private fun tryAssignAliases() {
-        try {
-            Class.forName(
-                "com.mairwunnx.projectessentials.cooldown.essentials.CommandsAliases"
-            )
-            CommandsAliases.aliases["permissions"] = aliases.toMutableList()
-        } catch (_: ClassNotFoundException) {
-            try {
-                Class.forName(
-                    "com.mairwunnx.projectessentials.cooldown.essentials.CommandsAliases"
-                )
-                CommandsAliases.aliases["permissions"] = aliases.toMutableList()
-            } catch (_: ClassNotFoundException) {
-                // ignored
-            }
-            // ignored
-        }
+        if (!EntryPoint.cooldownsInstalled) return
+        CommandsAliases.aliases["permissions"] = aliases.toMutableList()
     }
 
     private fun buildAboutCommand(): LiteralArgumentBuilder<CommandSource> {

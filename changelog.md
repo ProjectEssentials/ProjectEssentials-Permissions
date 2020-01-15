@@ -6,6 +6,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.14.4-1.0.1.0] - 2020-01-15
+
+### Added
+- Added compatibility with core module `1.0.3.2`.
+- Added compatibility with cooldown module `1.0.2.0`.
+
+### Changed
+- Simplified code for creating directory.
+- Usings optimal `JsonConfiguration` from core module.
+- Updated gradle wrapper version to `5.6.4`.
+- CHANGELOG.md renamed to changelog.md.
+- Updated core module and cooldown module.
+- Updated version number to `1.0.1.0`.
+
+### Removed
+- Comments from [gradle.properties](gradle.properties).
+- Redundant information logging.
+
 ## [1.14.4-1.0.0.0] - 2020-01-12
 
 ### Added
