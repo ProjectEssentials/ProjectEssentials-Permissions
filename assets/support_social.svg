@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2206" height="632" viewBox="0 0 2206 632">
+    <defs>
+        <clipPath id="clip-Web_1920_1">
+            <rect width="2206" height="632"/>
+        </clipPath>
+    </defs>
+    <g id="Web_1920_1" data-name="Web 1920 – 1" clip-path="url(#clip-Web_1920_1)">
+        <rect id="Rectangle_1" data-name="Rectangle 1" width="2206" height="532"
+              transform="translate(0 50)" fill="#707070"/>
+        <rect id="Rectangle_2" data-name="Rectangle 2" width="532" height="532"
+              transform="translate(0 50)" fill="#4182ef"/>
+        <g id="surface1" transform="translate(108 158.875)">
+            <path id="Path_1" data-name="Path 1"
+                  d="M307.071,8.125c-29.907,14.954-74.592,60.048-83.646,70.095L232.3,112.8,217.35,82.425c-3.271,3.154-46.029,48.891-59.814,75.235l14.954,29.907L150.526,165.6s-52.8,51.4-22.9,81.31c0,0,44.861-30.024,89.721-89.254,32.536-42.991,59.814-90.189,59.814-90.189S262.21,127.286,217.35,187.1c-20.094,26.753-74.768,74.768-74.768,74.768,44.861,44.861,97.665-43.926,97.665-43.926l-22.9-15.421h29.907s25.468-31.309,29.907-45.328l-29.907.467L280.9,145.978C281.253,144.927,307.071,67.939,307.071,8.125ZM142.582,261.868l-14.954-14.954S82.768,276.822,8,291.775l14.954,14.954C97.721,291.775,142.582,261.868,142.582,261.868Z"
+                  transform="translate(0 0)" fill="#fff"/>
+        </g>
+        <text id="_-_" data-name="-&gt;" transform="translate(640 223)" fill="#fff" font-size="65"
+              font-family="FiraCode-Regular, Fira Code">
+            <tspan x="0" y="0">-&gt;</tspan>
+        </text>
+        <text id="Your_help_needed_" data-name="Your help needed!" transform="translate(780 231)"
+              fill="#fff" font-size="85" font-family="Consolas">
+            <tspan x="0" y="0">Your help needed!</tspan>
+        </text>
+        <text id="Support_Project_Essentials" data-name="Support Project Essentials"
+              transform="translate(780 345)" fill="#fff" font-size="85" font-family="Consolas">
+            <tspan x="0" y="0">Support Project Essentials</tspan>
+        </text>
+        <text id="development_on_ko-fi" data-name="development on ko-fi"
+              transform="translate(780 459)" fill="#fff" font-size="85" font-family="Consolas">
+            <tspan x="0" y="0">development on ko-fi</tspan>
+        </text>
+    </g>
+</svg>
