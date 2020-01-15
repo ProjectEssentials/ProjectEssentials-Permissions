@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pull request temple to this repository by [@huangyz0918](https://github.com/huangyz0918).
 - Ability to use shorten permission nodes.
 - Implemented permission groups inheritance permissions.
-- This [CHANGELOG.md](./CHANGELOG.md) file.
+- This [CHANGELOG.md](./changelog.md) file.
   
 ### Changed
 - [readme.md](./readme.md) changed information for developers.
