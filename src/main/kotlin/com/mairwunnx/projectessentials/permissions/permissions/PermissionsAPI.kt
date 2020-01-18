@@ -86,11 +86,21 @@ object PermissionsAPI {
         groupName: String
     ): List<String> {
         val permissions = mutableListOf<String>()
+
+        if (groupName.isEmpty()) {
+            val defaultGroup = getDefaultGroup()
+            permissions.addAll(defaultGroup.permissions)
+            defaultGroup.inheritFrom.forEach {
+                permissions.addAll(getGroupPermissions(it, true))
+            }
+            return permissions
+        }
+
         PermissionBase.permissionData.groups.forEach { group ->
             if (group.name == groupName) {
                 permissions.addAll(group.permissions)
                 group.inheritFrom.forEach {
-                    permissions.addAll(getGroupPermissions(it))
+                    permissions.addAll(getGroupPermissions(it, true))
                 }
                 return permissions
             }
@@ -152,6 +162,9 @@ object PermissionsAPI {
             if (user.nickname == "*") defaultPerms = user.permissions
             if (user.nickname == playerNickName) groupName = user.group
         }
+
+        if (groupName.isEmpty()) groupName = getUserGroup(playerNickName).name
+
         val groupPerms = getAllGroupPermissions(groupName)
         val userPerms = getUserPermissions(playerNickName)
 
