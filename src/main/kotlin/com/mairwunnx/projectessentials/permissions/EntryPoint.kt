@@ -1,10 +1,13 @@
 package com.mairwunnx.projectessentials.permissions
 
 import com.mairwunnx.projectessentials.core.EssBase
+import com.mairwunnx.projectessentials.core.extensions.sendMsg
 import com.mairwunnx.projectessentials.permissions.commands.PermissionsCommand
 import com.mairwunnx.projectessentials.permissions.permissions.PermissionBase
 import com.mairwunnx.projectessentials.permissions.permissions.PermissionsAPI
+import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.event.world.BlockEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent
@@ -36,6 +39,47 @@ internal class EntryPoint : EssBase() {
     @SubscribeEvent
     internal fun onServerStopping(it: FMLServerStoppingEvent) {
         PermissionBase.saveData()
+    }
+
+    @SubscribeEvent
+    internal fun onBlockPlaceEvent(event: BlockEvent.EntityPlaceEvent) {
+        if (event.entity is ServerPlayerEntity) {
+            val player = event.entity as ServerPlayerEntity
+            when {
+                !PermissionsAPI.hasPermission(
+                    player.name.string, "native.event.modifyworld"
+                ) && !PermissionsAPI.hasPermission(
+                    player.name.string, "native.event.block.place"
+                ) -> {
+                    sendMsg(
+                        "permissions",
+                        player.commandSource,
+                        "perm.block_break.place"
+                    )
+                    event.isCanceled = true
+                    return
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    internal fun onBlockBreakEvent(event: BlockEvent.BreakEvent) {
+        when {
+            !PermissionsAPI.hasPermission(
+                event.player.name.string, "native.event.modifyworld"
+            ) && !PermissionsAPI.hasPermission(
+                event.player.name.string, "native.event.block.break"
+            ) -> {
+                sendMsg(
+                    "permissions",
+                    event.player.commandSource,
+                    "perm.block_break.restricted"
+                )
+                event.isCanceled = true
+                return
+            }
+        }
     }
 
     internal companion object {
