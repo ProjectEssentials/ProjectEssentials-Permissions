@@ -6,6 +6,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.14.4-1.1.0.0] - 2020-01-18
+
+### Added
+- Resolved #20. (Improve default permission configuration.)
+- Resolved #19. (Implement permissions for block break and block place events.)
+
+### Changed
+- Updated core module version.
+
+### Fixed
+- Not working permissions in group with inheritance.
+
 ## [1.14.4-1.0.1.0] - 2020-01-15
 
 ### Added

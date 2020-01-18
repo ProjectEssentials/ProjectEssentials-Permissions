@@ -8,7 +8,7 @@ This modification serves as a command permissions provider for players. It is ve
 
 ### Explore
 
-#### [Download mod](https://github.com/ProjectEssentials/ProjectEssentials-Permissions/releases/download/v1.14.4-1.0.1.0/Project.Essentials.Permissions-1.14.4-1.0.1.0.jar) · [How to install](documentation/for-players.md) · [Troubleshooting](https://github.com/ProjectEssentials/ProjectEssentials-Permissions/issues/new/choose) · [News & updates](https://t.me/minecraftforge) · [Change log](changelog.md)
+#### [Download mod](https://github.com/ProjectEssentials/ProjectEssentials-Permissions/releases/download/v1.14.4-1.1.0.0/Project.Essentials.Permissions-1.14.4-1.1.0.0.jar) · [How to install](documentation/for-players.md) · [Troubleshooting](https://github.com/ProjectEssentials/ProjectEssentials-Permissions/issues/new/choose) · [News & updates](https://t.me/minecraftforge) · [Change log](changelog.md)
 
 <a href="https://ko-fi.com/mairwunnx" target="_blank"><img src="./assets/support_social.png"></a>
 
