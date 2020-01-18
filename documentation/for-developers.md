@@ -11,7 +11,7 @@ dependencies {
     compile(
         group: "com.github.projectessentials",
         name: "ProjectEssentials-Permissions",
-        version: "v1.14.4-1.0.1.0"
+        version: "v1.14.4-1.1.0.0"
     )
 }
 ```
@@ -57,6 +57,8 @@ If something goes according to the cunt, and your configuration flies, just dele
 
 **Default configuration**:
 
+Minimal configuration:
+
 ```json
 {
   "groups": [
@@ -78,6 +80,62 @@ If something goes according to the cunt, and your configuration flies, just dele
       "permissions": []
     }
   ]
+}
+```
+
+With default permissions:
+
+```json
+{
+    "groups": [
+        {
+            "name": "default",
+            "isDefault": true,
+            "permissions": [
+                "native.help",
+                "native.list",
+                "native.me",
+                "native.message",
+                "native.teammsg",
+                "native.tell",
+                "native.trigger",
+                "native.w",
+                "native.event.modifyworld",
+                "ess.warp",
+                "ess.warp.set",
+                "ess.warp.remove",
+                "ess.chat",
+                "ess.chat.mention.all",
+                "ess.home",
+                "ess.home.set",
+                "ess.home.remove",
+                "ess.spawn",
+                "ess.afk",
+                "ess.sendpos",
+                "ess.tpaccept",
+                "ess.tpdeny",
+                "ess.tptoggle",
+                "ess.tpaall",
+                "ess.tpacancel",
+                "ess.tpa",
+                "ess.tpahere"
+            ],
+            "inheritFrom": []
+        },
+        {
+            "name": "owner",
+            "isDefault": false,
+            "permissions": ["*"],
+            "inheritFrom": ["default"]
+        }
+    ],
+    "users": [
+        {
+            "nickname": "*",
+            "group": "default",
+            "permissions": []
+        }
+    ]
 }
 ```
 
