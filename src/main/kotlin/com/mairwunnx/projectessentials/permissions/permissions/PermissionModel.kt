@@ -15,7 +15,37 @@ data class PermissionModel(
      * stores all registered groups.
      */
     var groups: List<Group> = listOf(
-        Group("default", true, listOf(), listOf()),
+        Group(
+            "default", true, listOf(
+                "native.help",
+                "native.list",
+                "native.me",
+                "native.message",
+                "native.teammsg",
+                "native.tell",
+                "native.trigger",
+                "native.w",
+                "native.event.modifyworld",
+                "ess.warp",
+                "ess.warp.set",
+                "ess.warp.remove",
+                "ess.chat",
+                "ess.chat.mention.all",
+                "ess.home",
+                "ess.home.set",
+                "ess.home.remove",
+                "ess.spawn",
+                "ess.afk",
+                "ess.sendpos",
+                "ess.tpaccept",
+                "ess.tpdeny",
+                "ess.tptoggle",
+                "ess.tpaall",
+                "ess.tpacancel",
+                "ess.tpa",
+                "ess.tpahere"
+            ), listOf()
+        ),
         Group("owner", false, listOf("*"), listOf("default"))
     ),
     /**
