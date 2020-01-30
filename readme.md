@@ -4,11 +4,11 @@
 
 ### What is this for?
 
-This modification serves as a command permissions provider for players. It is very suitable for delimiting the permissions of players and limiting the player's capabilities, for example, to prohibit changing the weather or to allow repair items. If you ever used PermissionsEx for spigot, then you will not have problems with setting permissions. Also, the mod has its own API, to use it, start by [reading the documentation](documentation/for-developers.md).
+This modification serves as a command permissions provider for players. It is very suitable for delimiting the permissions of players and limiting the player's capabilities, for example, to prohibit changing the weather or to allow repair items. If you ever used PermissionsEx for spigot, then you will not have problems with setting permissions. Also, the mod has its own API, to use it, start by [reading the documentation](https://mairwunnx.gitbook.io/project-essentials/project-essentials-permissions#api-in-using).
 
 ### Explore
 
-#### [Download mod](https://github.com/ProjectEssentials/ProjectEssentials-Permissions/releases/download/v1.14.4-1.1.0.0/Project.Essentials.Permissions-1.14.4-1.1.0.0.jar) · [How to install](documentation/for-players.md) · [Troubleshooting](https://github.com/ProjectEssentials/ProjectEssentials-Permissions/issues/new/choose) · [News & updates](https://t.me/minecraftforge) · [Change log](changelog.md)
+#### [Download mod](https://github.com/ProjectEssentials/ProjectEssentials-Permissions/releases/download/v1.14.4-1.1.0.0/Project.Essentials.Permissions-1.14.4-1.1.0.0.jar) · [How to install](https://mairwunnx.gitbook.io/project-essentials/project-essentials-permissions#how-to-install) · [Commands](https://mairwunnx.gitbook.io/project-essentials/project-essentials-permissions#commands-and-permissions) · [Configuration](https://mairwunnx.gitbook.io/project-essentials/project-essentials-permissions#configuration) · [API Using](https://mairwunnx.gitbook.io/project-essentials/project-essentials-permissions#api-in-using) · [Troubleshooting](https://github.com/ProjectEssentials/ProjectEssentials-Permissions/issues/new/choose) · [News & updates](https://t.me/minecraftforge) · [Change log](changelog.md)
 
 <a href="https://ko-fi.com/mairwunnx" target="_blank"><img src="./assets/support_social.png"></a>
 
