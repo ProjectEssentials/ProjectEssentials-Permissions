@@ -89,9 +89,7 @@ internal class EntryPoint : EssBase() {
 
     private fun loadAdditionalModules() {
         try {
-            Class.forName(
-                "com.mairwunnx.projectessentials.cooldown.essentials.CommandsAliases"
-            )
+            Class.forName(cooldownAPIClassPath)
             cooldownsInstalled = true
         } catch (_: ClassNotFoundException) {
             // ignored
