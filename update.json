@@ -1,17 +1,10 @@
 {
-  "homepage": "https://github.com/ProjectEssentials/ProjectEssentials-Permissions/releases/tag/v1.14.4-1.1.0.0",
-  "1.14.4": {
-    "1.14.4-1.1.0.0": " - Resolved #20. (Improve default permission configuration.)\n - Resolved #19. (Implement permissions for block break and block place events.)\n - Updated core module version.\n - Fixed not working permissions in group with inheritance.",
-    "1.14.4-1.0.1.0": " - Added compatibility with core module `1.0.3.2`.\n - Added compatibility with cooldown module `1.0.2.0`.\n - Updated gradle wrapper version to `5.6.4`.\n - CHANGELOG.md renamed to changelog.md.\n - Updated core module and cooldown module.\n - Updated version number to `1.0.1.0`.\n - Removed comments from gradle.properties.\n - Removed redundant information logging.\n - Simplified code for creating directory.\n - Usings optimal `JsonConfiguration` from core module.",
-    "1.14.4-1.0.0.0": " - build.gradle little file refactoring.\n - Implemented permission groups inheritance permissions.\n - Removed redundant logger messages.\n - Fixed incorrect permission node for /permission reload command.\n - Fixed grammatical mistakes by @abhiroopwastaken\n - Fixed grammatical mistakes by @Aircoookie\n - PermissionData renamed to PermissionModel.kt\n - build.gradle little file refactoring.\n - Updated forge version, bumped kotlinx serialization.\n - Updated kotlin runtime version.\n - Simplified `JsonConfiguration` in PermissionBase.kt\n - Simplified permissions command to `/permissions` or `/perm`.\n - readme.md changed information for developers.\n - Added CHANGELOG.md file.\n - Implemented permission groups inheritance permissions.\n - Added ability to use shorten permission nodes.\n - Added pull request temple to this repository by @huangyz0918\n - Added Serbian translation by @vr1e\n - Added German translation by @BixelPitch\n - Added detecting opped players (now all opped players have all permissions).\n - Added Compatibility with future versions of `Cooldowns` module.\n - Added CurseForge link for `/perm about` command.",
-    "1.14.4-0.2.0.0": " - Improved configuration logging after loading.\n - Fixed incorrect permission removing from user\n - Fixed mod crash on loading permission data for users.\n - Fixed incorrect command aliases registering.",
-    "1.14.4-0.1.1.0": " - Code cleanup. Added core module as dependency.",
-    "1.14.4-0.1.0.2": " - Fixed some wrong meta information for mod.",
-    "1.14.4-0.1.0.1": " - Included gradle wrapper (Basically for API).",
-    "1.14.4-0.1.0.0": " - Initial release of PermissionsAPI as Project Essentials part."
+  "homepage": "https://github.com/ProjectEssentials/ProjectEssentials-Permissions",
+  "1.15.2": {
+    "1.15.2-1.0.0": "Changelog for 1.0.0 https://github.com/ProjectEssentials/ProjectEssentials-Permissions/blob/MC-1.15.2/changelog.md#1152-100---2020-02-07"
   },
   "promos": {
-    "1.14.4-latest": "1.14.4-1.1.0.0",
-    "1.14.4-recommended": "1.14.4-1.1.0.0"
+    "1.15.2-latest": "1.15.2-1.0.0",
+    "1.15.2-recommended": "1.15.2-1.0.0"
   }
 }
