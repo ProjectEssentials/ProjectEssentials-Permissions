@@ -18,8 +18,7 @@ internal object PermissionBase {
             logger.warn("Permission config not exist! creating it now!")
             File(MOD_CONFIG_FOLDER).mkdirs()
             val defaultConfig = jsonInstance.stringify(
-                PermissionModel.serializer(),
-                permissionData
+                PermissionModel.serializer(), permissionData
             )
             File(permissionConfig).writeText(defaultConfig)
         }
@@ -33,8 +32,7 @@ internal object PermissionBase {
         val permissionConfig = MOD_CONFIG_FOLDER + File.separator + "permissions.json"
         File(MOD_CONFIG_FOLDER).mkdirs()
         val permConfig = jsonInstance.stringify(
-            PermissionModel.serializer(),
-            permissionData
+            PermissionModel.serializer(), permissionData
         )
         File(permissionConfig).writeText(permConfig)
     }
