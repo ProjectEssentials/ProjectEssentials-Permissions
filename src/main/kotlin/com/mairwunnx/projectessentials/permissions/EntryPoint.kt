@@ -21,7 +21,7 @@ internal class EntryPoint : EssBase() {
 
     init {
         modInstance = this
-        modVersion = "1.14.4-1.1.0.0"
+        modVersion = "1.14.4-1.2.0"
         logBaseInfo()
         validateForgeVersion()
         MinecraftForge.EVENT_BUS.register(this)
@@ -89,9 +89,7 @@ internal class EntryPoint : EssBase() {
 
     private fun loadAdditionalModules() {
         try {
-            Class.forName(
-                "com.mairwunnx.projectessentials.cooldown.essentials.CommandsAliases"
-            )
+            Class.forName(cooldownAPIClassPath)
             cooldownsInstalled = true
         } catch (_: ClassNotFoundException) {
             // ignored
