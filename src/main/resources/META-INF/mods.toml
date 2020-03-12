@@ -4,7 +4,7 @@ issueTrackerURL="https://github.com/ProjectEssentials/ProjectEssentials-Permissi
 
 [[mods]]
     modId="project_essentials_permissions"
-    version="1.14.4-1.2.0"
+    version="1.14.4-1.2.1"
     displayName="Project Essentials Permissions"
     updateJSONURL="https://raw.githubusercontent.com/ProjectEssentials/ProjectEssentials-Permissions/MC-1.14.X/update.json"
     displayURL="https://github.com/ProjectEssentials/ProjectEssentials-Permissions"

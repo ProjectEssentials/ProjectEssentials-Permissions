@@ -21,7 +21,7 @@ internal class EntryPoint : EssBase() {
 
     init {
         modInstance = this
-        modVersion = "1.14.4-1.2.0"
+        modVersion = "1.14.4-1.2.1"
         logBaseInfo()
         validateForgeVersion()
         MinecraftForge.EVENT_BUS.register(this)
