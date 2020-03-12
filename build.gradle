@@ -72,7 +72,6 @@ minecraft {
 repositories {
     jcenter()
     mavenCentral()
-    maven { url("https://minecraft.curseforge.com/api/maven/") }
     maven { url("https://libraries.minecraft.net") }
     maven { url("https://jitpack.io") }
 }

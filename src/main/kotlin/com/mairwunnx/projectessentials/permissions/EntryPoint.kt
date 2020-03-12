@@ -1,7 +1,9 @@
 package com.mairwunnx.projectessentials.permissions
 
 import com.mairwunnx.projectessentials.core.EssBase
+import com.mairwunnx.projectessentials.core.configuration.localization.LocalizationConfigurationUtils
 import com.mairwunnx.projectessentials.core.extensions.sendMsg
+import com.mairwunnx.projectessentials.core.localization.processLocalizations
 import com.mairwunnx.projectessentials.permissions.commands.PermissionsCommand
 import com.mairwunnx.projectessentials.permissions.permissions.PermissionBase
 import com.mairwunnx.projectessentials.permissions.permissions.PermissionsAPI
@@ -26,6 +28,20 @@ internal class EntryPoint : EssBase() {
         validateForgeVersion()
         MinecraftForge.EVENT_BUS.register(this)
         PermissionBase.loadData()
+        loadLocalization()
+    }
+
+    private fun loadLocalization() {
+        if (LocalizationConfigurationUtils.getConfig().enabled) {
+            processLocalizations(
+                EntryPoint::class.java, listOf(
+                    "/assets/projectessentialspermissions/lang/de_de.json",
+                    "/assets/projectessentialspermissions/lang/en_us.json",
+                    "/assets/projectessentialspermissions/lang/ru_ru.json",
+                    "/assets/projectessentialspermissions/lang/sr_rs.json"
+                )
+            )
+        }
     }
 
     @SubscribeEvent
