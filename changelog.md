@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.15.2-1.0.1] - 2020-03-13
+
+### Added
+- Server-side only safe localization.
+- Default user `#server` with all permissions.
+
+### Changed
+- Improved internal code.
+- Dependencies: Kotlin, KotlinxSerialization updated.
+- Dokka and Forge API updated.
+
 ## [1.15.2-1.0.0] - 2020-02-07
 
 ### Added

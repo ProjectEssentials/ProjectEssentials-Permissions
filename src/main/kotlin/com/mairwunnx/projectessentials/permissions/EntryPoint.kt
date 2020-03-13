@@ -1,7 +1,8 @@
 package com.mairwunnx.projectessentials.permissions
 
 import com.mairwunnx.projectessentials.core.EssBase
-import com.mairwunnx.projectessentials.core.extensions.sendMsg
+import com.mairwunnx.projectessentials.core.configuration.localization.LocalizationConfigurationUtils
+import com.mairwunnx.projectessentials.core.localization.processLocalizations
 import com.mairwunnx.projectessentials.permissions.commands.PermissionsCommand
 import com.mairwunnx.projectessentials.permissions.permissions.PermissionBase
 import com.mairwunnx.projectessentials.permissions.permissions.PermissionsAPI
@@ -21,11 +22,25 @@ internal class EntryPoint : EssBase() {
 
     init {
         modInstance = this
-        modVersion = "1.15.2-1.0.0"
+        modVersion = "1.15.2-1.0.1"
         logBaseInfo()
         validateForgeVersion()
         MinecraftForge.EVENT_BUS.register(this)
         PermissionBase.loadData()
+        loadLocalization()
+    }
+
+    private fun loadLocalization() {
+        if (LocalizationConfigurationUtils.getConfig().enabled) {
+            processLocalizations(
+                EntryPoint::class.java, listOf(
+                    "/assets/projectessentialspermissions/lang/de_de.json",
+                    "/assets/projectessentialspermissions/lang/en_us.json",
+                    "/assets/projectessentialspermissions/lang/ru_ru.json",
+                    "/assets/projectessentialspermissions/lang/sr_rs.json"
+                )
+            )
+        }
     }
 
     @SubscribeEvent
@@ -51,11 +66,7 @@ internal class EntryPoint : EssBase() {
                 ) && !PermissionsAPI.hasPermission(
                     player.name.string, "native.event.block.place"
                 ) -> {
-                    sendMsg(
-                        "permissions",
-                        player.commandSource,
-                        "perm.block_break.place"
-                    )
+                    sendMessage(player.commandSource, "block_break.place")
                     event.isCanceled = true
                     return
                 }
@@ -71,11 +82,7 @@ internal class EntryPoint : EssBase() {
             ) && !PermissionsAPI.hasPermission(
                 event.player.name.string, "native.event.block.break"
             ) -> {
-                sendMsg(
-                    "permissions",
-                    event.player.commandSource,
-                    "perm.block_break.restricted"
-                )
+                sendMessage(event.player.commandSource, "block_break.restricted")
                 event.isCanceled = true
                 return
             }
