@@ -6,7 +6,7 @@ import kotlinx.serialization.UnstableDefault
 import org.apache.logging.log4j.LogManager
 import java.io.File
 
-@UseExperimental(UnstableDefault::class)
+@OptIn(UnstableDefault::class)
 internal object PermissionBase {
     private val logger = LogManager.getLogger()
     internal var permissionData = PermissionModel()

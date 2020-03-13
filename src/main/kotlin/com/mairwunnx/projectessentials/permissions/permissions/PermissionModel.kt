@@ -52,7 +52,8 @@ data class PermissionModel(
      * stores all registered users.
      */
     var users: List<User> = listOf(
-        User("*", "default", emptyList())
+        User("*", "default", emptyList()),
+        User("#server", "owner", emptyList())
     )
 ) {
     /**
