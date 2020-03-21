@@ -36,6 +36,8 @@ apply(plugin: "net.minecraftforge.gradle")
 apply(plugin: "kotlin")
 apply(plugin: "kotlinx-serialization")
 
+String packagesToken = new String(package_public_token.decodeBase64())
+
 version = module_version
 group = "com.mairwunnx.$module_id"
 archivesBaseName = module_name
@@ -85,7 +87,7 @@ repositories {
         url = uri "https://maven.pkg.github.com/ProjectEssentials/ProjectEssentials-Core"
         credentials {
             username = "MairwunNx@gmail.com"
-            password = "bf134b6d9132344ceeafa899f0bcda9be24e307f"
+            password = packagesToken
         }
     }
     maven {
@@ -93,7 +95,7 @@ repositories {
         url = uri "https://maven.pkg.github.com/ProjectEssentials/ProjectEssentials-Cooldown"
         credentials {
             username = "MairwunNx@gmail.com"
-            password = "bf134b6d9132344ceeafa899f0bcda9be24e307f"
+            password = packagesToken
         }
     }
 }
@@ -144,6 +146,11 @@ sourceCompatibility = targetCompatibility =
 compileKotlin.kotlinOptions.jvmTarget =
     compileTestKotlin.kotlinOptions.jvmTarget = project_jvm_version_target
 
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
 task dokkaJar(type: Jar) {
     group = JavaBasePlugin.DOCUMENTATION_GROUP
     description = "Assembles Kotlin docs with Dokka"
@@ -165,6 +172,7 @@ publishing {
     publications {
         gpr(MavenPublication) {
             from components.java
+            artifact sourcesJar
             artifact dokkaJar
         }
     }

@@ -22,7 +22,7 @@ internal class EntryPoint : EssBase() {
 
     init {
         modInstance = this
-        modVersion = "1.15.2-1.0.1"
+        modVersion = "1.15.2-1.0.2"
         logBaseInfo()
         validateForgeVersion()
         MinecraftForge.EVENT_BUS.register(this)
@@ -46,7 +46,7 @@ internal class EntryPoint : EssBase() {
     @SubscribeEvent
     internal fun onServerStarting(it: FMLServerStartingEvent) {
         loadAdditionalModules()
-        PermissionsCommand.register(it.server.commandManager.dispatcher)
+        PermissionsCommand.register(it.commandDispatcher)
         PermissionsAPI.oppedPlayers.addAll(it.server.playerList.oppedPlayerNames)
     }
 

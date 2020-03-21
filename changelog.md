@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.15.2-1.0.2] - 2020-03-21
+
+### Fixed
+- `java.lang.NoSuchMethodError` exception while server starting.
+
 ## [1.15.2-1.0.1] - 2020-03-13
 
 ### Added
