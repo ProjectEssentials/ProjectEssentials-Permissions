@@ -46,7 +46,7 @@ internal class EntryPoint : EssBase() {
     @SubscribeEvent
     internal fun onServerStarting(it: FMLServerStartingEvent) {
         loadAdditionalModules()
-        PermissionsCommand.register(it.server.commandManager.dispatcher)
+        PermissionsCommand.register(it.commandDispatcher)
         PermissionsAPI.oppedPlayers.addAll(it.server.playerList.oppedPlayerNames)
     }
 
