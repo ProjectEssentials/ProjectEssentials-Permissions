@@ -10,7 +10,7 @@
   "project_essentials_permissions.perm.user.restricted": "§c你 §7没有权限 §c调整用户权限。",
   "project_essentials_permissions.perm.user.example": "§6使用示例: §7/ess permissions user §8<nickname> §b[§d[set]§b|remove] §b[§8<node>§b] §d[[group]] §d[[<group name>]]",
   "project_essentials_permissions.perm.group.success": "§6权限 §7%s §6已添加到组 §7%s§6.",
-  "project_essentials_permissions.perm.user.success": "§6权限 §7%s §已添加到用户 §7%s§6.",
+  "project_essentials_permissions.perm.user.success": "§6权限 §7%s §6已添加到用户 §7%s§6.",
   "project_essentials_permissions.perm.user.group.example": "§6使用示例: §7/ess permissions user §8<nickname> §7set group §8<group name>",
   "project_essentials_permissions.perm.user.group.success": "§6权限组 §7%s §6添加了用户 §7%s§6.",
   "project_essentials_permissions.perm.group.remove.success": "§6权限 §7%s §6已移除到组 §7%s§6.",
