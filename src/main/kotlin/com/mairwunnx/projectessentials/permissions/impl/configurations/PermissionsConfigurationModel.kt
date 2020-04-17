@@ -1,6 +1,6 @@
-package com.mairwunnx.projectessentials.permissions.permissions
+package com.mairwunnx.projectessentials.permissions.impl.configurations
 
-import com.mairwunnx.projectessentials.core.extensions.empty
+import com.mairwunnx.projectessentials.core.api.v1.extensions.empty
 import kotlinx.serialization.Serializable
 
 /**
@@ -10,13 +10,13 @@ import kotlinx.serialization.Serializable
  * @since 1.14.4-0.1.0.0
  */
 @Serializable
-data class PermissionModel(
+data class PermissionsConfigurationModel(
     /**
      * stores all registered groups.
      */
-    var groups: List<Group> = listOf(
+    val groups: MutableList<Group> = mutableListOf(
         Group(
-            "default", true, listOf(
+            "default", true, mutableListOf(
                 "native.help",
                 "native.list",
                 "native.me",
@@ -44,16 +44,16 @@ data class PermissionModel(
                 "ess.tpacancel",
                 "ess.tpa",
                 "ess.tpahere"
-            ), listOf()
+            ), mutableListOf()
         ),
-        Group("owner", false, listOf("*"), listOf("default"))
+        Group("owner", false, mutableListOf("*"), mutableListOf("default"))
     ),
     /**
      * stores all registered users.
      */
-    var users: List<User> = listOf(
-        User("*", "default", emptyList()),
-        User("#server", "owner", emptyList())
+    val users: MutableList<User> = mutableListOf(
+        User("*", "default", mutableListOf()),
+        User("#server", "owner", mutableListOf())
     )
 ) {
     /**
@@ -74,13 +74,13 @@ data class PermissionModel(
         /**
          * stores all group permissions.
          */
-        var permissions: List<String> = emptyList(),
+        val permissions: MutableList<String> = mutableListOf(),
         /**
          * stores groups whose permissions must
          * inherit it group.
          * @since 1.14.4-1.0.0.0
          */
-        var inheritFrom: List<String> = emptyList()
+        val inheritFrom: MutableList<String> = mutableListOf()
     )
 
     /**
@@ -101,6 +101,6 @@ data class PermissionModel(
         /**
          * stores all user additional permissions.
          */
-        var permissions: List<String> = emptyList()
+        val permissions: MutableList<String> = mutableListOf()
     )
 }
