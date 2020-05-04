@@ -45,8 +45,7 @@ data class PermissionsConfigurationModel(
                 "ess.tpa",
                 "ess.tpahere"
             ), mutableListOf()
-        ),
-        Group("owner", false, mutableListOf("*"), mutableListOf("default"))
+        ), Group("owner", false, mutableListOf("*"), mutableListOf("default"), "§c[§7owner§c]")
     ),
     /**
      * stores all registered users.
@@ -80,7 +79,12 @@ data class PermissionsConfigurationModel(
          * inherit it group.
          * @since 1.14.4-1.0.0.0
          */
-        val inheritFrom: MutableList<String> = mutableListOf()
+        val inheritFrom: MutableList<String> = mutableListOf(),
+        /**
+         * Group message prefix for user.
+         * @since Mod: 2.0.0-SNAPSHOT.1, API: 1.0.0
+         */
+        var prefix: String = String.empty
     )
 
     /**
