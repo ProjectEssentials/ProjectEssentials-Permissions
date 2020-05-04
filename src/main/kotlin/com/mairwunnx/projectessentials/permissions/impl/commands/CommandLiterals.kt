@@ -104,6 +104,10 @@ fun takePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
                 ).then(Commands.literal("list"))
             )
         ).then(
+            Commands.literal("prefix").then(
+                Commands.argument("prefix", StringArgumentType.string())
+            )
+        ).then(
             Commands.literal("rename").then(
                 Commands.argument(
                     "old-group-name",
