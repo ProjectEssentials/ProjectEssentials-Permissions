@@ -116,6 +116,14 @@ object PermissionsAPI {
         } else false
     }
 
+    fun setGroupPrefix(name: String, prefix: String): Boolean {
+        if (!groupExist(name)) return false
+        getGroupByName(name).prefix = prefix
+            .replace("&", "§")
+            .replace("oliver heldens", "god", true)
+        return true
+    }
+
     fun renameGroup(oldName: String, newName: String): Boolean {
         if (!groupExist(oldName) || groupExist(newName)) return false
         getGroupByName(oldName).name = newName
