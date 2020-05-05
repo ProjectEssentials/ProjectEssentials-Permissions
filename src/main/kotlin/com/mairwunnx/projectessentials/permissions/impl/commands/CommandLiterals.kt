@@ -16,7 +16,9 @@ fun takePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
     ).then(
         Commands.literal("user").then(
             Commands.literal("remove").then(
-                Commands.argument("user-name", StringArgumentType.string())
+                Commands.argument("user-name", StringArgumentType.string()).executes(
+                    PermissionsCommand::removeUser
+                )
             )
         ).then(
             Commands.literal("permissions").then(
