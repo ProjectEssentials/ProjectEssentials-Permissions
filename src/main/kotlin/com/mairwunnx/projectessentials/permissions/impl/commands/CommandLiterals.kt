@@ -10,9 +10,9 @@ import net.minecraft.command.Commands
 
 fun takePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
     literal<CommandSource>("permissions").then(
-        Commands.literal("save")
+        Commands.literal("save").executes(PermissionsCommand::save)
     ).then(
-        Commands.literal("reload")
+        Commands.literal("reload").executes(PermissionsCommand::reload)
     ).then(
         Commands.literal("user").then(
             Commands.literal("remove").then(
