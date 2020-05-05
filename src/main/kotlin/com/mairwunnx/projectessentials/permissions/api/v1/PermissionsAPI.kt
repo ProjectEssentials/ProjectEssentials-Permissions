@@ -43,10 +43,7 @@ object PermissionsAPI {
                 return@map inherit
             }
             return@map it
-        }.toSet().also {
-            // todo: Remove `also` block. This for debug.
-            logger.info(it.toString())
-        }
+        }.toSet()
     }
 
     fun getGroupPermissions(name: String, includeInherit: Boolean = false) =

@@ -6,6 +6,6 @@ import com.sk89q.worldedit.event.platform.PlatformReadyEvent;
 @SuppressWarnings("unused")
 public class WorldEditEventHandler {
     public static void onWorldEditConfigured(PlatformReadyEvent event) {
-        ((ModulePermissionsObject) ModuleAPI.INSTANCE.getModuleByName("permissions")).replaceWorldEditPermissionHandler();
+        ((ModuleObject) ModuleAPI.INSTANCE.getModuleByName("permissions")).replaceWorldEditPermissionHandler();
     }
 }

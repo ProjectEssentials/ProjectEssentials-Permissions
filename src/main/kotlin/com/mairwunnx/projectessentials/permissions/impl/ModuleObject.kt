@@ -36,13 +36,13 @@ import org.apache.logging.log4j.LogManager
 @OptIn(ExperimentalUnsignedTypes::class)
 @Mod("project_essentials_permissions")
 @Module("permissions", "2.0.0-SNAPSHOT.2+MC-1.14.4", 1u, "1.0.0")
-internal class ModulePermissionsObject : IModule {
+internal class ModuleObject : IModule {
     private val providers = listOf(
         PermissionsConfiguration::class,
         PermissionsSettingsConfiguration::class,
         ConfigurePermissionsCommand::class,
         PermissionsCommand::class,
-        ModulePermissionsObject::class
+        ModuleObject::class
     )
     private val generalConfiguration by lazy {
         ConfigurationAPI.getConfigurationByName<GeneralConfiguration>("general")
@@ -85,7 +85,7 @@ internal class ModulePermissionsObject : IModule {
                         "/assets/projectessentialspermissions/lang/ru_ru.json",
                         "/assets/projectessentialspermissions/lang/sr_rs.json",
                         "/assets/projectessentialspermissions/lang/zh_cn.json"
-                    ), "permissions", ModulePermissionsObject::class.java
+                    ), "permissions", ModuleObject::class.java
                 )
             )
         }
@@ -110,7 +110,11 @@ internal class ModulePermissionsObject : IModule {
                 if (permissionsSettings.configuration.useSimplifiedWorldPermissions) {
                     "native.event.world.block.break"
                 } else {
-                    "native.event.world.${event.player.currentDimensionName}.block.${event.state.block.registryName}.break"
+                    "native.event.world.${event.player.currentDimensionName}.block.${event.state.block.registryName}.break".also {
+                        if (permissionsSettings.configuration.debugMode) {
+                            logger.debug(it)
+                        }
+                    }
                 }
             ) -> {
                 MessagingAPI.sendMessage(
@@ -134,7 +138,11 @@ internal class ModulePermissionsObject : IModule {
                     if (permissionsSettings.configuration.useSimplifiedWorldPermissions) {
                         "native.event.world.block.place"
                     } else {
-                        "native.event.world.${player.currentDimensionName}.block.${event.state.block.registryName}.place"
+                        "native.event.world.${player.currentDimensionName}.block.${event.state.block.registryName}.place".also {
+                            if (permissionsSettings.configuration.debugMode) {
+                                logger.debug(it)
+                            }
+                        }
                     }
                 ) -> {
                     MessagingAPI.sendMessage(
@@ -159,7 +167,11 @@ internal class ModulePermissionsObject : IModule {
                     if (permissionsSettings.configuration.useSimplifiedWorldPermissions) {
                         "native.event.world.block.farmland.trample"
                     } else {
-                        "native.event.world.${player.currentDimensionName}.block.farmland.trample"
+                        "native.event.world.${player.currentDimensionName}.block.farmland.trample".also {
+                            if (permissionsSettings.configuration.debugMode) {
+                                logger.debug(it)
+                            }
+                        }
                     }
                 ) -> {
                     event.isCanceled = true
@@ -179,7 +191,11 @@ internal class ModulePermissionsObject : IModule {
                     if (permissionsSettings.configuration.useSimplifiedWorldPermissions) {
                         "native.event.world.item.use"
                     } else {
-                        "native.event.world.${player.currentDimensionName}.item.${event.item.item.registryName}.use"
+                        "native.event.world.${player.currentDimensionName}.item.${event.item.item.registryName}.use".also {
+                            if (permissionsSettings.configuration.debugMode) {
+                                logger.debug(it)
+                            }
+                        }
                     }
                 ) -> {
                     event.isCanceled = true
