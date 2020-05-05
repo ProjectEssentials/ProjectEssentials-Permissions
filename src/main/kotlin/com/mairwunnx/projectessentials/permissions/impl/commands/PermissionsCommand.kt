@@ -45,10 +45,9 @@ object PermissionsCommand : CommandBase(
     internal fun save(context: CommandContext<CommandSource>): Int {
         fun action(isServer: Boolean) {
             permissionsConfiguration.save().run {
-                if (isServer) {
-                    ServerMessagingAPI.response("Permissions configuration saved.")
-                } else {
-                    MessagingAPI.sendMessage(
+                when {
+                    isServer -> ServerMessagingAPI.response("Permissions configuration saved.")
+                    else -> MessagingAPI.sendMessage(
                         context.getPlayer()!!,
                         "${MESSAGE_MODULE_PREFIX}permissions.perm.save.success",
                         generalConfiguration.getBool(SETTING_LOC_ENABLED)
@@ -66,10 +65,9 @@ object PermissionsCommand : CommandBase(
     internal fun reload(context: CommandContext<CommandSource>): Int {
         fun action(isServer: Boolean) {
             permissionsConfiguration.load().run {
-                if (isServer) {
-                    ServerMessagingAPI.response("Permissions configuration reloaded.")
-                } else {
-                    MessagingAPI.sendMessage(
+                when {
+                    isServer -> ServerMessagingAPI.response("Permissions configuration reloaded.")
+                    else -> MessagingAPI.sendMessage(
                         context.getPlayer()!!,
                         "${MESSAGE_MODULE_PREFIX}permissions.perm.reload.success",
                         generalConfiguration.getBool(SETTING_LOC_ENABLED)
@@ -89,12 +87,11 @@ object PermissionsCommand : CommandBase(
             CommandAPI.getString(context, "user-name").also { user ->
                 PermissionsAPI.removeUser(user).also { result ->
                     if (result) {
-                        if (isServer) {
-                            ServerMessagingAPI.response(
+                        when {
+                            isServer -> ServerMessagingAPI.response(
                                 "User $user was removed from permissions and refreshed to default group."
                             )
-                        } else {
-                            MessagingAPI.sendMessage(
+                            else -> MessagingAPI.sendMessage(
                                 context.getPlayer()!!,
                                 "${MESSAGE_MODULE_PREFIX}permissions.perm.user_modify.remove.success",
                                 generalConfiguration.getBool(SETTING_LOC_ENABLED),
@@ -102,12 +99,11 @@ object PermissionsCommand : CommandBase(
                             )
                         }
                     } else {
-                        if (isServer) {
-                            ServerMessagingAPI.response(
+                        when {
+                            isServer -> ServerMessagingAPI.response(
                                 "User $user was not removed from permissions because he does not have special privileges."
                             )
-                        } else {
-                            MessagingAPI.sendMessage(
+                            else -> MessagingAPI.sendMessage(
                                 context.getPlayer()!!,
                                 "${MESSAGE_MODULE_PREFIX}permissions.perm.user_modify.remove.error",
                                 generalConfiguration.getBool(SETTING_LOC_ENABLED),
@@ -130,12 +126,11 @@ object PermissionsCommand : CommandBase(
             CommandAPI.getString(context, "user-name").also { user ->
                 CommandAPI.getString(context, "node").also { node ->
                     PermissionsAPI.addUserPermission(user, node).also {
-                        if (isServer) {
-                            ServerMessagingAPI.response(
+                        when {
+                            isServer -> ServerMessagingAPI.response(
                                 "Permission node `$node` was added to user $user."
                             )
-                        } else {
-                            MessagingAPI.sendMessage(
+                            else -> MessagingAPI.sendMessage(
                                 context.getPlayer()!!,
                                 "${MESSAGE_MODULE_PREFIX}permissions.perm.user_modify.permissions.add.success",
                                 generalConfiguration.getBool(SETTING_LOC_ENABLED),
@@ -149,6 +144,47 @@ object PermissionsCommand : CommandBase(
 
         validate(context, "ess.permissions.user.modify.permissions.add", 3, ::action) {
             "${MESSAGE_MODULE_PREFIX}permissions.perm.user_modify.permissions.add.restricted"
+        }
+        return 0
+    }
+
+    internal fun removeUserPermission(context: CommandContext<CommandSource>): Int {
+        fun action(isServer: Boolean) {
+            CommandAPI.getString(context, "user-name").also { user ->
+                CommandAPI.getString(context, "node").also { node ->
+                    PermissionsAPI.removeUserPermission(user, node).also { result ->
+                        if (result) {
+                            when {
+                                isServer -> ServerMessagingAPI.response(
+                                    "Permission node `$node` was removed at user $user."
+                                )
+                                else -> MessagingAPI.sendMessage(
+                                    context.getPlayer()!!,
+                                    "${MESSAGE_MODULE_PREFIX}permissions.perm.user_modify.permissions.remove.success",
+                                    generalConfiguration.getBool(SETTING_LOC_ENABLED),
+                                    node, user
+                                )
+                            }
+                        } else {
+                            when {
+                                isServer -> ServerMessagingAPI.response(
+                                    "Permission node `$node` was not removed at user $user. User not have this permission node for removing it."
+                                )
+                                else -> MessagingAPI.sendMessage(
+                                    context.getPlayer()!!,
+                                    "${MESSAGE_MODULE_PREFIX}permissions.perm.user_modify.permissions.remove.error",
+                                    generalConfiguration.getBool(SETTING_LOC_ENABLED),
+                                    node, user
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        validate(context, "ess.permissions.user.modify.permissions.remove", 3, ::action) {
+            "${MESSAGE_MODULE_PREFIX}permissions.perm.user_modify.permissions.remove.restricted"
         }
         return 0
     }

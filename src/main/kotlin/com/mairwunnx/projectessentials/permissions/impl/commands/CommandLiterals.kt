@@ -33,7 +33,7 @@ fun takePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
                 ).then(
                     Commands.literal("remove").then(
                         Commands.argument("node", StringArgumentType.string())
-                    )
+                    ).executes(PermissionsCommand::removeUserPermission)
                 ).then(Commands.literal("list"))
             )
         ).then(
