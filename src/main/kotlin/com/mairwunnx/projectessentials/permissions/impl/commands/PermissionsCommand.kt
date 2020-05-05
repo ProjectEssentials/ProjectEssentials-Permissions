@@ -125,6 +125,34 @@ object PermissionsCommand : CommandBase(
         return 0
     }
 
+    internal fun addUserPermission(context: CommandContext<CommandSource>): Int {
+        fun action(isServer: Boolean) {
+            CommandAPI.getString(context, "user-name").also { user ->
+                CommandAPI.getString(context, "node").also { node ->
+                    PermissionsAPI.addUserPermission(user, node).also {
+                        if (isServer) {
+                            ServerMessagingAPI.response(
+                                "Permission node `$node` was added to user $user."
+                            )
+                        } else {
+                            MessagingAPI.sendMessage(
+                                context.getPlayer()!!,
+                                "${MESSAGE_MODULE_PREFIX}permissions.perm.user_modify.permissions.add.success",
+                                generalConfiguration.getBool(SETTING_LOC_ENABLED),
+                                node, user
+                            )
+                        }
+                    }
+                }
+            }
+        }
+
+        validate(context, "ess.permissions.user.modify.permissions.add", 3, ::action) {
+            "${MESSAGE_MODULE_PREFIX}permissions.perm.user_modify.permissions.add.restricted"
+        }
+        return 0
+    }
+
     private fun validate(
         context: CommandContext<CommandSource>,
         node: String,
