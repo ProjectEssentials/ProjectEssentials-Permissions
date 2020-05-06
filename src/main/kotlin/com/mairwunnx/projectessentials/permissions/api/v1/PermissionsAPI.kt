@@ -113,6 +113,9 @@ object PermissionsAPI {
         } else false
     }
 
+    fun getGroupPrefix(name: String): String =
+        if (!groupExist(name)) String.empty else getGroupByName(name).prefix
+
     fun setGroupPrefix(name: String, prefix: String): Boolean {
         if (!groupExist(name)) return false
         getGroupByName(name).prefix = prefix
