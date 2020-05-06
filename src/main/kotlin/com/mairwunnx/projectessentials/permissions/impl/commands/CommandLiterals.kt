@@ -60,7 +60,9 @@ fun takePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
                         StringArrayArgument.with(PermissionsAPI.getGroups().map { it.name })
                     ).then(
                         Commands.literal("for").then(
-                            Commands.argument("user-name", StringArgumentType.string())
+                            Commands.argument("user-name", StringArgumentType.string()).executes(
+                                PermissionsCommand::setUserGroup
+                            )
                         )
                     )
                 )

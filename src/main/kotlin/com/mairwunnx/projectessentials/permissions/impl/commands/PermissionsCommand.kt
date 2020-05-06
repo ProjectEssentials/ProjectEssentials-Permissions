@@ -262,6 +262,56 @@ object PermissionsCommand : CommandBase(
         return 0
     }
 
+    internal fun setUserGroup(context: CommandContext<CommandSource>): Int {
+        fun action(isServer: Boolean) {
+            CommandAPI.getString(context, "user-name").also { user ->
+                CommandAPI.getString(context, "group-name").also { group ->
+                    PermissionsAPI.setUserGroup(user, group).also { result ->
+                        if (result) {
+                            if (isServer) {
+                                ServerMessagingAPI.response(
+                                    "New group `$group` was setted up for user `$user`."
+                                )
+                            } else {
+                                MessagingAPI.sendMessage(
+                                    context.getPlayer()!!,
+                                    "${MESSAGE_MODULE_PREFIX}permissions.perm.user_modify.group.set.success",
+                                    generalConfiguration.getBool(SETTING_LOC_ENABLED),
+                                    group, user
+                                )
+                            }
+                        } else {
+                            if (isServer) {
+                                val groups = PermissionsAPI.getGroups()
+                                ServerMessagingAPI.response(
+                                    """
+                                        Configuring user group failed. Group with name `$group` not exist.
+                                        
+                                        Available groups (${groups.count()}):
+                                        
+                                        ${groups.joinToString(prefix = "    > ") { ",\n" }}
+                                    """.trimIndent()
+                                )
+                            } else {
+                                MessagingAPI.sendMessage(
+                                    context.getPlayer()!!,
+                                    "${MESSAGE_MODULE_PREFIX}permissions.perm.user_modify.group.set.error",
+                                    generalConfiguration.getBool(SETTING_LOC_ENABLED),
+                                    group
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        validate(context, "ess.permissions.user.modify.group.set", 3, ::action) {
+            "${MESSAGE_MODULE_PREFIX}permissions.perm.user_modify.group.set.restricted"
+        }
+        return 0
+    }
+
     private fun validate(
         context: CommandContext<CommandSource>,
         node: String,
