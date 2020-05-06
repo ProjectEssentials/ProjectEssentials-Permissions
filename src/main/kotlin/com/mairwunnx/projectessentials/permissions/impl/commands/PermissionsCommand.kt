@@ -13,9 +13,11 @@ import com.mairwunnx.projectessentials.core.api.v1.permissions.hasPermission
 import com.mairwunnx.projectessentials.core.impl.configurations.GeneralConfiguration
 import com.mairwunnx.projectessentials.permissions.api.v1.PermissionsAPI
 import com.mairwunnx.projectessentials.permissions.impl.configurations.PermissionsConfiguration
+import com.mairwunnx.projectessentials.permissions.impl.configurations.PermissionsSettingsConfiguration
 import com.mojang.brigadier.CommandDispatcher
 import com.mojang.brigadier.context.CommandContext
 import net.minecraft.command.CommandSource
+import net.minecraft.util.text.StringTextComponent
 
 @Command("permissions", ["perm", "perms", "permission"])
 object PermissionsCommand : CommandBase(
@@ -26,6 +28,9 @@ object PermissionsCommand : CommandBase(
     }
     private val permissionsConfiguration by lazy {
         getConfigurationByName<PermissionsConfiguration>("permissions")
+    }
+    private val permissionsSettingsConfiguration by lazy {
+        getConfigurationByName<PermissionsSettingsConfiguration>("permissions-settings")
     }
 
     init {
@@ -185,6 +190,74 @@ object PermissionsCommand : CommandBase(
 
         validate(context, "ess.permissions.user.modify.permissions.remove", 3, ::action) {
             "${MESSAGE_MODULE_PREFIX}permissions.perm.user_modify.permissions.remove.restricted"
+        }
+        return 0
+    }
+
+    internal fun listUserPermissions(context: CommandContext<CommandSource>): Int {
+        fun action(isServer: Boolean) {
+            CommandAPI.getString(context, "user-name").also { user ->
+                CommandAPI.getBoolExisting(context, "deep").also { isDeep ->
+                    PermissionsAPI.getUserPermissions(
+                        user, if (isDeep) CommandAPI.getBool(context, "deep") else false
+                    ).also { permissions ->
+                        if (isServer) {
+                            if (permissions.isEmpty()) {
+                                ServerMessagingAPI.response(
+                                    "Requested permissions list is empty, nothing to listing you."
+                                )
+                            } else {
+                                ServerMessagingAPI.response(
+                                    "Full permissions list for requested user $user ${if (isDeep) {
+                                        "with including deep permissions"
+                                    } else {
+                                        ""
+                                    }}:\n".plus(
+                                        permissions.joinToString(
+                                            prefix = "    > ", postfix = ","
+                                        ) { "\n" }
+                                    )
+                                )
+                            }
+                        } else {
+                            if (permissions.isEmpty()) {
+                                MessagingAPI.sendMessage(
+                                    context.getPlayer()!!,
+                                    "project_essentials_permissions.perm.list.empty",
+                                    generalConfiguration.getBool(SETTING_LOC_ENABLED)
+                                )
+                            } else {
+                                val linesPerPage =
+                                    permissionsSettingsConfiguration.take().permissionsListLinesPerPage
+                                val pages = permissions.count() / linesPerPage + 1
+                                val page = when {
+                                    CommandAPI.getIntExisting(context, "page") -> {
+                                        CommandAPI.getInt(context, "page")
+                                    }
+                                    else -> 1
+                                }
+
+                                val displayedLines = page * linesPerPage
+                                val droppedLines = displayedLines - linesPerPage
+                                val values = permissions.take(displayedLines).drop(droppedLines)
+                                val message = """
+                                    §7Permissions page §c$page §7of §c$pages
+                                    
+                                    §7${values.joinToString { "\n§7" }}
+                                """.trimIndent()
+
+                                context.source.sendFeedback(
+                                    StringTextComponent(message), false
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        validate(context, "ess.permissions.user.read.permissions", 3, ::action) {
+            "${MESSAGE_MODULE_PREFIX}permissions.perm.user_read.permissions.restricted"
         }
         return 0
     }
