@@ -289,7 +289,9 @@ object PermissionsCommand : CommandBase(
                                         
                                         Available groups (${groups.count()}):
                                         
-                                        ${groups.joinToString(prefix = "    > ") { ",\n" }}
+                                    ${groups.map {
+                                        it.name
+                                    }.joinToString(prefix = "    > ", postfix = ",") { "\n" }}
                                     """.trimIndent()
                                 )
                             } else {
