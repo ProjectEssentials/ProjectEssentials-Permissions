@@ -112,7 +112,9 @@ fun takePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
                     StringArrayArgument.with(PermissionsAPI.getGroups().map { it.name })
                 ).then(
                     Commands.literal("add").then(
-                        Commands.argument("node", StringArgumentType.string())
+                        Commands.argument("node", StringArgumentType.string()).executes(
+                            PermissionsCommand::addGroupPermission
+                        )
                     )
                 ).then(
                     Commands.literal("remove").then(

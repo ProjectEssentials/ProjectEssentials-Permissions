@@ -542,6 +542,35 @@ object PermissionsCommand : CommandBase(
         return 0
     }
 
+    internal fun addGroupPermission(context: CommandContext<CommandSource>): Int {
+        fun action(isServer: Boolean) {
+            CommandAPI.getString(context, "group-name").also { group ->
+                CommandAPI.getString(context, "node").also { node ->
+                    PermissionsAPI.addGroupPermission(group, node)
+
+                    if (isServer) {
+                        ServerMessagingAPI.response(
+                            "Permission node `$node` was added to group $group."
+                        )
+                    } else {
+                        MessagingAPI.sendMessage(
+                            context.getPlayer()!!,
+                            "${MESSAGE_MODULE_PREFIX}permissions.perm.group_modify.permissions.add.success",
+                            generalConfiguration.getBool(SETTING_LOC_ENABLED),
+                            node, group
+                        )
+                    }
+                }
+            }
+
+        }
+
+        validate(context, "ess.permissions.group.modify.permissions.add", 3, ::action) {
+            "${MESSAGE_MODULE_PREFIX}permissions.perm.group_modify.group.permissions.add.restricted"
+        }
+        return 0
+    }
+
     private fun validate(
         context: CommandContext<CommandSource>,
         node: String,
