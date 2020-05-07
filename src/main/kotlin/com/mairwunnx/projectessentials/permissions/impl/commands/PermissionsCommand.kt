@@ -416,6 +416,49 @@ object PermissionsCommand : CommandBase(
         return 0
     }
 
+    internal fun setDefaultGroup(context: CommandContext<CommandSource>): Int {
+        fun action(isServer: Boolean) {
+            CommandAPI.getString(context, "group-name").also { group ->
+                PermissionsAPI.defaultFactorMove(
+                    group, PermissionsAPI.getDefaultGroup().name
+                ).also { result ->
+                    if (isServer) {
+                        if (result) {
+                            ServerMessagingAPI.response(
+                                "Default group factor changed for group $group."
+                            )
+                        } else {
+                            ServerMessagingAPI.response(
+                                "Group with name $group not exist, changes was rolled back."
+                            )
+                        }
+                    } else {
+                        if (result) {
+                            MessagingAPI.sendMessage(
+                                context.getPlayer()!!,
+                                "${MESSAGE_MODULE_PREFIX}permissions.perm.group_modify.group.default.success",
+                                generalConfiguration.getBool(SETTING_LOC_ENABLED),
+                                group
+                            )
+                        } else {
+                            MessagingAPI.sendMessage(
+                                context.getPlayer()!!,
+                                "${MESSAGE_MODULE_PREFIX}permissions.perm.group_modify.group.default.error",
+                                generalConfiguration.getBool(SETTING_LOC_ENABLED),
+                                group
+                            )
+                        }
+                    }
+                }
+            }
+        }
+
+        validate(context, "ess.permissions.group.modify.default.set", 3, ::action) {
+            "${MESSAGE_MODULE_PREFIX}permissions.perm.group_modify.group.default.restricted"
+        }
+        return 0
+    }
+
     private fun validate(
         context: CommandContext<CommandSource>,
         node: String,

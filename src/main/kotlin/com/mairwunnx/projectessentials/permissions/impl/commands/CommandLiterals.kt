@@ -88,7 +88,7 @@ fun takePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
                     StringArrayArgument.with(
                         PermissionsAPI.getGroups().filter { !it.isDefault }.map { it.name }
                     )
-                )
+                ).executes(PermissionsCommand::setDefaultGroup)
             )
         ).then(
             Commands.literal("create").then(
