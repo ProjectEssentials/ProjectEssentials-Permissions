@@ -95,7 +95,6 @@ object PermissionsCommand : CommandBase(
                     ServerMessagingAPI.response(
                         """
                             Permissions information about user: $user
-                            ---
                             > Group: ${PermissionsAPI.getUserGroup(user)}
                             > Permissions count: ${PermissionsAPI.getUserPermissions(user, false)
                             .count()}
@@ -259,9 +258,9 @@ object PermissionsCommand : CommandBase(
                                     } else {
                                         ""
                                     }}:\n".plus(
-                                        permissions.joinToString(
-                                            prefix = "    > ", postfix = ","
-                                        ) { "\n" }
+                                        permissions.joinToString(separator = ",\n") {
+                                            "> $it"
+                                        }
                                     )
                                 )
                             }
@@ -289,7 +288,7 @@ object PermissionsCommand : CommandBase(
                                 val message = """
                                     §7Permissions page §c$page §7of §c$pages
                                     
-                                    §7${values.joinToString { "\n§7" }}
+                                    §7${values.joinToString(separator = "\n§7")}
                                 """.trimIndent()
 
                                 context.source.sendFeedback(
@@ -371,7 +370,9 @@ object PermissionsCommand : CommandBase(
                     } else {
                         ServerMessagingAPI.response(
                             "Requested full groups list:\n".plus(
-                                groups.joinToString(prefix = "    > ", postfix = ",") { "\n" }
+                                groups.joinToString(separator = ",\n") {
+                                    "> $it"
+                                }
                             )
                         )
                     }
@@ -400,7 +401,7 @@ object PermissionsCommand : CommandBase(
                             """
                                 §7Groups list page §c$page §7of §c$pages
                                     
-                                §7${values.joinToString { "\n§7" }}
+                                §7${values.joinToString(separator = "\n§7")}
                             """.trimIndent()
 
                         context.source.sendFeedback(
@@ -632,9 +633,9 @@ object PermissionsCommand : CommandBase(
                                     } else {
                                         ""
                                     }}:\n".plus(
-                                        permissions.joinToString(
-                                            prefix = "    > ", postfix = ","
-                                        ) { "\n" }
+                                        permissions.joinToString(separator = ",\n") {
+                                            "> $it"
+                                        }
                                     )
                                 )
                             }
@@ -662,7 +663,7 @@ object PermissionsCommand : CommandBase(
                                 val message = """
                                     §7Permissions page §c$page §7of §c$pages
                                     
-                                    §7${values.joinToString { "\n§7" }}
+                                    §7${values.joinToString(separator = "\n§7")}
                                 """.trimIndent()
 
                                 context.source.sendFeedback(
@@ -774,12 +775,14 @@ object PermissionsCommand : CommandBase(
                     if (isServer) {
                         if (groups.isEmpty()) {
                             ServerMessagingAPI.response(
-                                "Group $group has not childrens. *joke about the сondom*"
+                                "Group $group has not childrens. *joke about the condom*"
                             )
                         } else {
                             ServerMessagingAPI.response(
                                 "Requested full group inherits list for $group:\n".plus(
-                                    groups.joinToString(prefix = "    > ", postfix = ",") { "\n" }
+                                    groups.joinToString(separator = ",\n") {
+                                        "> $it"
+                                    }
                                 )
                             )
                         }
@@ -808,7 +811,7 @@ object PermissionsCommand : CommandBase(
                                 """
                                 §7Group $group inherit list page §c$page §7of §c$pages
                                     
-                                §7${values.joinToString { "\n§7" }}
+                                §7${values.joinToString(separator = "\n§7")}
                                 """.trimIndent()
 
                             context.source.sendFeedback(
