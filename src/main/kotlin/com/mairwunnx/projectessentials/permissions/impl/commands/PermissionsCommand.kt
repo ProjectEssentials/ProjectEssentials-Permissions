@@ -562,7 +562,6 @@ object PermissionsCommand : CommandBase(
                     }
                 }
             }
-
         }
 
         validate(context, "ess.permissions.group.modify.permissions.add", 3, ::action) {
@@ -678,6 +677,49 @@ object PermissionsCommand : CommandBase(
 
         validate(context, "ess.permissions.group.read.permissions", 3, ::action) {
             "${MESSAGE_MODULE_PREFIX}permissions.perm.group_read.permissions.restricted"
+        }
+        return 0
+    }
+
+    internal fun addGroupInherit(context: CommandContext<CommandSource>): Int {
+        fun action(isServer: Boolean) {
+            CommandAPI.getString(context, "group-name").also { group ->
+                CommandAPI.getString(context, "inherit-group").also { inherit ->
+                    PermissionsAPI.addGroupInheritances(group, inherit).also { result ->
+                        if (isServer) {
+                            if (result) {
+                                ServerMessagingAPI.response(
+                                    "New inherit group $inherit was added to group $group."
+                                )
+                            } else {
+                                ServerMessagingAPI.response(
+                                    "Requested group with name $group not exist."
+                                )
+                            }
+                        } else {
+                            if (result) {
+                                MessagingAPI.sendMessage(
+                                    context.getPlayer()!!,
+                                    "${MESSAGE_MODULE_PREFIX}permissions.perm.group_modify.inherit.add.success",
+                                    generalConfiguration.getBool(SETTING_LOC_ENABLED),
+                                    inherit, group
+                                )
+                            } else {
+                                MessagingAPI.sendMessage(
+                                    context.getPlayer()!!,
+                                    "${MESSAGE_MODULE_PREFIX}permissions.perm.group_modify.inherit.add.error",
+                                    generalConfiguration.getBool(SETTING_LOC_ENABLED),
+                                    group
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        validate(context, "ess.permissions.group.modify.inherit.add", 3, ::action) {
+            "${MESSAGE_MODULE_PREFIX}permissions.perm.group_modify.group.inherit.add.restricted"
         }
         return 0
     }
