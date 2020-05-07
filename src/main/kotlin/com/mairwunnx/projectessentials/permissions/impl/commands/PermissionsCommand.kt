@@ -501,6 +501,47 @@ object PermissionsCommand : CommandBase(
         return 0
     }
 
+    internal fun removeGroup(context: CommandContext<CommandSource>): Int {
+        fun action(isServer: Boolean) {
+            CommandAPI.getString(context, "group-name").also { group ->
+                PermissionsAPI.removeGroup(group).also { result ->
+                    if (isServer) {
+                        if (result) {
+                            ServerMessagingAPI.response(
+                                "Group with name $group removed."
+                            )
+                        } else {
+                            ServerMessagingAPI.response(
+                                "Group with name $group was not removed. Requested group not exist."
+                            )
+                        }
+                    } else {
+                        if (result) {
+                            MessagingAPI.sendMessage(
+                                context.getPlayer()!!,
+                                "${MESSAGE_MODULE_PREFIX}permissions.perm.group_modify.group.remove.success",
+                                generalConfiguration.getBool(SETTING_LOC_ENABLED),
+                                group
+                            )
+                        } else {
+                            MessagingAPI.sendMessage(
+                                context.getPlayer()!!,
+                                "${MESSAGE_MODULE_PREFIX}permissions.perm.group_modify.group.remove.error",
+                                generalConfiguration.getBool(SETTING_LOC_ENABLED),
+                                group
+                            )
+                        }
+                    }
+                }
+            }
+        }
+
+        validate(context, "ess.permissions.group.modify.remove", 3, ::action) {
+            "${MESSAGE_MODULE_PREFIX}permissions.perm.group_modify.group.remove.restricted"
+        }
+        return 0
+    }
+
     private fun validate(
         context: CommandContext<CommandSource>,
         node: String,

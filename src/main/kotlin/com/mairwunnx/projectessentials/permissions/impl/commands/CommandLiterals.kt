@@ -103,7 +103,7 @@ fun takePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
                     StringArrayArgument.with(
                         PermissionsAPI.getGroups().filter { !it.isDefault }.map { it.name }
                     )
-                )
+                ).executes(PermissionsCommand::removeGroup)
             )
         ).then(
             Commands.literal("permissions").then(
