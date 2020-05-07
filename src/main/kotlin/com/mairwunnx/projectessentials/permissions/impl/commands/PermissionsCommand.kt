@@ -13,6 +13,7 @@ import com.mairwunnx.projectessentials.core.api.v1.permissions.hasPermission
 import com.mairwunnx.projectessentials.core.impl.configurations.GeneralConfiguration
 import com.mairwunnx.projectessentials.permissions.api.v1.PermissionsAPI
 import com.mairwunnx.projectessentials.permissions.impl.configurations.PermissionsConfiguration
+import com.mairwunnx.projectessentials.permissions.impl.configurations.PermissionsConfigurationModel
 import com.mairwunnx.projectessentials.permissions.impl.configurations.PermissionsSettingsConfiguration
 import com.mojang.brigadier.CommandDispatcher
 import com.mojang.brigadier.context.CommandContext
@@ -455,6 +456,47 @@ object PermissionsCommand : CommandBase(
 
         validate(context, "ess.permissions.group.modify.default.set", 3, ::action) {
             "${MESSAGE_MODULE_PREFIX}permissions.perm.group_modify.group.default.restricted"
+        }
+        return 0
+    }
+
+    internal fun createGroup(context: CommandContext<CommandSource>): Int {
+        fun action(isServer: Boolean) {
+            CommandAPI.getString(context, "group-name").also { group ->
+                PermissionsAPI.addGroup(PermissionsConfigurationModel.Group(group)).also { result ->
+                    if (isServer) {
+                        if (result) {
+                            ServerMessagingAPI.response(
+                                "Group with name $group created, but new groups need to configure."
+                            )
+                        } else {
+                            ServerMessagingAPI.response(
+                                "Group with name $group not created, group with name $group already exist."
+                            )
+                        }
+                    } else {
+                        if (result) {
+                            MessagingAPI.sendMessage(
+                                context.getPlayer()!!,
+                                "${MESSAGE_MODULE_PREFIX}permissions.perm.group_modify.group.create.success",
+                                generalConfiguration.getBool(SETTING_LOC_ENABLED),
+                                group
+                            )
+                        } else {
+                            MessagingAPI.sendMessage(
+                                context.getPlayer()!!,
+                                "${MESSAGE_MODULE_PREFIX}permissions.perm.group_modify.group.create.error",
+                                generalConfiguration.getBool(SETTING_LOC_ENABLED),
+                                group
+                            )
+                        }
+                    }
+                }
+            }
+        }
+
+        validate(context, "ess.permissions.group.modify.create", 3, ::action) {
+            "${MESSAGE_MODULE_PREFIX}permissions.perm.group_modify.group.create.restricted"
         }
         return 0
     }

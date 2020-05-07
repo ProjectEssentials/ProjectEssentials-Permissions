@@ -101,7 +101,7 @@ object PermissionsAPI {
         }
     }
 
-    fun addGroup(group: Group) = groupExist(group.name).also { if (it) getGroups().add(group) }
+    fun addGroup(group: Group) = groupExist(group.name).also { if (!it) getGroups().add(group) }
 
     fun removeGroup(name: String): Boolean {
         return if (groupExist(name) && getGroups().removeIf { it.name == name && !it.isDefault }) {

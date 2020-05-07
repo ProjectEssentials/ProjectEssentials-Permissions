@@ -92,7 +92,9 @@ fun takePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
             )
         ).then(
             Commands.literal("create").then(
-                Commands.argument("group-name", StringArgumentType.string())
+                Commands.argument("group-name", StringArgumentType.string()).executes(
+                    PermissionsCommand::createGroup
+                )
             )
         ).then(
             Commands.literal("remove").then(
