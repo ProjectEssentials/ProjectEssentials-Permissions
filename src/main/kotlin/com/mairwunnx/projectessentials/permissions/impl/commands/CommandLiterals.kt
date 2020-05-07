@@ -122,7 +122,21 @@ fun takePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
                             PermissionsCommand::removeGroupPermission
                         )
                     )
-                ).then(Commands.literal("list"))
+                ).then(
+                    Commands.literal("list").then(
+                        Commands.argument("deep", BoolArgumentType.bool()).executes(
+                            PermissionsCommand::listGroupPermissions
+                        ).then(
+                            Commands.argument("page", IntegerArgumentType.integer(0)).executes(
+                                PermissionsCommand::listGroupPermissions
+                            )
+                        )
+                    ).then(
+                        Commands.argument("page", IntegerArgumentType.integer(0)).executes(
+                            PermissionsCommand::listGroupPermissions
+                        )
+                    ).executes(PermissionsCommand::listGroupPermissions)
+                )
             )
         ).then(
             Commands.literal("inherit").then(

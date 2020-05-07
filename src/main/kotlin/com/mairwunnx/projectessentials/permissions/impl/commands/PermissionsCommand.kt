@@ -614,6 +614,74 @@ object PermissionsCommand : CommandBase(
         return 0
     }
 
+    internal fun listGroupPermissions(context: CommandContext<CommandSource>): Int {
+        fun action(isServer: Boolean) {
+            CommandAPI.getString(context, "group-name").also { group ->
+                CommandAPI.getBoolExisting(context, "deep").also { isDeep ->
+                    PermissionsAPI.getGroupPermissions(
+                        group, if (isDeep) CommandAPI.getBool(context, "deep") else false
+                    ).also { permissions ->
+                        if (isServer) {
+                            if (permissions.isEmpty()) {
+                                ServerMessagingAPI.response(
+                                    "Requested permissions list is empty, nothing to listing you."
+                                )
+                            } else {
+                                ServerMessagingAPI.response(
+                                    "Full permissions list for requested group $group ${if (isDeep) {
+                                        "with including deep permissions"
+                                    } else {
+                                        ""
+                                    }}:\n".plus(
+                                        permissions.joinToString(
+                                            prefix = "    > ", postfix = ","
+                                        ) { "\n" }
+                                    )
+                                )
+                            }
+                        } else {
+                            if (permissions.isEmpty()) {
+                                MessagingAPI.sendMessage(
+                                    context.getPlayer()!!,
+                                    "project_essentials_permissions.group.perm.list.empty",
+                                    generalConfiguration.getBool(SETTING_LOC_ENABLED)
+                                )
+                            } else {
+                                val linesPerPage =
+                                    permissionsSettingsConfiguration.take().displayObjectsLinesPerPage
+                                val pages = permissions.count() / linesPerPage + 1
+                                val page = when {
+                                    CommandAPI.getIntExisting(context, "page") -> {
+                                        CommandAPI.getInt(context, "page")
+                                    }
+                                    else -> 1
+                                }
+
+                                val displayedLines = page * linesPerPage
+                                val droppedLines = displayedLines - linesPerPage
+                                val values = permissions.take(displayedLines).drop(droppedLines)
+                                val message = """
+                                    §7Permissions page §c$page §7of §c$pages
+                                    
+                                    §7${values.joinToString { "\n§7" }}
+                                """.trimIndent()
+
+                                context.source.sendFeedback(
+                                    StringTextComponent(message), false
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        validate(context, "ess.permissions.group.read.permissions", 3, ::action) {
+            "${MESSAGE_MODULE_PREFIX}permissions.perm.group_read.permissions.restricted"
+        }
+        return 0
+    }
+
     private fun validate(
         context: CommandContext<CommandSource>,
         node: String,
