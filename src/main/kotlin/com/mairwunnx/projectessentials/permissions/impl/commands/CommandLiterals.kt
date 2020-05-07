@@ -157,7 +157,13 @@ fun takePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
                             StringArrayArgument.with(PermissionsAPI.getGroups().map { it.name })
                         ).executes(PermissionsCommand::removeGroupInherit)
                     )
-                ).then(Commands.literal("list"))
+                ).then(
+                    Commands.literal("list").then(
+                        Commands.argument("page", IntegerArgumentType.integer(0)).executes(
+                            PermissionsCommand::listGroupInheritances
+                        )
+                    ).executes(PermissionsCommand::listGroupInheritances)
+                )
             )
         ).then(
             Commands.literal("prefix").then(

@@ -767,6 +767,65 @@ object PermissionsCommand : CommandBase(
         return 0
     }
 
+    internal fun listGroupInheritances(context: CommandContext<CommandSource>): Int {
+        fun action(isServer: Boolean) {
+            CommandAPI.getString(context, "group-name").also { group ->
+                PermissionsAPI.getGroupInherits(group, false).also { groups ->
+                    if (isServer) {
+                        if (groups.isEmpty()) {
+                            ServerMessagingAPI.response(
+                                "Group $group has not childrens. *joke about the сondom*"
+                            )
+                        } else {
+                            ServerMessagingAPI.response(
+                                "Requested full group inherits list for $group:\n".plus(
+                                    groups.joinToString(prefix = "    > ", postfix = ",") { "\n" }
+                                )
+                            )
+                        }
+                    } else {
+                        if (groups.isEmpty()) {
+                            MessagingAPI.sendMessage(
+                                context.getPlayer()!!,
+                                "project_essentials_permissions.group.inherit.list.empty",
+                                generalConfiguration.getBool(SETTING_LOC_ENABLED)
+                            )
+                        } else {
+                            val linesPerPage =
+                                permissionsSettingsConfiguration.take().displayObjectsLinesPerPage
+                            val pages = groups.count() / linesPerPage + 1
+                            val page = when {
+                                CommandAPI.getIntExisting(context, "page") -> {
+                                    CommandAPI.getInt(context, "page")
+                                }
+                                else -> 1
+                            }
+
+                            val displayedLines = page * linesPerPage
+                            val droppedLines = displayedLines - linesPerPage
+                            val values = groups.take(displayedLines).drop(droppedLines)
+                            val message =
+                                """
+                                §7Group $group inherit list page §c$page §7of §c$pages
+                                    
+                                §7${values.joinToString { "\n§7" }}
+                                """.trimIndent()
+
+                            context.source.sendFeedback(
+                                StringTextComponent(message), false
+                            )
+                        }
+                    }
+                }
+            }
+        }
+
+        validate(context, "ess.permissions.group.read.inherit.list", 3, ::action) {
+            "${MESSAGE_MODULE_PREFIX}permissions.perm.group_read.inherit.list.restricted"
+        }
+        return 0
+    }
+
     private fun validate(
         context: CommandContext<CommandSource>,
         node: String,
