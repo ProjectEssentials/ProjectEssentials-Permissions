@@ -17,6 +17,12 @@ fun takePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
         Commands.literal("reload").executes(PermissionsCommand::reload)
     ).then(
         Commands.literal("user").then(
+            Commands.literal("info").then(
+                Commands.argument("user-name", StringArgumentType.string()).executes(
+                    PermissionsCommand::infoUser
+                )
+            )
+        ).then(
             Commands.literal("remove").then(
                 Commands.argument("user-name", StringArgumentType.string()).executes(
                     PermissionsCommand::removeUser

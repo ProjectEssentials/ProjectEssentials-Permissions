@@ -87,6 +87,51 @@ object PermissionsCommand : CommandBase(
         return 0
     }
 
+    internal fun infoUser(context: CommandContext<CommandSource>): Int {
+        fun action(isServer: Boolean) {
+            CommandAPI.getString(context, "user-name").also { user ->
+                if (isServer) {
+                    ServerMessagingAPI.response(
+                        """
+                            Permissions information about user: $user
+                            ---
+                            > Group: ${PermissionsAPI.getUserGroup(user)}
+                            > Permissions count: ${PermissionsAPI.getUserPermissions(user, false)
+                            .count()}
+                            > Inherited all permissions count: ${PermissionsAPI.getUserPermissions(
+                            user,
+                            true
+                        ).count()}
+                            > Inherited message prefix: ${PermissionsAPI.getGroupPrefix(
+                            PermissionsAPI.getUserGroup(user)
+                        )}
+                            > Has operator permission: ${PermissionsAPI.hasPermission(user, "*")}
+                            > Has native operator access: ${user in context.source.server.playerList.oppedPlayerNames}
+                        """.trimIndent()
+                    )
+                } else {
+                    MessagingAPI.sendMessage(
+                        context.getPlayer()!!,
+                        "${MESSAGE_MODULE_PREFIX}permissions.perm.user_read.info.success",
+                        generalConfiguration.getBool(SETTING_LOC_ENABLED),
+                        user,
+                        PermissionsAPI.getUserGroup(user),
+                        PermissionsAPI.getUserPermissions(user, false).count().toString(),
+                        PermissionsAPI.getUserPermissions(user, true).count().toString(),
+                        PermissionsAPI.getGroupPrefix(PermissionsAPI.getUserGroup(user)),
+                        PermissionsAPI.hasPermission(user, "*").toString(),
+                        (user in context.source.server.playerList.oppedPlayerNames).toString()
+                    )
+                }
+            }
+        }
+
+        validate(context, "ess.permissions.user.read.info", 3, ::action) {
+            "${MESSAGE_MODULE_PREFIX}permissions.perm.user_read.info.restricted"
+        }
+        return 0
+    }
+
     internal fun removeUser(context: CommandContext<CommandSource>): Int {
         fun action(isServer: Boolean) {
             CommandAPI.getString(context, "user-name").also { user ->
