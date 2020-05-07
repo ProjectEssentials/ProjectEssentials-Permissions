@@ -140,7 +140,7 @@ object PermissionsAPI {
         getGroupByName(name).permissions.add(node)
     }
 
-    fun removeGroupPermission(name: String, node: String): Any {
+    fun removeGroupPermission(name: String, node: String): Boolean {
         if (!groupExist(name)) return false
         if (!getGroupByName(name).permissions.removeAll { perm -> perm == node }) {
             if (node in getGroupPermissions(name, true)) {
