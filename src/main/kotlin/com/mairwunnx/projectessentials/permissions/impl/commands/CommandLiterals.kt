@@ -76,7 +76,11 @@ fun takePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
         )
     ).then(
         Commands.literal("group").then(
-            Commands.literal("list")
+            Commands.literal("list").then(
+                Commands.argument("page", IntegerArgumentType.integer(0)).executes(
+                    PermissionsCommand::listGroups
+                )
+            ).executes(PermissionsCommand::listGroups)
         ).then(
             Commands.literal("set-default").then(
                 Commands.argument(

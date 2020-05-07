@@ -273,7 +273,7 @@ object PermissionsCommand : CommandBase(
                                 )
                             } else {
                                 val linesPerPage =
-                                    permissionsSettingsConfiguration.take().permissionsListLinesPerPage
+                                    permissionsSettingsConfiguration.take().displayObjectsLinesPerPage
                                 val pages = permissions.count() / linesPerPage + 1
                                 val page = when {
                                     CommandAPI.getIntExisting(context, "page") -> {
@@ -355,6 +355,63 @@ object PermissionsCommand : CommandBase(
 
         validate(context, "ess.permissions.user.modify.group.set", 3, ::action) {
             "${MESSAGE_MODULE_PREFIX}permissions.perm.user_modify.group.set.restricted"
+        }
+        return 0
+    }
+
+    internal fun listGroups(context: CommandContext<CommandSource>): Int {
+        fun action(isServer: Boolean) {
+            PermissionsAPI.getGroups().map { it.name }.also { groups ->
+                if (isServer) {
+                    if (groups.isEmpty()) {
+                        ServerMessagingAPI.response(
+                            "Requested groups list is empty, nothing to listing you."
+                        )
+                    } else {
+                        ServerMessagingAPI.response(
+                            "Requested full groups list:\n".plus(
+                                groups.joinToString(prefix = "    > ", postfix = ",") { "\n" }
+                            )
+                        )
+                    }
+                } else {
+                    if (groups.isEmpty()) {
+                        MessagingAPI.sendMessage(
+                            context.getPlayer()!!,
+                            "project_essentials_permissions.group.list.empty",
+                            generalConfiguration.getBool(SETTING_LOC_ENABLED)
+                        )
+                    } else {
+                        val linesPerPage =
+                            permissionsSettingsConfiguration.take().displayObjectsLinesPerPage
+                        val pages = groups.count() / linesPerPage + 1
+                        val page = when {
+                            CommandAPI.getIntExisting(context, "page") -> {
+                                CommandAPI.getInt(context, "page")
+                            }
+                            else -> 1
+                        }
+
+                        val displayedLines = page * linesPerPage
+                        val droppedLines = displayedLines - linesPerPage
+                        val values = groups.take(displayedLines).drop(droppedLines)
+                        val message =
+                            """
+                                §7Groups list page §c$page §7of §c$pages
+                                    
+                                §7${values.joinToString { "\n§7" }}
+                            """.trimIndent()
+
+                        context.source.sendFeedback(
+                            StringTextComponent(message), false
+                        )
+                    }
+                }
+            }
+        }
+
+        validate(context, "ess.permissions.group.read.list", 3, ::action) {
+            "${MESSAGE_MODULE_PREFIX}permissions.perm.group_read.permissions.restricted"
         }
         return 0
     }
