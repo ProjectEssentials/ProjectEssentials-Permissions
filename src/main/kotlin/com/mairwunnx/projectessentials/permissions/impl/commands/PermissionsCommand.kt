@@ -724,6 +724,49 @@ object PermissionsCommand : CommandBase(
         return 0
     }
 
+    internal fun removeGroupInherit(context: CommandContext<CommandSource>): Int {
+        fun action(isServer: Boolean) {
+            CommandAPI.getString(context, "group-name").also { group ->
+                CommandAPI.getString(context, "inherit-group").also { inherit ->
+                    PermissionsAPI.removeGroupInheritances(group, inherit).also { result ->
+                        if (isServer) {
+                            if (result) {
+                                ServerMessagingAPI.response(
+                                    "Inherit group $inherit was removed from group $group."
+                                )
+                            } else {
+                                ServerMessagingAPI.response(
+                                    "Requested group with name $group not exist."
+                                )
+                            }
+                        } else {
+                            if (result) {
+                                MessagingAPI.sendMessage(
+                                    context.getPlayer()!!,
+                                    "${MESSAGE_MODULE_PREFIX}permissions.perm.group_modify.inherit.remove.success",
+                                    generalConfiguration.getBool(SETTING_LOC_ENABLED),
+                                    inherit, group
+                                )
+                            } else {
+                                MessagingAPI.sendMessage(
+                                    context.getPlayer()!!,
+                                    "${MESSAGE_MODULE_PREFIX}permissions.perm.group_modify.inherit.remove.error",
+                                    generalConfiguration.getBool(SETTING_LOC_ENABLED),
+                                    group
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        validate(context, "ess.permissions.group.modify.inherit.remove", 3, ::action) {
+            "${MESSAGE_MODULE_PREFIX}permissions.perm.group_modify.group.inherit.remove.restricted"
+        }
+        return 0
+    }
+
     private fun validate(
         context: CommandContext<CommandSource>,
         node: String,
