@@ -63,7 +63,6 @@ task sourcesJar(type: Jar) {
 
 task dokkaJar(type: Jar) {
     group = JavaBasePlugin.DOCUMENTATION_GROUP
-    description = "Assembles Kotlin docs with Dokka"
     classifier = "javadoc"
     from tasks.dokka as Object
 }
