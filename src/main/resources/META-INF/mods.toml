@@ -6,21 +6,19 @@ issueTrackerURL="https://github.com/ProjectEssentials/ProjectEssentials-Permissi
     modId="project_essentials_permissions"
     version="${file.jarVersion}"
     displayName="Project Essentials Permissions"
-    updateJSONURL="https://raw.githubusercontent.com/ProjectEssentials/ProjectEssentials-Permissions/MC-1.14.X/update.json"
+    updateJSONURL="https://raw.githubusercontent.com/ProjectEssentials/ProjectEssentials-Permissions/MC-1.14.X/updatev2.json"
     displayURL="https://github.com/ProjectEssentials/ProjectEssentials-Permissions"
-    credits="Thanks JetBrains for Intellij IDEA license!"
+    credits="hujle, JetBrains, all forge developers, and other contributors"
     authors="MairwunNx (Pavel Erokhin)"
     description='''
-    Project Essentials Permissions - additional module for Essentials;
-    Just controlling player permissions.
-
-    Also it just permission API for forge.
+    Module of Project Essentials. API for working with players permissions,
+    controlling the in-world actions of players.
     '''
 
 [[dependencies.project_essentials_permissions]]
     modId="project_essentials_core"
     mandatory=true
-    versionRange="[1,)"
+    versionRange="[2,)"
     ordering="NONE"
     side="BOTH"
 
