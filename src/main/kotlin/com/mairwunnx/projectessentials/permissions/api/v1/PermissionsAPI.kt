@@ -180,6 +180,7 @@ object PermissionsAPI {
     fun removeUser(name: String): Boolean = getUsers().removeIf { it.nickname == name }
 
     fun setUserGroup(name: String, groupName: String): Boolean {
+        if (!groupExist(name)) return false
         if (getUserGroup(name) == groupName) return false
 
         if (!userExist(name)) addUser(User(name, groupName, mutableListOf()))

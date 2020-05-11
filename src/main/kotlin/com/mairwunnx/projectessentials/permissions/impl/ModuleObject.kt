@@ -35,7 +35,7 @@ import org.apache.logging.log4j.LogManager
 
 @OptIn(ExperimentalUnsignedTypes::class)
 @Mod("project_essentials_permissions")
-@Module("permissions", "2.0.0-RC.1+MC-1.14.4", 1u, "1.0.0")
+@Module("permissions", "2.0.0-RC.1+MC-1.14.4", 1u, "1.1.0")
 internal class ModuleObject : IModule {
     private val providers = listOf(
         PermissionsConfiguration::class,
