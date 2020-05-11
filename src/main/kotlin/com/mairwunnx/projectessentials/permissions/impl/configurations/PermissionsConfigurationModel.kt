@@ -45,7 +45,7 @@ data class PermissionsConfigurationModel(
                 "ess.tpa",
                 "ess.tpahere"
             ), mutableListOf()
-        ), Group("owner", false, mutableListOf("*"), mutableListOf("default"), "§c[§7owner§c]")
+        ), Group("owner", false, mutableListOf("*"), mutableListOf(), "§c[§7owner§c]")
     ),
     /**
      * stores all registered users.
