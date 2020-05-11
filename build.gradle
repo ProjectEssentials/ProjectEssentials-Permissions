@@ -36,16 +36,7 @@ repositories {
             password = packagesToken
         }
     }
-    maven {
-        name = package_maven_repo_name
-        url = uri "$package_maven_repo-cooldown"
-        credentials {
-            username = package_maven_repo_mail
-            password = packagesToken
-        }
-    }
     maven { url 'https://libraries.minecraft.net' }
-    maven { url 'https://jitpack.io' }
     maven { url 'https://maven.enginehub.org/repo' }
     mavenCentral()
     jcenter()
@@ -55,7 +46,6 @@ dependencies {
     minecraft "net.minecraftforge:forge:$forge_version"
     implementation "com.mojang:brigadier:$brigadier_version"
     implementation "com.projectessentials.core:ProjectEssentials-Core:$core_version"
-    implementation "com.mairwunnx.project_essentials_cooldown:ProjectEssentials-Cooldown:$cooldown_version"
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$kotlinx_serialization_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-$kotlin_jdk_version_target:$kotlin_version"
     implementation "com.sk89q.worldedit:worldedit-forge-mc1.14.4:7.1.0"
