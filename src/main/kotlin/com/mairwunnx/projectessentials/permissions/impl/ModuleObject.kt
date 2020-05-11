@@ -104,6 +104,8 @@ internal class ModuleObject : IModule {
 
     @SubscribeEvent
     fun onBlockBreakEvent(event: BlockEvent.BreakEvent) {
+        if (!permissionsSettings.take().handleBlockBreaking) return
+
         when {
             !PermissionsAPI.hasPermission(
                 event.player.name.string,
@@ -130,6 +132,8 @@ internal class ModuleObject : IModule {
 
     @SubscribeEvent
     fun onBlockPlaceEvent(event: BlockEvent.EntityPlaceEvent) {
+        if (!permissionsSettings.take().handleBlockPlacing) return
+
         if (event.entity is ServerPlayerEntity) {
             val player = event.entity as ServerPlayerEntity
             when {
@@ -159,6 +163,8 @@ internal class ModuleObject : IModule {
 
     @SubscribeEvent
     fun onFarmlandTrampleEvent(event: BlockEvent.FarmlandTrampleEvent) {
+        if (!permissionsSettings.take().handleFarmlandTrampling) return
+
         if (event.entity is ServerPlayerEntity) {
             val player = event.entity as ServerPlayerEntity
             when {
@@ -183,6 +189,8 @@ internal class ModuleObject : IModule {
 
     @SubscribeEvent
     fun onItemUseEvent(event: LivingEntityUseItemEvent.Start) {
+        if (!permissionsSettings.take().handleItemUsing) return
+
         if (event.entity is ServerPlayerEntity) {
             val player = event.entity as ServerPlayerEntity
             when {
