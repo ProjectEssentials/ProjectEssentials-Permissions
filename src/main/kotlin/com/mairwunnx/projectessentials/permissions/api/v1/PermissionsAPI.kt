@@ -11,7 +11,7 @@ import org.apache.logging.log4j.MarkerManager
 
 /**
  * Base class for working with user permissions.
- * @since 1.14.4-0.1.0.0
+ * @since 2.0.0-SNAPSHOT.1.
  */
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 object PermissionsAPI {
