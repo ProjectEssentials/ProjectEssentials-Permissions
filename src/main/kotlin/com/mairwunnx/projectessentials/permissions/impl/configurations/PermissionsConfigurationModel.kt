@@ -82,7 +82,7 @@ data class PermissionsConfigurationModel(
         val inheritFrom: MutableList<String> = mutableListOf(),
         /**
          * Group message prefix for user.
-         * @since Mod: 2.0.0-SNAPSHOT.1, API: 1.0.0
+         * @since Mod: 2.0.0-RC.1
          */
         var prefix: String = String.empty
     )
