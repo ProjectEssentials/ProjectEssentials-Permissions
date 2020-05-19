@@ -164,15 +164,5 @@ fun takePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
                     PermissionsCommand::groupPrefixTake
                 )
             )
-        ).then(
-            Commands.literal("rename").then(
-                Commands.argument(
-                    "old-group-name", StringArgumentType.string()
-                ).then(
-                    Commands.argument(
-                        "new-group-name", StringArgumentType.string()
-                    )
-                )
-            )
         )
     )
