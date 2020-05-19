@@ -59,7 +59,15 @@ internal class ModuleObject : IModule {
         logger.info("Replacing default Forge permissions handler").run {
             PermissionAPI.setPermissionHandler(PermissionsWrappersAPI.ForgeWrapper)
         }
-        providers.forEach { ProviderAPI.addProvider(it) }
+        providers.forEach {
+            if (it.name != PermissionsCommand::class.java.name) {
+                ProviderAPI.addProvider(it)
+            } else {
+                if (permissionsSettings.take().enablePermissionsCommand) {
+                    ProviderAPI.addProvider(it)
+                }
+            }
+        }
         subscribeEvents()
         EVENT_BUS.register(this)
         ModList.get().mods.find { it.modId == "worldedit" }?.let {
