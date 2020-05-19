@@ -4,16 +4,19 @@ package com.mairwunnx.projectessentials.permissions.impl
 
 import com.mairwunnx.projectessentials.core.api.v1.MESSAGE_MODULE_PREFIX
 import com.mairwunnx.projectessentials.core.api.v1.SETTING_LOC_ENABLED
-import com.mairwunnx.projectessentials.core.api.v1.configuration.ConfigurationAPI
+import com.mairwunnx.projectessentials.core.api.v1.configuration.ConfigurationAPI.getConfigurationByName
 import com.mairwunnx.projectessentials.core.api.v1.events.ModuleEventAPI
 import com.mairwunnx.projectessentials.core.api.v1.events.forge.FMLCommonSetupEventData
 import com.mairwunnx.projectessentials.core.api.v1.events.forge.ForgeEventType
+import com.mairwunnx.projectessentials.core.api.v1.events.internal.ModuleCoreEventType
+import com.mairwunnx.projectessentials.core.api.v1.events.internal.ProcessorEventData
 import com.mairwunnx.projectessentials.core.api.v1.extensions.currentDimensionName
 import com.mairwunnx.projectessentials.core.api.v1.localization.Localization
 import com.mairwunnx.projectessentials.core.api.v1.localization.LocalizationAPI
 import com.mairwunnx.projectessentials.core.api.v1.messaging.MessagingAPI
 import com.mairwunnx.projectessentials.core.api.v1.module.IModule
 import com.mairwunnx.projectessentials.core.api.v1.providers.ProviderAPI
+import com.mairwunnx.projectessentials.core.api.v1.providers.ProviderType
 import com.mairwunnx.projectessentials.core.impl.configurations.GeneralConfiguration
 import com.mairwunnx.projectessentials.permissions.api.v1.PermissionsAPI
 import com.mairwunnx.projectessentials.permissions.api.v1.PermissionsWrappersAPI
@@ -41,10 +44,10 @@ internal class ModuleObject : IModule {
     private val logger = LogManager.getLogger()
 
     private val generalConfiguration by lazy {
-        ConfigurationAPI.getConfigurationByName<GeneralConfiguration>("general")
+        getConfigurationByName<GeneralConfiguration>("general")
     }
     private val permissionsSettings by lazy {
-        ConfigurationAPI.getConfigurationByName<PermissionsSettingsConfiguration>("permissions-settings")
+        getConfigurationByName<PermissionsSettingsConfiguration>("permissions-settings")
     }
 
     private val providers = listOf(
@@ -59,23 +62,9 @@ internal class ModuleObject : IModule {
         logger.info("Replacing default Forge permissions handler").run {
             PermissionAPI.setPermissionHandler(PermissionsWrappersAPI.ForgeWrapper)
         }
-        providers.forEach {
-            if (it.name != PermissionsCommand::class.java.name) {
-                ProviderAPI.addProvider(it)
-            } else {
-                if (permissionsSettings.take().enablePermissionsCommand) {
-                    ProviderAPI.addProvider(it)
-                }
-            }
-        }
+        providers.forEach(ProviderAPI::addProvider)
         subscribeEvents()
         EVENT_BUS.register(this)
-        ModList.get().mods.find { it.modId == "worldedit" }?.let {
-            if (permissionsSettings.configuration.replaceWorldEditPermissionsHandler) {
-                logger.info("WorldEdit mod found and able to replacing permissions handler")
-                EVENT_BUS.register(WorldEditEventHandler::class.java)
-            }
-        }
     }
 
     fun replaceWorldEditPermissionHandler() =
@@ -98,6 +87,33 @@ internal class ModuleObject : IModule {
                     ), "permissions", ModuleObject::class.java
                 )
             )
+        }
+
+        ModuleEventAPI.subscribeOn<ProcessorEventData>(
+            ModuleCoreEventType.OnProcessorAfterPostProcessing
+        ) {
+            ModList.get().mods.find { it.modId == "worldedit" }?.let {
+                if (permissionsSettings.configuration.replaceWorldEditPermissionsHandler) {
+                    logger.info("WorldEdit mod found and able to replacing permissions handler")
+                    EVENT_BUS.register(WorldEditEventHandler::class.java)
+                }
+            }
+        }
+
+        /*
+            Remove permissions command if `enablePermissionsCommand` is false.
+            It need to do in `OnProcessorProcessing` event.
+         */
+        ModuleEventAPI.subscribeOn<ProcessorEventData>(
+            ModuleCoreEventType.OnProcessorProcessing
+        ) {
+            if (it.processor.processorName == "command") {
+                if (!permissionsSettings.take().enablePermissionsCommand) {
+                    ProviderAPI.getProvidersByType(ProviderType.COMMAND).removeIf {
+                        it.name == PermissionsCommand::class.java.name
+                    }
+                }
+            }
         }
     }
 
