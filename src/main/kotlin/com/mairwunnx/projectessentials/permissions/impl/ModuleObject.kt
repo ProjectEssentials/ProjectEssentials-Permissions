@@ -91,7 +91,7 @@ internal class ModuleObject : IModule {
 
         ModuleEventAPI.subscribeOn<ProcessorEventData>(
             ModuleCoreEventType.OnProcessorAfterPostProcessing
-        ) {
+        ) { _ ->
             ModList.get().mods.find { it.modId == "worldedit" }?.let {
                 if (permissionsSettings.configuration.replaceWorldEditPermissionsHandler) {
                     logger.info("WorldEdit mod found and able to replacing permissions handler")
@@ -106,8 +106,8 @@ internal class ModuleObject : IModule {
          */
         ModuleEventAPI.subscribeOn<ProcessorEventData>(
             ModuleCoreEventType.OnProcessorProcessing
-        ) {
-            if (it.processor.processorName == "command") {
+        ) { event ->
+            if (event.processor.processorName == "command") {
                 if (!permissionsSettings.take().enablePermissionsCommand) {
                     ProviderAPI.getProvidersByType(ProviderType.COMMAND).removeIf {
                         it.name == PermissionsCommand::class.java.name
