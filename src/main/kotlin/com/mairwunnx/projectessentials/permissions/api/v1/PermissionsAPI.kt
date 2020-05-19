@@ -88,7 +88,7 @@ object PermissionsAPI {
     fun getGroupPermissions(name: String, includeInherit: Boolean = false) =
         getGroupInherits(name, true).map { getGroupByNameOrDefault(it).permissions }.let {
             return@let if (includeInherit) (it.flatten() + getGroupByNameOrDefault(name).permissions)
-            else getGroupByName(name)?.permissions ?: emptySet()
+            else getGroupByName(name)?.permissions ?: emptySet<String>()
         }.toSet()
 
     /**
@@ -146,7 +146,7 @@ object PermissionsAPI {
      * @since 2.0.0-SNAPSHOT.1.
      */
     fun getUserPermissions(name: String, deep: Boolean = false): Set<String> = if (!deep) {
-        getUserByName(name)?.permissions ?: emptySet()
+        getUserByName(name)?.permissions ?: emptySet<String>()
     } else {
         getGroupPermissions(getUserGroup(name), true).plus(
             getDefaultUser().permissions.plus(
