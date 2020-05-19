@@ -10,21 +10,19 @@ import net.minecraft.command.Commands
 
 fun takePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
     literal<CommandSource>("permissions").then(
-        Commands.literal("save").executes(PermissionsCommand::save)
+        Commands.literal("save").executes { PermissionsCommand.save(it) }
     ).then(
-        Commands.literal("reload").executes(PermissionsCommand::reload)
+        Commands.literal("reload").executes { PermissionsCommand.reload(it) }
     ).then(
         Commands.literal("user").then(
             Commands.literal("info").then(
-                Commands.argument("user-name", StringArgumentType.string()).executes(
-                    PermissionsCommand::userInfo
-                )
+                Commands.argument("user-name", StringArgumentType.string())
+                    .executes { PermissionsCommand.userInfo(it) }
             )
         ).then(
             Commands.literal("remove").then(
-                Commands.argument("user-name", StringArgumentType.string()).executes(
-                    PermissionsCommand::userRemove
-                )
+                Commands.argument("user-name", StringArgumentType.string())
+                    .executes { PermissionsCommand.userRemove(it) }
             )
         ).then(
             Commands.literal("permissions").then(
@@ -32,28 +30,25 @@ fun takePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
                     "user-name", StringArgumentType.string()
                 ).then(
                     Commands.literal("add").then(
-                        Commands.argument("node", StringArgumentType.string()).executes(
-                            PermissionsCommand::userPermissionsAdd
-                        )
+                        Commands.argument("node", StringArgumentType.string())
+                            .executes { PermissionsCommand.userPermissionsAdd(it) }
                     )
                 ).then(
                     Commands.literal("remove").then(
                         Commands.argument("node", StringArgumentType.string())
-                    ).executes(PermissionsCommand::userPermissionsRemove)
+                    ).executes { PermissionsCommand.userPermissionsRemove(it) }
                 ).then(
                     Commands.literal("list").then(
-                        Commands.argument("deep", BoolArgumentType.bool()).executes(
-                            PermissionsCommand::userPermissionsList
-                        ).then(
-                            Commands.argument("page", IntegerArgumentType.integer(0)).executes(
-                                PermissionsCommand::userPermissionsList
+                        Commands.argument("deep", BoolArgumentType.bool())
+                            .executes { PermissionsCommand.userPermissionsList(it) }
+                            .then(
+                                Commands.argument("page", IntegerArgumentType.integer(0))
+                                    .executes { PermissionsCommand.userPermissionsList(it) }
                             )
-                        )
                     ).then(
-                        Commands.argument("page", IntegerArgumentType.integer(0)).executes(
-                            PermissionsCommand::userPermissionsList
-                        )
-                    ).executes(PermissionsCommand::userPermissionsList)
+                        Commands.argument("page", IntegerArgumentType.integer(0))
+                            .executes { PermissionsCommand.userPermissionsList(it) }
+                    ).executes { PermissionsCommand.userPermissionsList(it) }
                 )
             )
         ).then(
@@ -63,9 +58,8 @@ fun takePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
                         "group-name", StringArgumentType.string()
                     ).then(
                         Commands.literal("for").then(
-                            Commands.argument("user-name", StringArgumentType.string()).executes(
-                                PermissionsCommand::userSetGroup
-                            )
+                            Commands.argument("user-name", StringArgumentType.string())
+                                .executes { PermissionsCommand.userSetGroup(it) }
                         )
                     )
                 )
@@ -74,27 +68,25 @@ fun takePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
     ).then(
         Commands.literal("group").then(
             Commands.literal("list").then(
-                Commands.argument("page", IntegerArgumentType.integer(0)).executes(
-                    PermissionsCommand::groupList
-                )
-            ).executes(PermissionsCommand::groupList)
+                Commands.argument("page", IntegerArgumentType.integer(0))
+                    .executes { PermissionsCommand.groupList(it) }
+            ).executes { PermissionsCommand.groupList(it) }
         ).then(
             Commands.literal("set-default").then(
                 Commands.argument(
                     "group-name", StringArgumentType.string()
-                ).executes(PermissionsCommand::groupDefaultSet)
+                ).executes { PermissionsCommand.groupDefaultSet(it) }
             )
         ).then(
             Commands.literal("create").then(
-                Commands.argument("group-name", StringArgumentType.string()).executes(
-                    PermissionsCommand::groupCreate
-                )
+                Commands.argument("group-name", StringArgumentType.string())
+                    .executes { PermissionsCommand.groupCreate(it) }
             )
         ).then(
             Commands.literal("remove").then(
                 Commands.argument(
                     "group-name", StringArgumentType.string()
-                ).executes(PermissionsCommand::groupRemove)
+                ).executes { PermissionsCommand.groupRemove(it) }
             )
         ).then(
             Commands.literal("permissions").then(
@@ -102,30 +94,26 @@ fun takePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
                     "group-name", StringArgumentType.string()
                 ).then(
                     Commands.literal("add").then(
-                        Commands.argument("node", StringArgumentType.string()).executes(
-                            PermissionsCommand::groupPermissionsAdd
-                        )
+                        Commands.argument("node", StringArgumentType.string())
+                            .executes { PermissionsCommand.groupPermissionsAdd(it) }
                     )
                 ).then(
                     Commands.literal("remove").then(
-                        Commands.argument("node", StringArgumentType.string()).executes(
-                            PermissionsCommand::groupPermissionsRemove
-                        )
+                        Commands.argument("node", StringArgumentType.string())
+                            .executes { PermissionsCommand.groupPermissionsRemove(it) }
                     )
                 ).then(
                     Commands.literal("list").then(
-                        Commands.argument("deep", BoolArgumentType.bool()).executes(
-                            PermissionsCommand::groupPermissionsList
-                        ).then(
-                            Commands.argument("page", IntegerArgumentType.integer(0)).executes(
-                                PermissionsCommand::groupPermissionsList
+                        Commands.argument("deep", BoolArgumentType.bool())
+                            .executes { PermissionsCommand.groupPermissionsList(it) }
+                            .then(
+                                Commands.argument("page", IntegerArgumentType.integer(0))
+                                    .executes { PermissionsCommand.groupPermissionsList(it) }
                             )
-                        )
                     ).then(
-                        Commands.argument("page", IntegerArgumentType.integer(0)).executes(
-                            PermissionsCommand::groupPermissionsList
-                        )
-                    ).executes(PermissionsCommand::groupPermissionsList)
+                        Commands.argument("page", IntegerArgumentType.integer(0))
+                            .executes { PermissionsCommand.groupPermissionsList(it) }
+                    ).executes { PermissionsCommand.groupPermissionsList(it) }
                 )
             )
         ).then(
@@ -136,20 +124,19 @@ fun takePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
                     Commands.literal("add").then(
                         Commands.argument(
                             "inherit-group", StringArgumentType.string()
-                        ).executes(PermissionsCommand::groupInheritAdd)
+                        ).executes { PermissionsCommand.groupInheritAdd(it) }
                     )
                 ).then(
                     Commands.literal("remove").then(
                         Commands.argument(
                             "inherit-group", StringArgumentType.string()
-                        ).executes(PermissionsCommand::groupInheritRemove)
+                        ).executes { PermissionsCommand.groupInheritRemove(it) }
                     )
                 ).then(
                     Commands.literal("list").then(
-                        Commands.argument("page", IntegerArgumentType.integer(0)).executes(
-                            PermissionsCommand::groupInheritList
-                        )
-                    ).executes(PermissionsCommand::groupInheritList)
+                        Commands.argument("page", IntegerArgumentType.integer(0))
+                            .executes { PermissionsCommand.groupInheritList(it) }
+                    ).executes { PermissionsCommand.groupInheritList(it) }
                 )
             )
         ).then(
@@ -157,12 +144,9 @@ fun takePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
                 Commands.argument(
                     "group-name", StringArgumentType.string()
                 ).then(
-                    Commands.argument("prefix", StringArgumentType.string()).executes(
-                        PermissionsCommand::groupPrefixSet
-                    )
-                ).executes(
-                    PermissionsCommand::groupPrefixTake
-                )
+                    Commands.argument("prefix", StringArgumentType.string())
+                        .executes { PermissionsCommand.groupPrefixSet(it) }
+                ).executes { PermissionsCommand.groupPrefixTake(it) }
             )
         )
     )
