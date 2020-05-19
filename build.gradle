@@ -103,6 +103,7 @@ publishing {
     }
     publications {
         gpr(MavenPublication) {
+            version = (module_version as String).split('\\+')[0]
             from components.java
             artifact sourcesJar
             artifact dokkaJar
