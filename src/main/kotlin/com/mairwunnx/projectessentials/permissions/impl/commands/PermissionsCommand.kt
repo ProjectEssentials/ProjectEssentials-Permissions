@@ -566,6 +566,36 @@ Inherits group list for group $group
     }
 
     internal fun groupPrefixSet(context: CommandContext<CommandSource>): Int {
+        fun action(isServer: Boolean) {
+            val group = CommandAPI.getString(context, "group-name")
+            val prefix = CommandAPI.getString(context, "prefix")
+            val oldPrefix = PermissionsAPI.getGroupPrefix(group)
+            val result = PermissionsAPI.setGroupPrefix(group, prefix)
+            if (result) {
+                if (isServer) {
+                    ServerMessagingAPI.response {
+                        "Prefix for group $group was changed to `$prefix` from `$oldPrefix`"
+                    }
+                } else {
+                    sendResultMessage(
+                        context, "group.prefix.set", "success",
+                        group, prefix, oldPrefix
+                    )
+                }
+            } else {
+                if (isServer) {
+                    somethingIsWrong(
+                        listOf("Group with name $group probably not exist."),
+                        mapOf("Get registered group list" to "/perm group list")
+                    ) {
+                        "Can't set prefix for group $group"
+                    }
+                } else {
+                    sendResultMessage(context, "group.prefix.set", "error", group)
+                }
+            }
+        }
+        validate(context, "ess.permissions.group.prefix.set", 3, ::action) { "execute" }
         return 0
     }
 
