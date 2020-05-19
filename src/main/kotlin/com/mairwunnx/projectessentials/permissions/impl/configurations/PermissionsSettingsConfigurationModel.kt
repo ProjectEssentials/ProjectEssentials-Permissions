@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 data class PermissionsSettingsConfigurationModel(
     var useSimplifiedWorldPermissions: Boolean = false,
     var replaceWorldEditPermissionsHandler: Boolean = true,
-    val enablePermissionsCommand: Boolean = true,
+    var enablePermissionsCommand: Boolean = true,
     var debugMode: Boolean = false,
     var handleBlockBreaking: Boolean = true,
     var handleBlockPlacing: Boolean = true,

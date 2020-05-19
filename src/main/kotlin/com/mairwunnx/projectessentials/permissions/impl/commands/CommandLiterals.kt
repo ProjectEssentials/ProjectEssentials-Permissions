@@ -150,3 +150,71 @@ fun takePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
             )
         )
     )
+
+fun takeConfigurePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
+    literal<CommandSource>("configure-permissions")
+        .then(
+            Commands.literal("use-simplified-world-permissions").then(
+                Commands.literal("set").then(
+                    Commands.argument("value", StringArgumentType.string()).executes {
+                        ConfigurePermissionsCommand.useSimplifiedWorldPermissions(it)
+                    }
+                )
+            )
+        ).then(
+            Commands.literal("replace-world-edit-permissions-handler").then(
+                Commands.literal("set").then(
+                    Commands.argument("value", StringArgumentType.string()).executes {
+                        ConfigurePermissionsCommand.replaceWorldEditPermissionsHandler(it)
+                    }
+                )
+            )
+        ).then(
+            Commands.literal("enable-permissions-command").then(
+                Commands.literal("set").then(
+                    Commands.argument("value", StringArgumentType.string()).executes {
+                        ConfigurePermissionsCommand.enablePermissionsCommand(it)
+                    }
+                )
+            )
+        ).then(
+            Commands.literal("debug-mode").then(
+                Commands.literal("set").then(
+                    Commands.argument("value", StringArgumentType.string()).executes {
+                        ConfigurePermissionsCommand.debugMode(it)
+                    }
+                )
+            )
+        ).then(
+            Commands.literal("handle-block-breaking").then(
+                Commands.literal("set").then(
+                    Commands.argument("value", StringArgumentType.string()).executes {
+                        ConfigurePermissionsCommand.handleBlockBreaking(it)
+                    }
+                )
+            )
+        ).then(
+            Commands.literal("handle-block-placing").then(
+                Commands.literal("set").then(
+                    Commands.argument("value", StringArgumentType.string()).executes {
+                        ConfigurePermissionsCommand.handleBlockPlacing(it)
+                    }
+                )
+            )
+        ).then(
+            Commands.literal("handle-farmland-trampling").then(
+                Commands.literal("set").then(
+                    Commands.argument("value", StringArgumentType.string()).executes {
+                        ConfigurePermissionsCommand.handleFarmlandTrampling(it)
+                    }
+                )
+            )
+        ).then(
+            Commands.literal("handle-item-using").then(
+                Commands.literal("set").then(
+                    Commands.argument("value", StringArgumentType.string()).executes {
+                        ConfigurePermissionsCommand.handleItemUsing(it)
+                    }
+                )
+            )
+        )
