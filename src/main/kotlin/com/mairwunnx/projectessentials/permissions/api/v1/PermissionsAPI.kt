@@ -1,6 +1,6 @@
 package com.mairwunnx.projectessentials.permissions.api.v1
 
-import com.mairwunnx.projectessentials.core.api.v1.configuration.ConfigurationAPI
+import com.mairwunnx.projectessentials.core.api.v1.configuration.ConfigurationAPI.getConfigurationByName
 import com.mairwunnx.projectessentials.core.api.v1.extensions.empty
 import com.mairwunnx.projectessentials.permissions.impl.configurations.PermissionsConfiguration
 import com.mairwunnx.projectessentials.permissions.impl.configurations.PermissionsConfigurationModel.Group
@@ -18,7 +18,7 @@ object PermissionsAPI {
     private val logger = LogManager.getLogger()
     private val marker = MarkerManager.getMarker("PERMISSION MANAGER")
     private val permissions by lazy {
-        ConfigurationAPI.getConfigurationByName<PermissionsConfiguration>("permissions")
+        getConfigurationByName<PermissionsConfiguration>("permissions")
     }
 
     /**

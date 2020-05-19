@@ -6,7 +6,6 @@ import kotlinx.serialization.Serializable
 data class PermissionsSettingsConfigurationModel(
     var useSimplifiedWorldPermissions: Boolean = false,
     var replaceWorldEditPermissionsHandler: Boolean = true,
-    var displayObjectsLinesPerPage: Int = 8,
     var debugMode: Boolean = false,
     var handleBlockBreaking: Boolean = true,
     var handleBlockPlacing: Boolean = true,

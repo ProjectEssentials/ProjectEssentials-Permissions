@@ -13,7 +13,6 @@ import com.mairwunnx.projectessentials.core.api.v1.localization.Localization
 import com.mairwunnx.projectessentials.core.api.v1.localization.LocalizationAPI
 import com.mairwunnx.projectessentials.core.api.v1.messaging.MessagingAPI
 import com.mairwunnx.projectessentials.core.api.v1.module.IModule
-import com.mairwunnx.projectessentials.core.api.v1.module.Module
 import com.mairwunnx.projectessentials.core.api.v1.providers.ProviderAPI
 import com.mairwunnx.projectessentials.core.impl.configurations.GeneralConfiguration
 import com.mairwunnx.projectessentials.permissions.api.v1.PermissionsAPI
@@ -33,25 +32,28 @@ import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.server.permission.PermissionAPI
 import org.apache.logging.log4j.LogManager
 
-@OptIn(ExperimentalUnsignedTypes::class)
 @Mod("project_essentials_permissions")
-@Module("permissions", "2.0.0-RC.1+MC-1.14.4", 1u, "1.1.0")
 internal class ModuleObject : IModule {
-    private val providers = listOf(
-        PermissionsConfiguration::class,
-        PermissionsSettingsConfiguration::class,
-        ConfigurePermissionsCommand::class,
-        PermissionsCommand::class,
-        ModuleObject::class
-    )
+    override val name = this::class.java.`package`.implementationTitle.split("\\s+").last()
+    override val version = this::class.java.`package`.implementationVersion!!
+    override val loadIndex = 1
+
+    private val logger = LogManager.getLogger()
+
     private val generalConfiguration by lazy {
         ConfigurationAPI.getConfigurationByName<GeneralConfiguration>("general")
     }
     private val permissionsSettings by lazy {
         ConfigurationAPI.getConfigurationByName<PermissionsSettingsConfiguration>("permissions-settings")
     }
-    private val logger = LogManager.getLogger()
-    private var moduleDataCached: Module? = null
+
+    private val providers = listOf(
+        PermissionsConfiguration::class.java,
+        PermissionsSettingsConfiguration::class.java,
+        ConfigurePermissionsCommand::class.java,
+        PermissionsCommand::class.java,
+        ModuleObject::class.java
+    )
 
     init {
         logger.info("Replacing default Forge permissions handler").run {
@@ -89,15 +91,6 @@ internal class ModuleObject : IModule {
                 )
             )
         }
-    }
-
-    override fun getModule() = this
-
-    override fun getModuleData(): Module {
-        if (moduleDataCached == null) {
-            moduleDataCached = this.javaClass.getAnnotation(Module::class.java)
-        }
-        return moduleDataCached!!
     }
 
     override fun init() = Unit

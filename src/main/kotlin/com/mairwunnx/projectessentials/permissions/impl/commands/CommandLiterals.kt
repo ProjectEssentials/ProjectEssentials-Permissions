@@ -1,7 +1,5 @@
 package com.mairwunnx.projectessentials.permissions.impl.commands
 
-import com.mairwunnx.projectessentials.core.api.v1.commands.arguments.StringArrayArgument
-import com.mairwunnx.projectessentials.permissions.api.v1.PermissionsAPI
 import com.mojang.brigadier.arguments.BoolArgumentType
 import com.mojang.brigadier.arguments.IntegerArgumentType
 import com.mojang.brigadier.arguments.StringArgumentType
@@ -19,13 +17,13 @@ fun takePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
         Commands.literal("user").then(
             Commands.literal("info").then(
                 Commands.argument("user-name", StringArgumentType.string()).executes(
-                    PermissionsCommand::infoUser
+                    PermissionsCommand::userInfo
                 )
             )
         ).then(
             Commands.literal("remove").then(
                 Commands.argument("user-name", StringArgumentType.string()).executes(
-                    PermissionsCommand::removeUser
+                    PermissionsCommand::userRemove
                 )
             )
         ).then(
@@ -35,39 +33,38 @@ fun takePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
                 ).then(
                     Commands.literal("add").then(
                         Commands.argument("node", StringArgumentType.string()).executes(
-                            PermissionsCommand::addUserPermission
+                            PermissionsCommand::userPermissionsAdd
                         )
                     )
                 ).then(
                     Commands.literal("remove").then(
                         Commands.argument("node", StringArgumentType.string())
-                    ).executes(PermissionsCommand::removeUserPermission)
+                    ).executes(PermissionsCommand::userPermissionsRemove)
                 ).then(
                     Commands.literal("list").then(
                         Commands.argument("deep", BoolArgumentType.bool()).executes(
-                            PermissionsCommand::listUserPermissions
+                            PermissionsCommand::userPermissionsList
                         ).then(
                             Commands.argument("page", IntegerArgumentType.integer(0)).executes(
-                                PermissionsCommand::listUserPermissions
+                                PermissionsCommand::userPermissionsList
                             )
                         )
                     ).then(
                         Commands.argument("page", IntegerArgumentType.integer(0)).executes(
-                            PermissionsCommand::listUserPermissions
+                            PermissionsCommand::userPermissionsList
                         )
-                    ).executes(PermissionsCommand::listUserPermissions)
+                    ).executes(PermissionsCommand::userPermissionsList)
                 )
             )
         ).then(
             Commands.literal("group").then(
                 Commands.literal("set").then(
                     Commands.argument(
-                        "group-name",
-                        StringArrayArgument.with(PermissionsAPI.getGroups().map { it.name })
+                        "group-name", StringArgumentType.string()
                     ).then(
                         Commands.literal("for").then(
                             Commands.argument("user-name", StringArgumentType.string()).executes(
-                                PermissionsCommand::setUserGroup
+                                PermissionsCommand::userSetGroup
                             )
                         )
                     )
@@ -78,91 +75,81 @@ fun takePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
         Commands.literal("group").then(
             Commands.literal("list").then(
                 Commands.argument("page", IntegerArgumentType.integer(0)).executes(
-                    PermissionsCommand::listGroups
+                    PermissionsCommand::groupList
                 )
-            ).executes(PermissionsCommand::listGroups)
+            ).executes(PermissionsCommand::groupList)
         ).then(
             Commands.literal("set-default").then(
                 Commands.argument(
-                    "group-name",
-                    StringArrayArgument.with(
-                        PermissionsAPI.getGroups().filter { !it.isDefault }.map { it.name }
-                    )
-                ).executes(PermissionsCommand::setDefaultGroup)
+                    "group-name", StringArgumentType.string()
+                ).executes(PermissionsCommand::groupDefaultSet)
             )
         ).then(
             Commands.literal("create").then(
                 Commands.argument("group-name", StringArgumentType.string()).executes(
-                    PermissionsCommand::createGroup
+                    PermissionsCommand::groupCreate
                 )
             )
         ).then(
             Commands.literal("remove").then(
                 Commands.argument(
-                    "group-name",
-                    StringArrayArgument.with(
-                        PermissionsAPI.getGroups().filter { !it.isDefault }.map { it.name }
-                    )
-                ).executes(PermissionsCommand::removeGroup)
+                    "group-name", StringArgumentType.string()
+                ).executes(PermissionsCommand::groupRemove)
             )
         ).then(
             Commands.literal("permissions").then(
                 Commands.argument(
-                    "group-name",
-                    StringArrayArgument.with(PermissionsAPI.getGroups().map { it.name })
+                    "group-name", StringArgumentType.string()
                 ).then(
                     Commands.literal("add").then(
                         Commands.argument("node", StringArgumentType.string()).executes(
-                            PermissionsCommand::addGroupPermission
+                            PermissionsCommand::groupPermissionsAdd
                         )
                     )
                 ).then(
                     Commands.literal("remove").then(
                         Commands.argument("node", StringArgumentType.string()).executes(
-                            PermissionsCommand::removeGroupPermission
+                            PermissionsCommand::groupPermissionsRemove
                         )
                     )
                 ).then(
                     Commands.literal("list").then(
                         Commands.argument("deep", BoolArgumentType.bool()).executes(
-                            PermissionsCommand::listGroupPermissions
+                            PermissionsCommand::groupPermissionsList
                         ).then(
                             Commands.argument("page", IntegerArgumentType.integer(0)).executes(
-                                PermissionsCommand::listGroupPermissions
+                                PermissionsCommand::groupPermissionsList
                             )
                         )
                     ).then(
                         Commands.argument("page", IntegerArgumentType.integer(0)).executes(
-                            PermissionsCommand::listGroupPermissions
+                            PermissionsCommand::groupPermissionsList
                         )
-                    ).executes(PermissionsCommand::listGroupPermissions)
+                    ).executes(PermissionsCommand::groupPermissionsList)
                 )
             )
         ).then(
             Commands.literal("inherit").then(
                 Commands.argument(
-                    "group-name",
-                    StringArrayArgument.with(PermissionsAPI.getGroups().map { it.name })
+                    "group-name", StringArgumentType.string()
                 ).then(
                     Commands.literal("add").then(
                         Commands.argument(
-                            "inherit-group",
-                            StringArrayArgument.with(PermissionsAPI.getGroups().map { it.name })
-                        ).executes(PermissionsCommand::addGroupInherit)
+                            "inherit-group", StringArgumentType.string()
+                        ).executes(PermissionsCommand::groupInheritAdd)
                     )
                 ).then(
                     Commands.literal("remove").then(
                         Commands.argument(
-                            "inherit-group",
-                            StringArrayArgument.with(PermissionsAPI.getGroups().map { it.name })
-                        ).executes(PermissionsCommand::removeGroupInherit)
+                            "inherit-group", StringArgumentType.string()
+                        ).executes(PermissionsCommand::groupInheritRemove)
                     )
                 ).then(
                     Commands.literal("list").then(
                         Commands.argument("page", IntegerArgumentType.integer(0)).executes(
-                            PermissionsCommand::listGroupInheritances
+                            PermissionsCommand::groupInheritList
                         )
-                    ).executes(PermissionsCommand::listGroupInheritances)
+                    ).executes(PermissionsCommand::groupInheritList)
                 )
             )
         ).then(
@@ -172,12 +159,10 @@ fun takePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
         ).then(
             Commands.literal("rename").then(
                 Commands.argument(
-                    "old-group-name",
-                    StringArrayArgument.with(PermissionsAPI.getGroups().map { it.name })
+                    "old-group-name", StringArgumentType.string()
                 ).then(
                     Commands.argument(
-                        "new-group-name",
-                        StringArrayArgument.with(PermissionsAPI.getGroups().map { it.name })
+                        "new-group-name", StringArgumentType.string()
                     )
                 )
             )

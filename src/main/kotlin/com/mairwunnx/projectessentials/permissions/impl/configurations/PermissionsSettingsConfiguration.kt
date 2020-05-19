@@ -2,7 +2,6 @@
 
 package com.mairwunnx.projectessentials.permissions.impl.configurations
 
-import com.mairwunnx.projectessentials.core.api.v1.configuration.Configuration
 import com.mairwunnx.projectessentials.core.api.v1.configuration.IConfiguration
 import com.mairwunnx.projectessentials.core.api.v1.helpers.jsonInstance
 import com.mairwunnx.projectessentials.core.api.v1.helpers.projectConfigDirectory
@@ -10,13 +9,12 @@ import org.apache.logging.log4j.LogManager
 import java.io.File
 import java.io.FileNotFoundException
 
-@OptIn(ExperimentalUnsignedTypes::class)
-@Configuration("permissions-settings", 1u)
 object PermissionsSettingsConfiguration : IConfiguration<PermissionsSettingsConfigurationModel> {
     private val logger = LogManager.getLogger()
-    private var cachedData: Configuration? = null
     private var configurationData = PermissionsSettingsConfigurationModel()
 
+    override val name = "permissions-settings"
+    override val version = 1
     override val configuration = take()
     override val path = projectConfigDirectory + File.separator + "permissions-settings.json"
 
@@ -35,7 +33,7 @@ object PermissionsSettingsConfiguration : IConfiguration<PermissionsSettingsConf
     override fun save() {
         File(path).parentFile.mkdirs()
 
-        logger.info("Saving configuration `${data().name}`")
+        logger.info("Saving configuration `${name}`")
         val raw = jsonInstance.stringify(
             PermissionsSettingsConfigurationModel.serializer(), configuration
         )
@@ -46,13 +44,6 @@ object PermissionsSettingsConfiguration : IConfiguration<PermissionsSettingsConf
                 "An error occurred while saving commands configuration", ex
             )
         }
-    }
-
-    override fun data(): Configuration {
-        if (cachedData == null) {
-            cachedData = this.javaClass.getAnnotation(Configuration::class.java)
-        }
-        return cachedData!!
     }
 
     override fun take() = configurationData
