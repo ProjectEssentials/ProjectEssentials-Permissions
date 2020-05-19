@@ -543,6 +543,32 @@ Inherits group list for group $group
         return 0
     }
 
+    internal fun groupPrefixTake(context: CommandContext<CommandSource>): Int {
+        fun action(isServer: Boolean) {
+            val group = CommandAPI.getString(context, "group-name")
+            PermissionsAPI.getGroupPrefix(group).also { result ->
+                when {
+                    isServer -> ServerMessagingAPI.response {
+                        "Group $group prefix is `$result` or formatted `${result.replace(
+                            Regex("§."),
+                            ""
+                        )}`"
+                    }
+                    else -> sendResultMessage(
+                        context, "group.prefix.take", "success",
+                        result, result.replace(Regex("§."), "")
+                    )
+                }
+            }
+        }
+        validate(context, "ess.permissions.group.read.prefix", 3, ::action) { "execute" }
+        return 0
+    }
+
+    internal fun groupPrefixSet(context: CommandContext<CommandSource>): Int {
+        return 0
+    }
+
     private fun sendResultMessage(
         context: CommandContext<CommandSource>, action: String, result: String, vararg args: String
     ) {
