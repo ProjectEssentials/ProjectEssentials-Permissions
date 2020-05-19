@@ -1,18 +1,9 @@
 {
-	"project_essentials_permissions.perm.about.out": "          §6%s\n§cVerzija: §7%s\n§cAdmin: §7%s\n§cCiljana Forge verzija: §7%s\n§cCiljana Minecraft verzija: §7%s\n§cIzvorni kod: §7%s§7\n§cTelegram čet: §7%s\n§cCurseForge: §7%s",
-	"project_essentials_permissions.perm.about.restricted": "§cNemate §7prava §cda pokrenete /essentials komandu konfiguracije prava.",
-	"project_essentials_permissions.perm.reload.restricted": "§cNemate §7prava §cda učitate konfiguracije prava.",
-	"project_essentials_permissions.perm.reload.success": "§6Konfiguracija prava §7učitana§6.",
-	"project_essentials_permissions.perm.save.restricted": "§cNemate §7ovlašćenja §cda sačuvate prava.",
-	"project_essentials_permissions.perm.save.success": "§6Konfiguracija prava §7sačuvana§6.",
-	"project_essentials_permissions.perm.group.restricted": "§cNemate §7ovlašćenja §cda modifikujete prava grupe.",
-	"project_essentials_permissions.perm.group.example": "§6Primer korišćenja: §7/ess permissions group §8<group> §b[set|remove] §8<node>",
-	"project_essentials_permissions.perm.user.restricted": "§cNemate §7ovlašćenja §cda modifikujete prava korisnika.",
-	"project_essentials_permissions.perm.user.example": "§6Primer korišćenja: §7/ess permissions user §8<nickname> §b[§d[set]§b|remove] §b[§8<node>§b] §d[[group]] §d[[<group name>]]",
-	"project_essentials_permissions.perm.group.success": "§6Prava §7%s §6dodata grupi §7%s§6.",
-	"project_essentials_permissions.perm.user.success": "§6Prava §7%s §6dodata korisniku §7%s§6.",
-	"project_essentials_permissions.perm.user.group.example": "§6Primer korišćenja: §7/ess permissions user §8<nickname> §7set group §8<group name>",
-	"project_essentials_permissions.perm.user.group.success": "§6Napravljena nova grupa §7%s §6za korisnika §7%s§6.",
-	"project_essentials_permissions.perm.group.remove.success": "§6Prava §7%s §6oduzeta od grupe §7%s§6.",
-	"project_essentials_permissions.perm.user.remove.success": "§6Pravo §7%s §6oduzeto od korisnika §7%s§6."
+  "project_essentials_permissions.perm.save.success": "§6Konfiguracija prava §7sačuvana§6.",
+  "project_essentials_permissions.perm.reload.success": "§6Konfiguracija prava §7učitana§6.",
+  "project_essentials_permissions.perm.group.permissions.add.success": "§6Prava §7%s §6dodata grupi §7%s§6.",
+  "project_essentials_permissions.perm.user.permissions.add.success": "§6Prava §7%s §6dodata korisniku §7%s§6.",
+  "project_essentials_permissions.perm.user.group.set.success": "§6Napravljena nova grupa §7%s §6za korisnika §7%s§6.",
+  "project_essentials_permissions.perm.group.permissions.remove.success": "§6Prava §7%s §6oduzeta od grupe §7%s§6.",
+  "project_essentials_permissions.perm.user.permissions.remove.success": "§6Pravo §7%s §6oduzeto od korisnika §7%s§6."
 }

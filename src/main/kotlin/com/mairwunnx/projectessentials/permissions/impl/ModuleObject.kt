@@ -3,7 +3,6 @@
 package com.mairwunnx.projectessentials.permissions.impl
 
 import com.mairwunnx.projectessentials.core.api.v1.MESSAGE_MODULE_PREFIX
-import com.mairwunnx.projectessentials.core.api.v1.SETTING_LOC_ENABLED
 import com.mairwunnx.projectessentials.core.api.v1.configuration.ConfigurationAPI.getConfigurationByName
 import com.mairwunnx.projectessentials.core.api.v1.events.ModuleEventAPI
 import com.mairwunnx.projectessentials.core.api.v1.events.forge.FMLCommonSetupEventData
@@ -17,7 +16,6 @@ import com.mairwunnx.projectessentials.core.api.v1.messaging.MessagingAPI
 import com.mairwunnx.projectessentials.core.api.v1.module.IModule
 import com.mairwunnx.projectessentials.core.api.v1.providers.ProviderAPI
 import com.mairwunnx.projectessentials.core.api.v1.providers.ProviderType
-import com.mairwunnx.projectessentials.core.impl.configurations.GeneralConfiguration
 import com.mairwunnx.projectessentials.permissions.api.v1.PermissionsAPI
 import com.mairwunnx.projectessentials.permissions.api.v1.PermissionsWrappersAPI
 import com.mairwunnx.projectessentials.permissions.impl.commands.ConfigurePermissionsCommand
@@ -43,9 +41,6 @@ internal class ModuleObject : IModule {
 
     private val logger = LogManager.getLogger()
 
-    private val generalConfiguration by lazy {
-        getConfigurationByName<GeneralConfiguration>("general")
-    }
     private val permissionsSettings by lazy {
         getConfigurationByName<PermissionsSettingsConfiguration>("permissions-settings")
     }
@@ -138,8 +133,7 @@ internal class ModuleObject : IModule {
             ) -> {
                 MessagingAPI.sendMessage(
                     event.player as ServerPlayerEntity,
-                    "${MESSAGE_MODULE_PREFIX}permissions.perm.block_break.restricted",
-                    generalConfiguration.getBool(SETTING_LOC_ENABLED)
+                    "${MESSAGE_MODULE_PREFIX}permissions.perm.block_break.restricted"
                 )
                 event.isCanceled = true
                 return
@@ -167,9 +161,7 @@ internal class ModuleObject : IModule {
                     }
                 ) -> {
                     MessagingAPI.sendMessage(
-                        player,
-                        "${MESSAGE_MODULE_PREFIX}permissions.perm.block_break.place",
-                        generalConfiguration.getBool(SETTING_LOC_ENABLED)
+                        player, "${MESSAGE_MODULE_PREFIX}permissions.perm.block_place.restricted"
                     )
                     event.isCanceled = true
                     return
@@ -223,6 +215,9 @@ internal class ModuleObject : IModule {
                         }
                     }
                 ) -> {
+                    MessagingAPI.sendMessage(
+                        player, "${MESSAGE_MODULE_PREFIX}permissions.perm.item_use.restricted"
+                    )
                     event.isCanceled = true
                     return
                 }

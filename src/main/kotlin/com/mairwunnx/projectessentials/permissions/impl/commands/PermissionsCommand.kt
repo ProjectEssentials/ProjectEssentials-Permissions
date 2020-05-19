@@ -160,7 +160,7 @@ Permissions information about user: $user
                         "Permission node $node was not removed from user $user"
                     }
                     else -> sendResultMessage(
-                        context, "user.permissions.remove", "error", user, node
+                        context, "user.permissions.remove", "error", node, user
                     )
                 }
             }
@@ -178,7 +178,7 @@ Permissions information about user: $user
             if (isServer) {
                 if (result.isEmpty()) {
                     ServerMessagingAPI.response {
-                        "Requested permissions list is empty, nothing to listing you."
+                        "Requested permissions list is empty, nothing to show you. <3"
                     }
                 } else {
                     // @formatter:off
@@ -556,7 +556,7 @@ Inherits group list for group $group
                     }
                     else -> sendResultMessage(
                         context, "group.prefix.take", "success",
-                        result, result.replace(Regex("§."), "")
+                        group, result, result.replace(Regex("§."), "")
                     )
                 }
             }

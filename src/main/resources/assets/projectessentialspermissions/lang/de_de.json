@@ -1,18 +1,9 @@
 {
-  "project_essentials_permissions.perm.about.out": "§6%s\n§cVersion: §7%s\n§cMaintainer: §7%s\n§cForge Zielversion: §7%s\n§Minecraft Zielversion: §7%s\n§cSource Code: §7%s§7\n§cTelegram Chat: §7%s\n§cCurseForge: §7%s",
-  "project_essentials_permissions.perm.about.restricted": "§cDu §7bist nicht berechtigt §cum den Befehl /essentials auszuführen.",
-  "project_essentials_permissions.perm.reload.restricted": "§cDu §7bist nicht berechtigt §cum die Berechtigungskonfigurationen neu zu laden.",
-  "project_essentials_permissions.perm.reload.success": "§6Berechtigungskonfigurationen §7neu geladen§6.",
-  "project_essentials_permissions.perm.save.restricted": "§cDu §7bist nicht berechtigt §cum Berechtigungskonfigurationen zu speichern.",
   "project_essentials_permissions.perm.save.success": "§6Berechtigungskonfiguration §7gespeichert§6.",
-  "project_essentials_permissions.perm.group.restricted": "§cDu §7bist nicht berechtigt §cum um Gruppenberechtigungen zu ändern.",
-  "project_essentials_permissions.perm.group.example": "§6Anwendungsbeispiel: §7/ess permissions group §8<group> §b[set|remove] §8<node>",
-  "project_essentials_permissions.perm.user.restricted": "§cDu §7bist nicht berechtigt §cum Benutzerberechtigungen zu ändern.",
-  "project_essentials_permissions.perm.user.example": "§6Anwendungsbeispiel: §7/ess permissions user §8<nickname> §b[§d[set]§b|remove] §b[§8<node>§b] §d[[group]] §d[[<group name>]]",
-  "project_essentials_permissions.perm.group.success": "§6Berechtigung §7%s §6hinzugefügt zu Gruppe §7%s§6.",
-  "project_essentials_permissions.perm.user.success": "§6Berechtigung §7%s §6hinzugefügt zu Benutzer §7%s§6.",
-  "project_essentials_permissions.perm.user.group.example": "§6Anwendungsbeispiel: §7/ess permissions user §8<nickname> §7set group §8<group name>",
-  "project_essentials_permissions.perm.user.group.success": "§6Neue Gruppe hinzugefügt §7%s §6für Benutzer §7%s§6.",
-  "project_essentials_permissions.perm.group.remove.success": "§6Berechtigung §7%s §6gelöscht von Gruppe §7%s§6.",
-  "project_essentials_permissions.perm.user.remove.success": "§6Berechtigung §7%s §6gelöscht von Benutzer §7%s§6."
+  "project_essentials_permissions.perm.reload.success": "§6Berechtigungskonfigurationen §7neu geladen§6.",
+  "project_essentials_permissions.perm.group.permissions.add.success": "§6Berechtigung §7%s §6hinzugefügt zu Gruppe §7%s§6.",
+  "project_essentials_permissions.perm.user.permissions.add.success": "§6Berechtigung §7%s §6hinzugefügt zu Benutzer §7%s§6.",
+  "project_essentials_permissions.perm.user.group.set.success": "§6Neue Gruppe hinzugefügt §7%s §6für Benutzer §7%s§6.",
+  "project_essentials_permissions.perm.group.permissions.remove.success": "§6Berechtigung §7%s §6gelöscht von Gruppe §7%s§6.",
+  "project_essentials_permissions.perm.user.permissions.remove.success": "§6Berechtigung §7%s §6gelöscht von Benutzer §7%s§6."
 }
