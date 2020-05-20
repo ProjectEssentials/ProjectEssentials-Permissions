@@ -85,7 +85,7 @@ internal class ModuleObject : IModule {
         }
 
         ModuleEventAPI.subscribeOn<ProcessorEventData>(
-            ModuleCoreEventType.OnProcessorAfterPostProcessing
+            ModuleCoreEventType.OnModuleClassProcessed
         ) { _ ->
             ModList.get().mods.find { it.modId == "worldedit" }?.let {
                 if (permissionsSettings.configuration.replaceWorldEditPermissionsHandler) {
