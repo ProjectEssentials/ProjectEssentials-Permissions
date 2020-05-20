@@ -550,8 +550,7 @@ Inherits group list for group $group
                 when {
                     isServer -> ServerMessagingAPI.response {
                         "Group $group prefix is `$result` or formatted `${result.replace(
-                            Regex("§."),
-                            ""
+                            Regex("§."), ""
                         )}`"
                     }
                     else -> sendResultMessage(
