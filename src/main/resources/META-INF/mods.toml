@@ -11,8 +11,8 @@ issueTrackerURL="https://github.com/ProjectEssentials/ProjectEssentials-Permissi
     credits="hujle, JetBrains, all forge developers, and other contributors"
     authors="MairwunNx (Pavel Erokhin)"
     description='''
-    Module of Project Essentials. API for working with players permissions,
-    controlling the in-world actions of players.
+    API for controlling the activities of the player on the server and client.
+    You can limit some commands to the player, his activities in the world and more.
     '''
 
 [[dependencies.project_essentials_permissions]]
