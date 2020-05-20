@@ -163,7 +163,7 @@ Since 2.0.0 versions change log same for all supported minecraft versions.
 - Updated version number to `1.0.1.0`.
 
 ### Removed
-- Comments from [gradle.properties](gradle.properties).
+- Comments from `gradle.properties`.
 - Redundant information logging.
 
 ## [1.14.4-1.0.0.0] - 2020-01-12
@@ -172,7 +172,7 @@ Since 2.0.0 versions change log same for all supported minecraft versions.
 - CurseForge link for `/perm about` command.
 - Compatibility with future versions of `Cooldowns` module.
 - Detecting opped players (now all opped players have all permissions).
-- `ess_core_version` and `ess_cooldown_version` variables to [gradle.properties](./gradle.properties).
+- `ess_core_version` and `ess_cooldown_version` variables to `gradle.properties`.
 - German translation by [@BixelPitch](https://github.com/BixelPitch).
 - Serbian translation by [@vr1e](https://github.com/vr1e).
 - Pull request temple to this repository by [@huangyz0918](https://github.com/huangyz0918).
@@ -181,13 +181,13 @@ Since 2.0.0 versions change log same for all supported minecraft versions.
 - This [CHANGELOG.md](./changelog.md) file.
 
 ### Changed
-- [readme.md](./readme.md) changed information for developers.
+- `readme.md` changed information for developers.
 - Simplified permissions command to `/permissions` or `/perm`.
-- Simplified `JsonConfiguration` in [PermissionBase.kt](./src/main/kotlin/com/mairwunnx/projectessentials/permissions/permissions/PermissionBase.kt).
+- Simplified `JsonConfiguration` in `PermissionBase.kt`.
 - Updated kotlin runtime version.
 - Updated forge version, bumped kotlinx serialization.
-- [build.gradle](./build.gradle) little file refactoring.
-- PermissionData renamed to [PermissionModel.kt](./src/main/kotlin/com/mairwunnx/projectessentials/permissions/permissions/PermissionModel.kt). 
+- `build.gradle` little file refactoring.
+- PermissionData renamed to `PermissionModel.kt`. 
 
 ### Fixed
 - Grammatical mistakes by [@Aircoookie](https://github.com/Aircoookie).
