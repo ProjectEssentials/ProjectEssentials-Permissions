@@ -1,19 +1,25 @@
-## Project Essentials Permissions: command permission provider for Project Essentials.
+### What is it
 
-### What is this for?
-
-This modification serves as a command permissions provider for players. It is very suitable for delimiting the permissions of players and limiting the player's capabilities, for example, to prohibit changing the weather or to allow repair items. If you ever used PermissionsEx for spigot, then you will not have problems with setting permissions. Also, the mod has its own API, to use it, start by [reading the documentation](https://mairwunnx.gitbook.io/project-essentials/project-essentials-permissions#api-in-using).
+Not mandatory dependency for Project Essentials mods and other mods uses permission checking. API for controlling the activities of the player on the server and client. You can limit some commands to the player, his activities in the world and more.
 
 ### Explore
 
-#### [Download mod](https://github.com/ProjectEssentials/ProjectEssentials-Permissions/releases/download/v1.14.4-1.2.2/Project.Essentials.Permissions-1.14.4-1.2.2.jar) · [How to install](https://mairwunnx.gitbook.io/project-essentials/project-essentials-permissions#how-to-install) · [Commands](https://mairwunnx.gitbook.io/project-essentials/project-essentials-permissions#commands-and-permissions) · [Configuration](https://mairwunnx.gitbook.io/project-essentials/project-essentials-permissions#configuration) · [API Using](https://mairwunnx.gitbook.io/project-essentials/project-essentials-permissions#api-in-using) · [Troubleshooting](https://github.com/ProjectEssentials/ProjectEssentials-Permissions/issues/new/choose) · [News & updates](https://t.me/minecraftforge) · [Change log](changelog.md)
+#### [Download mod](https://github.com/ProjectEssentials/ProjectEssentials-Permissions/releases/download/v1.14.4-1.2.2/Project.Essentials.Permissions-1.14.4-1.2.2.jar) · [User guide](https://mairwunnx.gitbook.io/project-essentials/project-essentials-permissions#how-to-install) · [Developer documentation](https://mairwunnx.gitbook.io/project-essentials/project-essentials-permissions#api-in-using) · [Troubleshooting](https://github.com/ProjectEssentials/ProjectEssentials-Permissions/issues/new/choose) · [Telegram](https://t.me/minecraftforge) · [Discord](https://discord.gg/VU9XZAt) · [Change log](https://github.com/ProjectEssentials/ProjectEssentials-Permissions/blob/master/changelog.md)
 
-### Compatibility
-
-Currently mod branch supported forge version `28.0.X` and `28.1.X` (Minecraft `1.14.4`).
+[![](https://github.com/ProjectEssentials/ProjectEssentials-Assets/raw/ASSETS-20-Q2/assets/common/support.png)](https://gist.github.com/MairwunNx/fda95062618db6880ef8ee06e1bba54f)
 
 ### Credits
 
-- Author: Pavel Erokhin [@mairwunnx](https://github.com/mairwunnx)
-- [JetBrains](https://www.jetbrains.com/) for Licenses
-- Inspired by: [PermissionsEx](https://github.com/PEXPlugins/PermissionsEx)
+- `hujle` for testing this mod and almost all modules in production
+- [JetBrains](https://www.jetbrains.com/) for product licenses
+- [KuroNoSeiHai](https://github.com/KuroNoSeiHai) for Chinese simplified translation
+- [BixelPitch](https://github.com/BixelPitch) for German translation
+- [abhiroopwastaken (Abhiroop Agarwal)](https://github.com/abhiroopwastaken) for grammatical mistakes correction
+- [drigio (Gaurav Kondhare)](https://github.com/drigio) for best changelog.md
+- [huangyz0918 (Yizheng Huang)](https://github.com/huangyz0918) for pretty pull request template
+- [luckymurari (Santosh Lakshman M)](https://github.com/luckymurari) for bumping some mandatory dependencies
+- [vr1e (Nikola)](https://github.com/vr1e) for Serbian translation
+- [Aircoookie](https://github.com/Aircoookie) for improving wording in documentation
+- [remikeophila (Rémi Keophila)](https://github.com/remikeophila) for cleaning up packages
+
+### Inspired by: [PermissionsEx](https://github.com/PEXPlugins/PermissionsEx)
