@@ -75,16 +75,16 @@ Since 2.0.0 versions change log same for all supported minecraft versions.
 
 ### Fixed
 - `setUserGroup` fixed incorrect behavior when user not exist.
-- `kapt` removed from plugins.
-- Removed `cooldown` dependency.
-- `https://jitpack.io` maven repository removed.
-- description from `dokkaJar` task removed.
 - Incorrect result after adding group fixed.
 - Incorrect result after adding user fixed.
 - Incorrect behavior in `removeUserPermission` fixed.
 - Some confusing with getting user by name fixed.
 
 ### Removed
+- `kapt` removed from plugins.
+- Removed `cooldown` dependency.
+- `https://jitpack.io` maven repository removed.
+- description from `dokkaJar` task removed.
 - Local assets removed.
 - Links to not existing assets removed from `readme.md`.
 - Directory paths for debugging removed.
