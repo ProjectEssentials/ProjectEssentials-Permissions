@@ -84,17 +84,6 @@ internal class ModuleObject : IModule {
             )
         }
 
-        ModuleEventAPI.subscribeOn<ProcessorEventData>(
-            ModuleCoreEventType.OnModuleClassProcessed
-        ) { _ ->
-            ModList.get().mods.find { it.modId == "worldedit" }?.let {
-                if (permissionsSettings.configuration.replaceWorldEditPermissionsHandler) {
-                    logger.info("WorldEdit mod found and able to replacing permissions handler")
-                    EVENT_BUS.register(WorldEditEventHandler::class.java)
-                }
-            }
-        }
-
         /*
             Remove permissions command if `enablePermissionsCommand` is false.
             It need to do in `OnProcessorProcessing` event.
@@ -112,7 +101,14 @@ internal class ModuleObject : IModule {
         }
     }
 
-    override fun init() = Unit
+    override fun init() {
+        ModList.get().mods.find { it.modId == "worldedit" }?.let {
+            if (permissionsSettings.configuration.replaceWorldEditPermissionsHandler) {
+                logger.info("WorldEdit mod found and able to replacing permissions handler")
+                EVENT_BUS.register(WorldEditEventHandler::class.java)
+            }
+        }
+    }
 
     @SubscribeEvent
     fun onBlockBreakEvent(event: BlockEvent.BreakEvent) {
