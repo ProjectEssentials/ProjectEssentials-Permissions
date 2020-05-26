@@ -10,6 +10,10 @@ Since 2.0.0 versions change log same for all supported minecraft versions.
 
 ## [Unreleased]
 
+### Changed
+- Forge dependency version updated to `31.2.0`. *(For 1.15.2)*
+- Forge mappings updated to `20200514-1.15.1`. *(For 1.15.2)*
+
 ## [2.0.0-RC.1] - 2020-05-20
 
 ### Added
