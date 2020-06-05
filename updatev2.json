@@ -1,11 +1,12 @@
 {
   "homepage": "https://github.com/ProjectEssentials/ProjectEssentials-Permissions",
   "1.14.4": {
-    "2.0.0-RC.2": "change log -> https://github.com/ProjectEssentials/ProjectEssentials-Permissions/blob/master/changelog.md#200-rc1---2020-06-05",
+    "2.0.0-RC.3": "change log -> https://github.com/ProjectEssentials/ProjectEssentials-Permissions/blob/master/changelog.md#200-rc3---2020-06-05",
+    "2.0.0-RC.2": "change log -> https://github.com/ProjectEssentials/ProjectEssentials-Permissions/blob/master/changelog.md#200-rc2---2020-06-05",
     "2.0.0-RC.1": "change log -> https://github.com/ProjectEssentials/ProjectEssentials-Permissions/blob/master/changelog.md#200-rc1---2020-05-20"
   },
   "promos": {
-    "1.14.4-latest": "2.0.0-RC.2",
+    "1.14.4-latest": "2.0.0-RC.3",
     "1.14.4-recommended": "2.0.0"
   }
 }
