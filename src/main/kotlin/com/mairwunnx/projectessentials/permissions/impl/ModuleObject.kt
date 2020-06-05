@@ -4,18 +4,11 @@ package com.mairwunnx.projectessentials.permissions.impl
 
 import com.mairwunnx.projectessentials.core.api.v1.MESSAGE_MODULE_PREFIX
 import com.mairwunnx.projectessentials.core.api.v1.configuration.ConfigurationAPI.getConfigurationByName
-import com.mairwunnx.projectessentials.core.api.v1.events.ModuleEventAPI
-import com.mairwunnx.projectessentials.core.api.v1.events.forge.FMLCommonSetupEventData
-import com.mairwunnx.projectessentials.core.api.v1.events.forge.ForgeEventType
-import com.mairwunnx.projectessentials.core.api.v1.events.internal.ModuleCoreEventType
-import com.mairwunnx.projectessentials.core.api.v1.events.internal.ProcessorEventData
 import com.mairwunnx.projectessentials.core.api.v1.extensions.currentDimensionName
-import com.mairwunnx.projectessentials.core.api.v1.localization.Localization
 import com.mairwunnx.projectessentials.core.api.v1.localization.LocalizationAPI
 import com.mairwunnx.projectessentials.core.api.v1.messaging.MessagingAPI
 import com.mairwunnx.projectessentials.core.api.v1.module.IModule
 import com.mairwunnx.projectessentials.core.api.v1.providers.ProviderAPI
-import com.mairwunnx.projectessentials.core.api.v1.providers.ProviderType
 import com.mairwunnx.projectessentials.permissions.api.v1.PermissionsAPI
 import com.mairwunnx.projectessentials.permissions.api.v1.PermissionsWrappersAPI
 import com.mairwunnx.projectessentials.permissions.impl.commands.ConfigurePermissionsCommand
@@ -57,49 +50,27 @@ internal class ModuleObject : IModule {
         logger.info("Replacing default Forge permissions handler").run {
             PermissionAPI.setPermissionHandler(PermissionsWrappersAPI.ForgeWrapper)
         }
-        providers.forEach(ProviderAPI::addProvider)
-        subscribeEvents()
         EVENT_BUS.register(this)
+        providers.forEach(ProviderAPI::addProvider)
+        initLocalization()
+    }
+
+    private fun initLocalization() {
+        LocalizationAPI.apply(this.javaClass) {
+            mutableListOf(
+                "/assets/projectessentialspermissions/lang/de_de.json",
+                "/assets/projectessentialspermissions/lang/en_us.json",
+                "/assets/projectessentialspermissions/lang/ru_ru.json",
+                "/assets/projectessentialspermissions/lang/sr_rs.json",
+                "/assets/projectessentialspermissions/lang/zh_cn.json"
+            )
+        }
     }
 
     fun replaceWorldEditPermissionHandler() =
         logger.info("Replacing default WorldEdit permissions handler").run {
             ForgeWorldEdit.inst.permissionsProvider = PermissionsWrappersAPI.WorldEditWrapper
         }
-
-    private fun subscribeEvents() {
-        ModuleEventAPI.subscribeOn<FMLCommonSetupEventData>(
-            ForgeEventType.SetupEvent
-        ) {
-            LocalizationAPI.apply(
-                Localization(
-                    mutableListOf(
-                        "/assets/projectessentialspermissions/lang/de_de.json",
-                        "/assets/projectessentialspermissions/lang/en_us.json",
-                        "/assets/projectessentialspermissions/lang/ru_ru.json",
-                        "/assets/projectessentialspermissions/lang/sr_rs.json",
-                        "/assets/projectessentialspermissions/lang/zh_cn.json"
-                    ), "permissions", ModuleObject::class.java
-                )
-            )
-        }
-
-        /*
-            Remove permissions command if `enablePermissionsCommand` is false.
-            It need to do in `OnProcessorProcessing` event.
-         */
-        ModuleEventAPI.subscribeOn<ProcessorEventData>(
-            ModuleCoreEventType.OnProcessorProcessing
-        ) { event ->
-            if (event.processor.processorName == "command") {
-                if (!permissionsSettings.take().enablePermissionsCommand) {
-                    ProviderAPI.getProvidersByType(ProviderType.COMMAND).removeIf {
-                        it.name == PermissionsCommand::class.java.name
-                    }
-                }
-            }
-        }
-    }
 
     override fun init() {
         ModList.get().mods.find { it.modId == "worldedit" }?.let {
