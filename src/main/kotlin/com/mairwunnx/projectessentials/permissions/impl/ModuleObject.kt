@@ -1,4 +1,4 @@
-@file:Suppress("unused")
+@file:Suppress("unused", "UNUSED_PARAMETER")
 
 package com.mairwunnx.projectessentials.permissions.impl
 
@@ -11,6 +11,7 @@ import com.mairwunnx.projectessentials.core.api.v1.module.IModule
 import com.mairwunnx.projectessentials.core.api.v1.providers.ProviderAPI
 import com.mairwunnx.projectessentials.permissions.api.v1.PermissionsAPI
 import com.mairwunnx.projectessentials.permissions.api.v1.PermissionsWrappersAPI
+import com.mairwunnx.projectessentials.permissions.api.v1.PermissionsWrappersAPI.WorldEditWrapper
 import com.mairwunnx.projectessentials.permissions.impl.commands.ConfigurePermissionsCommand
 import com.mairwunnx.projectessentials.permissions.impl.commands.PermissionsCommand
 import com.mairwunnx.projectessentials.permissions.impl.configurations.PermissionsConfiguration
@@ -23,6 +24,7 @@ import net.minecraftforge.event.world.BlockEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.ModList
 import net.minecraftforge.fml.common.Mod
+import net.minecraftforge.fml.event.server.FMLServerStartedEvent
 import net.minecraftforge.server.permission.PermissionAPI
 import org.apache.logging.log4j.LogManager
 
@@ -31,6 +33,7 @@ internal class ModuleObject : IModule {
     override val name = this::class.java.`package`.implementationTitle.split(" ").last()
     override val version = this::class.java.`package`.implementationVersion!!
     override val loadIndex = 1
+    override fun init() = Unit
 
     private val logger = LogManager.getLogger()
 
@@ -67,16 +70,13 @@ internal class ModuleObject : IModule {
         }
     }
 
-    fun replaceWorldEditPermissionHandler() =
-        logger.info("Replacing default WorldEdit permissions handler").run {
-            ForgeWorldEdit.inst.permissionsProvider = PermissionsWrappersAPI.WorldEditWrapper
-        }
-
-    override fun init() {
+    @SubscribeEvent
+    fun onServerReady(e: FMLServerStartedEvent) {
         ModList.get().mods.find { it.modId == "worldedit" }?.let {
             if (permissionsSettings.configuration.replaceWorldEditPermissionsHandler) {
-                logger.info("WorldEdit mod found and able to replacing permissions handler")
-                EVENT_BUS.register(WorldEditEventHandler::class.java)
+                logger.info("Replacing default WorldEdit permissions handler").run {
+                    ForgeWorldEdit.inst.permissionsProvider = WorldEditWrapper
+                }
             }
         }
     }
