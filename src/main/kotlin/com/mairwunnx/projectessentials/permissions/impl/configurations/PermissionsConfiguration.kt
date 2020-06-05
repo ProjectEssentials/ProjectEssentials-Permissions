@@ -36,7 +36,7 @@ object PermissionsConfiguration : IConfiguration<PermissionsConfigurationModel> 
 
         logger.info("Saving configuration `${name}`")
         val raw = jsonInstance.stringify(
-            PermissionsConfigurationModel.serializer(), configuration
+            PermissionsConfigurationModel.serializer(), configurationData
         )
         try {
             File(path).writeText(raw)
