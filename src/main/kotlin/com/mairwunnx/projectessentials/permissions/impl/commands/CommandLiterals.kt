@@ -170,14 +170,6 @@ fun takeConfigurePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
                 )
             )
         ).then(
-            Commands.literal("enable-permissions-command").then(
-                Commands.literal("set").then(
-                    Commands.argument("value", StringArgumentType.string()).executes {
-                        ConfigurePermissionsCommand.enablePermissionsCommand(it)
-                    }
-                )
-            )
-        ).then(
             Commands.literal("debug-mode").then(
                 Commands.literal("set").then(
                     Commands.argument("value", StringArgumentType.string()).executes {
