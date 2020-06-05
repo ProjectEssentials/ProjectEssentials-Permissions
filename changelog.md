@@ -10,6 +10,11 @@ Since 2.0.0 versions change log same for all supported minecraft versions.
 
 ## [Unreleased]
 
+## [2.0.0-RC.3] - 2020-06-05
+
+### Fixed
+- WorldEdit compatibility fixed.
+
 ## [2.0.0-RC.2] - 2020-06-05
 
 ### Changed
