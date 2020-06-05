@@ -64,21 +64,6 @@ internal object ConfigurePermissionsCommand : CommandBase(
         return 0
     }
 
-    internal fun enablePermissionsCommand(context: CommandContext<CommandSource>): Int {
-        validate(
-            context,
-            "ess.configure.permissions.enable-permissions-command",
-            "enable-permissions-command"
-        ) {
-            val value = CommandAPI.getString(context, "value")
-            val oldValue = permissionsSettings.take().enablePermissionsCommand
-            permissionsSettings.take().enablePermissionsCommand = value.toBoolean()
-            changed(context, "enable-permissions-command", oldValue.toString(), value)
-            executed(context)
-        }
-        return 0
-    }
-
     internal fun debugMode(context: CommandContext<CommandSource>): Int {
         validate(
             context,
