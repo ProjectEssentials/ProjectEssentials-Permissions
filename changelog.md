@@ -10,9 +10,25 @@ Since 2.0.0 versions change log same for all supported minecraft versions.
 
 ## [Unreleased]
 
+## [2.0.0-RC.2] - 2020-06-05
+
 ### Changed
+- WE initializing now in module init.
 - Forge dependency version updated to `31.2.0`. *(For 1.15.2)*
 - Forge mappings updated to `20200514-1.15.1`. *(For 1.15.2)*
+- gradle.properties core updated.
+
+### Fixed
+- Incorrect module name getting fixed.
+- PermissionsConfiguration.kt incorrect saving fixed.
+- PermissionsSettingsConfiguration.kt incorrect saving fixed. 
+
+### Removed
+- Brigadier dependency removed.
+- `enable-permissions-command` literal part removed.
+- `enablePermissionsCommand` removed for handling.
+- Removed `OnProcessorProcessing` event handling.
+- `enablePermissionsCommand` removed from PermissionsSettingsConfigurationModel.kt.
 
 ## [2.0.0-RC.1] - 2020-05-20
 
