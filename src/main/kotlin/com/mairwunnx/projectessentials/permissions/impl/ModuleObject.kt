@@ -19,7 +19,7 @@ import com.mairwunnx.projectessentials.permissions.impl.configurations.Permissio
 import com.sk89q.worldedit.forge.ForgeWorldEdit
 import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraftforge.common.MinecraftForge.EVENT_BUS
-import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent
+import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import net.minecraftforge.event.world.BlockEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.ModList
@@ -84,34 +84,24 @@ internal class ModuleObject : IModule {
     @SubscribeEvent
     fun onBlockBreakEvent(event: BlockEvent.BreakEvent) {
         if (!permissionsSettings.take().handleBlockBreaking) return
-
+        val player = event.player as ServerPlayerEntity
         when {
             !PermissionsAPI.hasPermission(
-                event.player.name.string,
+                player.name.string,
                 if (permissionsSettings.configuration.useSimplifiedWorldPermissions) {
                     "native.event.world.block.break"
                 } else {
-                    "native.event.world.${event.player.currentDimensionName}.block.${event.state.block.registryName}.break".also {
-                        if (permissionsSettings.configuration.debugMode) {
-                            logger.debug(it)
-                        }
+                    "native.event.world.${player.currentDimensionName}.block.${event.state.block.registryName}.break".also {
+                        if (permissionsSettings.configuration.debugMode) logger.debug(it)
                     }
                 }
-            ) -> {
-                MessagingAPI.sendMessage(
-                    event.player as ServerPlayerEntity,
-                    "${MESSAGE_MODULE_PREFIX}permissions.perm.block_break.restricted"
-                )
-                event.isCanceled = true
-                return
-            }
+            ) -> out(player, "block_break").also { event.isCanceled = true }.let { return }
         }
     }
 
     @SubscribeEvent
     fun onBlockPlaceEvent(event: BlockEvent.EntityPlaceEvent) {
         if (!permissionsSettings.take().handleBlockPlacing) return
-
         if (event.entity is ServerPlayerEntity) {
             val player = event.entity as ServerPlayerEntity
             when {
@@ -121,18 +111,10 @@ internal class ModuleObject : IModule {
                         "native.event.world.block.place"
                     } else {
                         "native.event.world.${player.currentDimensionName}.block.${event.state.block.registryName}.place".also {
-                            if (permissionsSettings.configuration.debugMode) {
-                                logger.debug(it)
-                            }
+                            if (permissionsSettings.configuration.debugMode) logger.debug(it)
                         }
                     }
-                ) -> {
-                    MessagingAPI.sendMessage(
-                        player, "${MESSAGE_MODULE_PREFIX}permissions.perm.block_place.restricted"
-                    )
-                    event.isCanceled = true
-                    return
-                }
+                ) -> out(player, "block_place").also { event.isCanceled = true }.let { return }
             }
         }
     }
@@ -140,7 +122,6 @@ internal class ModuleObject : IModule {
     @SubscribeEvent
     fun onFarmlandTrampleEvent(event: BlockEvent.FarmlandTrampleEvent) {
         if (!permissionsSettings.take().handleFarmlandTrampling) return
-
         if (event.entity is ServerPlayerEntity) {
             val player = event.entity as ServerPlayerEntity
             when {
@@ -150,23 +131,19 @@ internal class ModuleObject : IModule {
                         "native.event.world.block.farmland.trample"
                     } else {
                         "native.event.world.${player.currentDimensionName}.block.farmland.trample".also {
-                            if (permissionsSettings.configuration.debugMode) {
-                                logger.debug(it)
-                            }
+                            if (permissionsSettings.configuration.debugMode) logger.debug(it)
                         }
                     }
                 ) -> {
-                    event.isCanceled = true
-                    return
+                    { event.isCanceled = true }.let { return }
                 }
             }
         }
     }
 
     @SubscribeEvent
-    fun onItemUseEvent(event: LivingEntityUseItemEvent.Start) {
+    fun onItemUseEvent(event: PlayerInteractEvent.RightClickItem) {
         if (!permissionsSettings.take().handleItemUsing) return
-
         if (event.entity is ServerPlayerEntity) {
             val player = event.entity as ServerPlayerEntity
             when {
@@ -175,20 +152,18 @@ internal class ModuleObject : IModule {
                     if (permissionsSettings.configuration.useSimplifiedWorldPermissions) {
                         "native.event.world.item.use"
                     } else {
-                        "native.event.world.${player.currentDimensionName}.item.${event.item.item.registryName}.use".also {
-                            if (permissionsSettings.configuration.debugMode) {
-                                logger.debug(it)
-                            }
+                        "native.event.world.${player.currentDimensionName}.item.${event.itemStack.item.registryName}.use".also {
+                            if (permissionsSettings.configuration.debugMode) logger.debug(it)
                         }
                     }
-                ) -> {
-                    MessagingAPI.sendMessage(
-                        player, "${MESSAGE_MODULE_PREFIX}permissions.perm.item_use.restricted"
-                    )
-                    event.isCanceled = true
-                    return
-                }
+                ) -> out(player, "item_use").also { event.isCanceled = true }.let { return }
             }
         }
     }
+
+    private fun out(
+        player: ServerPlayerEntity, action: String
+    ) = MessagingAPI.sendMessage(
+        player, "${MESSAGE_MODULE_PREFIX}permissions.perm.$action.restricted"
+    )
 }
