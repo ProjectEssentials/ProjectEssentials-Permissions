@@ -9,6 +9,6 @@ data class PermissionsSettingsConfigurationModel(
     var debugMode: Boolean = false,
     var handleBlockBreaking: Boolean = true,
     var handleBlockPlacing: Boolean = true,
-    var handleFarmlandTrampling: Boolean = true,
-    var handleItemUsing: Boolean = true
+    var handleFarmlandTrampling: Boolean = false,
+    var handleItemUsing: Boolean = false
 )
