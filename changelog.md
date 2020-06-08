@@ -10,6 +10,22 @@ Since 2.0.0 versions change log same for all supported minecraft versions.
 
 ## [Unreleased]
 
+## [2.0.0] - 2020-06-08
+
+### Added
+- Added suggesting for permission command.
+
+### Changed
+- Updated Chinese simplified localizations by @KuroNoSeiHai
+- handleItemUsing and handleFarmlandTrampling by default is false.
+- Default permissions updated.
+- `core_version` dependency updated.
+- `credits` updated in `mods.toml`.
+- code dependency now is not transitive.
+
+### Fixed
+- Incorrect item using checks fixed. 
+
 ## [2.0.0-RC.3] - 2020-06-05
 
 ### Fixed
