@@ -1,5 +1,7 @@
 package com.mairwunnx.projectessentials.permissions.impl.commands
 
+import com.mairwunnx.projectessentials.core.api.v1.commands.CommandAPI
+import com.mairwunnx.projectessentials.permissions.api.v1.PermissionsAPI
 import com.mojang.brigadier.arguments.BoolArgumentType
 import com.mojang.brigadier.arguments.IntegerArgumentType
 import com.mojang.brigadier.arguments.StringArgumentType
@@ -7,6 +9,8 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder
 import com.mojang.brigadier.builder.LiteralArgumentBuilder.literal
 import net.minecraft.command.CommandSource
 import net.minecraft.command.Commands
+import net.minecraft.command.ISuggestionProvider
+import net.minecraftforge.fml.server.ServerLifecycleHooks.getCurrentServer
 
 fun takePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
     literal<CommandSource>("permissions").then(
@@ -17,18 +21,31 @@ fun takePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
         Commands.literal("user").then(
             Commands.literal("info").then(
                 Commands.argument("user-name", StringArgumentType.string())
+                    .suggests { _, builder ->
+                        ISuggestionProvider.suggest(
+                            getCurrentServer().playerList.players.map { it.name.string }, builder
+                        )
+                    }
                     .executes { PermissionsCommand.userInfo(it) }
             )
         ).then(
             Commands.literal("remove").then(
                 Commands.argument("user-name", StringArgumentType.string())
-                    .executes { PermissionsCommand.userRemove(it) }
+                    .suggests { _, builder ->
+                        ISuggestionProvider.suggest(
+                            PermissionsAPI.getUsers().map { it.nickname }, builder
+                        )
+                    }.executes { PermissionsCommand.userRemove(it) }
             )
         ).then(
             Commands.literal("permissions").then(
                 Commands.argument(
                     "user-name", StringArgumentType.string()
-                ).then(
+                ).suggests { _, builder ->
+                    ISuggestionProvider.suggest(
+                        getCurrentServer().playerList.players.map { it.name.string }, builder
+                    )
+                }.then(
                     Commands.literal("add").then(
                         Commands.argument("node", StringArgumentType.string())
                             .executes { PermissionsCommand.userPermissionsAdd(it) }
@@ -36,7 +53,15 @@ fun takePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
                 ).then(
                     Commands.literal("remove").then(
                         Commands.argument("node", StringArgumentType.string())
-                    ).executes { PermissionsCommand.userPermissionsRemove(it) }
+                            .suggests { context, builder ->
+                                ISuggestionProvider.suggest(
+                                    PermissionsAPI.getUserPermissions(
+                                        CommandAPI.getString(context, "user-name"), false
+                                    ), builder
+                                )
+                            }
+                            .executes { PermissionsCommand.userPermissionsRemove(it) }
+                    )
                 ).then(
                     Commands.literal("list").then(
                         Commands.argument("deep", BoolArgumentType.bool())
@@ -56,9 +81,19 @@ fun takePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
                 Commands.literal("set").then(
                     Commands.argument(
                         "group-name", StringArgumentType.string()
-                    ).then(
+                    ).suggests { _, builder ->
+                        ISuggestionProvider.suggest(
+                            PermissionsAPI.getGroups().map { it.name }, builder
+                        )
+                    }.then(
                         Commands.literal("for").then(
                             Commands.argument("user-name", StringArgumentType.string())
+                                .suggests { _, builder ->
+                                    ISuggestionProvider.suggest(
+                                        getCurrentServer().playerList.players.map { it.name.string },
+                                        builder
+                                    )
+                                }
                                 .executes { PermissionsCommand.userSetGroup(it) }
                         )
                     )
@@ -75,7 +110,11 @@ fun takePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
             Commands.literal("set-default").then(
                 Commands.argument(
                     "group-name", StringArgumentType.string()
-                ).executes { PermissionsCommand.groupDefaultSet(it) }
+                ).suggests { _, builder ->
+                    ISuggestionProvider.suggest(
+                        PermissionsAPI.getGroups().filter { !it.isDefault }.map { it.name }, builder
+                    )
+                }.executes { PermissionsCommand.groupDefaultSet(it) }
             )
         ).then(
             Commands.literal("create").then(
@@ -86,13 +125,17 @@ fun takePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
             Commands.literal("remove").then(
                 Commands.argument(
                     "group-name", StringArgumentType.string()
-                ).executes { PermissionsCommand.groupRemove(it) }
+                ).suggests { _, builder ->
+                    ISuggestionProvider.suggest(PermissionsAPI.getGroups().map { it.name }, builder)
+                }.executes { PermissionsCommand.groupRemove(it) }
             )
         ).then(
             Commands.literal("permissions").then(
                 Commands.argument(
                     "group-name", StringArgumentType.string()
-                ).then(
+                ).suggests { _, builder ->
+                    ISuggestionProvider.suggest(PermissionsAPI.getGroups().map { it.name }, builder)
+                }.then(
                     Commands.literal("add").then(
                         Commands.argument("node", StringArgumentType.string())
                             .executes { PermissionsCommand.groupPermissionsAdd(it) }
@@ -100,6 +143,13 @@ fun takePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
                 ).then(
                     Commands.literal("remove").then(
                         Commands.argument("node", StringArgumentType.string())
+                            .suggests { context, builder ->
+                                ISuggestionProvider.suggest(
+                                    PermissionsAPI.getGroupPermissions(
+                                        CommandAPI.getString(context, "group-name")
+                                    ), builder
+                                )
+                            }
                             .executes { PermissionsCommand.groupPermissionsRemove(it) }
                     )
                 ).then(
@@ -120,17 +170,33 @@ fun takePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
             Commands.literal("inherit").then(
                 Commands.argument(
                     "group-name", StringArgumentType.string()
-                ).then(
+                ).suggests { _, builder ->
+                    ISuggestionProvider.suggest(
+                        PermissionsAPI.getGroups().map { it.name }, builder
+                    )
+                }.then(
                     Commands.literal("add").then(
                         Commands.argument(
                             "inherit-group", StringArgumentType.string()
-                        ).executes { PermissionsCommand.groupInheritAdd(it) }
+                        ).suggests { context, builder ->
+                            ISuggestionProvider.suggest(
+                                PermissionsAPI.getGroups().filter {
+                                    it.name != CommandAPI.getString(context, "group-name")
+                                }.map { it.name }, builder
+                            )
+                        }.executes { PermissionsCommand.groupInheritAdd(it) }
                     )
                 ).then(
                     Commands.literal("remove").then(
                         Commands.argument(
                             "inherit-group", StringArgumentType.string()
-                        ).executes { PermissionsCommand.groupInheritRemove(it) }
+                        ).suggests { context, builder ->
+                            ISuggestionProvider.suggest(
+                                PermissionsAPI.getGroupInherits(
+                                    CommandAPI.getString(context, "group-name"), false
+                                ), builder
+                            )
+                        }.executes { PermissionsCommand.groupInheritRemove(it) }
                     )
                 ).then(
                     Commands.literal("list").then(
@@ -143,7 +209,11 @@ fun takePermissionsLiteral(): LiteralArgumentBuilder<CommandSource> =
             Commands.literal("prefix").then(
                 Commands.argument(
                     "group-name", StringArgumentType.string()
-                ).then(
+                ).suggests { _, builder ->
+                    ISuggestionProvider.suggest(
+                        PermissionsAPI.getGroups().map { it.name }, builder
+                    )
+                }.then(
                     Commands.argument("prefix", StringArgumentType.string())
                         .executes { PermissionsCommand.groupPrefixSet(it) }
                 ).executes { PermissionsCommand.groupPrefixTake(it) }
