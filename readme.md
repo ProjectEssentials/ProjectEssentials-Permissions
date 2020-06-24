@@ -6,7 +6,7 @@ Base module for all Project Essentials modules, API for creating modules of Proj
 
 ### Explore
 
-#### [1.14.4 Download mod](https://github.com/ProjectEssentials/ProjectEssentials-Permissions/releases/download/2.0.0%2BMC-1.14.4/Project.Essentials.Permissions-2.0.0+MC-1.14.4.jar) · [1.15.2 Download mod](https://github.com/ProjectEssentials/ProjectEssentials-Permissions/releases/download/2.0.0%2BMC-1.15.2/Project.Essentials.Permissions-2.0.0+MC-1.15.2.jar) · [Documentation and Guides](https://projectessentials.github.io/manual) · [Troubleshooting](https://github.com/ProjectEssentials/ProjectEssentials-Permissions/issues/new/choose) · [Telegram](https://t.me/minecraftforge) · [Discord](https://discord.gg/VU9XZAt) · [CurseForge](https://www.curseforge.com/minecraft/mc-mods/project-essentials-permissions) · [Change log](changelog.md)
+#### [1.14.4 Download mod](https://github.com/ProjectEssentials/ProjectEssentials-Permissions/releases/download/2.0.1%2BMC-1.14.4/Project.Essentials.Permissions-2.0.1+MC-1.14.4.jar) · [1.15.2 Download mod](https://github.com/ProjectEssentials/ProjectEssentials-Permissions/releases/download/2.0.1%2BMC-1.15.2/Project.Essentials.Permissions-2.0.1+MC-1.15.2.jar) · [Documentation and Guides](https://projectessentials.github.io/manual) · [Troubleshooting](https://github.com/ProjectEssentials/ProjectEssentials-Permissions/issues/new/choose) · [Telegram](https://t.me/minecraftforge) · [Discord](https://discord.gg/VU9XZAt) · [CurseForge](https://www.curseforge.com/minecraft/mc-mods/project-essentials-permissions) · [Change log](changelog.md)
 
 [![](https://github.com/ProjectEssentials/ProjectEssentials-Assets/raw/ASSETS-20-Q2/assets/common/support.png)](https://gist.github.com/MairwunNx/fda95062618db6880ef8ee06e1bba54f)
 
