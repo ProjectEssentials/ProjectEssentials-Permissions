@@ -10,6 +10,12 @@ Since 2.0.0 versions change log same for all supported minecraft versions.
 
 ## [Unreleased]
 
+## [2.0.1] - 2020-06-24
+
+### Fixed
+- Spacing in group prefix.
+- Mistake in group setting for group.
+
 ## [2.0.0] - 2020-06-08
 
 ### Added
