@@ -15,6 +15,7 @@ Since 2.0.0 versions change log same for all supported minecraft versions.
 ### Fixed
 - Spacing in group prefix.
 - Mistake in group setting for group.
+- Unused suffix property added.
 
 ## [2.0.0] - 2020-06-08
 
