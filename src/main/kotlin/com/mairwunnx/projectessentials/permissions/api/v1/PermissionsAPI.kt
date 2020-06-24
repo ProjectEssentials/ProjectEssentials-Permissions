@@ -32,7 +32,7 @@ object PermissionsAPI {
      * @return true if group with specified name exist.
      * @since 2.0.0-SNAPSHOT.1.
      */
-    fun groupExist(name: String) = permissions.take().groups.filter { it.name == name }.count() > 0
+    fun groupExist(name: String) = getGroups().filter { it.name == name }.count() > 0
 
     /**
      * @return default group data model instance.
@@ -405,7 +405,7 @@ object PermissionsAPI {
      * @since 2.0.0-SNAPSHOT.1.
      */
     fun setUserGroup(name: String, groupName: String): Boolean {
-        if (!groupExist(name)) return false
+        if (!groupExist(groupName)) return false
         if (getUserGroup(name) == groupName) return false
 
         if (!userExist(name)) addUser(User(name, groupName, mutableListOf()))

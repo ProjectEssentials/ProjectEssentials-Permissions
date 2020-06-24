@@ -54,7 +54,7 @@ data class PermissionsConfigurationModel(
                 "^native.event.world.overworld.block.bedrock.place",
                 "^native.event.world.overworld.block.bedrock.break"
             ), mutableListOf()
-        ), Group("owner", false, mutableListOf("*"), mutableListOf(), "§c[§7owner§c]")
+        ), Group("owner", false, mutableListOf("*"), mutableListOf(), " §c[§7owner§c] ")
     ),
     /**
      * stores all registered users.
@@ -93,7 +93,12 @@ data class PermissionsConfigurationModel(
          * Group message prefix for user.
          * @since Mod: 2.0.0-RC.1
          */
-        var prefix: String = String.empty
+        var prefix: String = String.empty,
+        /**
+         * Group message suffix for user.
+         * @since Mod: 2.0.0-RC.1
+         */
+        var suffix: String = String.empty
     )
 
     /**
